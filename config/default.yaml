@@ -1,0 +1,54 @@
+
+# 服务器侦听参数配置
+server:
+    host: 0.0.0.0             # 默认在所有IP上提供服务
+    port: 3456                # 默认端口
+
+# MySQL连接参数配置
+mysql:
+    cloudDBPrefix:    "CloudExample"    # Cloud数据库名称前缀
+    host: localhost                  # MySQL主机host
+    user: root                # MySQL用户名
+    password: romens@2015     # MySQL密码
+    port: 3306                # 默认Mysql端口
+    maxConnection: 20         # 连接池最大数量
+    minConnection: 2          # 连接池最小数量
+    idle: 300                 # idle时长
+    supportBigNumbers: true   # 设定MySQL支持BigNumber
+    bigNumberStrings: true
+    debugMode: false
+
+# 日志设置
+logger:
+    level: TRACE              # 日志级别为最详细
+    isColorful: true          # 以彩色打印
+
+# redis设置
+redis:
+    host: cd
+    port: 6379
+    user: user
+    password: romens
+    database-number: 3
+    redisPrefix : "backendSample"
+    kue-prefix: 'q'               # kue前缀
+    kue-port: 3050                # kue队列ui端口
+    kue-attempts: 1               # kue重试次数
+# token设置
+auth:
+    on    : true              # 是否开启身份校验
+    issuer: backend.dawei     # 签发者
+    expire: 7200              # 失效时间，单位：秒
+    secret: romens            # 校验码
+
+##############################################
+# 以下为高级配置，生产环境中严禁修改
+##############################################
+
+# 是否启用swagger mock模式
+mockMode: true
+
+# 是否启用离线任务服务
+scheduler:
+    on:  off
+    url: http://0.0.0.0:3333/v1/task
