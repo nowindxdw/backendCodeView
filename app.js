@@ -29,7 +29,6 @@ if (!dbConfig.dialect)
 
 // 为数据库名称上加上每个用户名称
 dbConfig.cloudDB = dbConfig.cloudDBPrefix + "_" + process.env.USER;
-dbConfig.customerDB = dbConfig.customerDBPrefix + "_" + process.env.USER;
 redisConfig.prefix = redisConfig.redisPrefix + "_" + process.env.USER;
 /**
  * 设置全局配置参数，启动app.js时加载到内存使用
@@ -75,8 +74,8 @@ if(schedulerConfig.on=="on"){
 }
 
 // initiate db singleton
-var cloudDb = require("db-singleton")(dbConfig, __dirname + "/schemas/cloudDB", "cloudDB_schema");
-cloudDb.sequelize(__dbConfig.cloudDB);
+//var cloudDb = require("db-singleton")(dbConfig, __dirname + "/schemas/cloudDB", "cloudDB_schema");
+//cloudDb.sequelize(__dbConfig.cloudDB);
 
 //init kue singleton obj
 var initKue = function(){
