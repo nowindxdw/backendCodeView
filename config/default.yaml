@@ -6,10 +6,10 @@ server:
 
 # MySQL连接参数配置
 mysql:
-    cloudDBPrefix:    "CloudExample"    # Cloud数据库名称前缀
+    cloudDBPrefix:    "RecruitDB"    # Cloud数据库名称前缀
     host: localhost                  # MySQL主机host
     user: root                # MySQL用户名
-    password: 100821          # MySQL密码
+    password: "100821"          # MySQL密码
     port: 3306                # 默认Mysql端口
     maxConnection: 20         # 连接池最大数量
     minConnection: 2          # 连接池最小数量

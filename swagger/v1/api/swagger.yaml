@@ -1,12 +1,12 @@
 ---
 swagger: "2.0"
 info:
-  description: "Interface of Romens new EDI system"
+  description: "Interface of Recruit system"
   version: "0.0.10"
-  title: "romens EDI system"
+  title: "Recruit system"
   contact:
     name: "dawei"
-    email: "xiaodawei@romens.cn"
+    email: "nowindxdw@126.com"
 basePath: "/v1/api"
 schemes:
 - "http"
@@ -22,20 +22,25 @@ paths:
       tags:
       - "auth"
       summary: "登录认证接口"
-      description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的一些信息"
+      description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
       operationId: "postAuth"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
       parameters:
       - in: "body"
         name: "body"
         description: "登录验证信息"
         required: true
         schema:
-          $ref: "#/definitions/AuthInfo"
+          $ref: "#/definitions/body"
       responses:
         200:
           description: "Success"
           schema:
-            $ref: "#/definitions/UserMiniInfo"
+            $ref: "#/definitions/inline_response_200_1"
           examples:
             application/json:
               operatorSfId: "1234567894554"
@@ -46,7 +51,7 @@ paths:
         500:
           description: "An unexpected error occured."
           schema:
-            $ref: "#/definitions/Error"
+            $ref: "#/definitions/inline_response_500"
       x-swagger-router-controller: "Auth"
   /auth/{operatorUsername}:
     delete:
@@ -55,6 +60,11 @@ paths:
       summary: "退出登录接口"
       description: "登出将删除服务器端的session信息，用户的token也将失效"
       operationId: "deleteAuth"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
       parameters:
       - name: "operatorUsername"
         in: "path"
@@ -69,104 +79,67 @@ paths:
         500:
           description: "An unexpected error occured."
           schema:
-            $ref: "#/definitions/Error"
+            $ref: "#/definitions/inline_response_500"
       security:
       - token: []
       x-swagger-router-controller: "Auth"
-  /shiplist:
+  /recruitlist:
     post:
       tags:
-      - "ship"
-      summary: "出库单列表"
-      description: "根据查询条件获取所有的出库单列表"
-      operationId: "pullShipList"
+      - "recruit"
+      summary: "职位列表"
+      description: "根据查询条件获取所有的职位列表"
+      operationId: "pullRecruitList"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
       parameters:
       - in: "body"
         name: "body"
         description: "查询条件"
         required: true
         schema:
-          $ref: "#/definitions/Filter"
+          $ref: "#/definitions/body_1"
       responses:
         200:
           description: "Success"
           schema:
-            $ref: "#/definitions/ShipList"
+            type: "array"
+            description: "出库单列表"
+            items:
+              $ref: "#/definitions/inline_response_200_2"
           examples:
             application/json:
-            - shipSfId: "asdfgh123456"
-              customerShipNo: "jklmn7890"
-              shipBillDate: "2016-12-12"
-              customerOrderNo: "iop09876"
-              shipLogisticsInfo: "{ 'FHRY':'发货人员', 'FHRQ':'发货日期', 'logisticsName':'物\
-                流公司名字', 'logisticsNo':'物流单编号', 'STATUS':'已发货' }"
-              shipAdditionalInfo: " { 'remark':'出库单备注信息', 'orderGuid':'订单编码guid' }"
+            - recruitSfId: "asdfgh123456"
+              enterpriseName: "jklmn7890"
+              startTime: "2016-12-12"
+              jobTitle: "iop09876"
+              salaryMin: "5000"
+              salaryMax: "10000"
+              salary: ""
+              location: "cd"
+              jobDesc: "blabla"
+              requireExp: "above 3 years"
+              languageType: "OTHER"
         400:
           description: "An unexpected client error occured."
         500:
           description: "An unexpected error occured."
           schema:
-            $ref: "#/definitions/Error"
-      security:
-      - token: []
-      x-swagger-router-controller: "Ship"
-  /shipDetails/{shipSfId}:
-    get:
-      tags:
-      - "ship"
-      summary: "出库单详情"
-      description: "根据shipSfId获取所有的出库单详情"
-      operationId: "pullOneShipDetails"
-      parameters:
-      - name: "shipSfId"
-        in: "path"
-        description: "查询shipSfId"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/ShipDetails"
-          examples:
-            application/json:
-            - shipDetailSfId: "asdfg123"
-              customerShipDetailNo: "qwert123"
-              goodsInfo: "{ 'commonName':'愈创甘油醚糖浆', 'licenseNo':'国药准字H11022321', 'producer':'史\
-                达德药业(北京)有限公司', 'spec':'120毫升', 'drugsType':'糖浆剂', 'measureUnit':'支\
-                ', 'package': '盒', 'birthPlace':'西安' }"
-              sellerGoodsNo: "s90876765"
-              buyerGoodsNo: "b1235467"
-              goodsQuantity: "10"
-              goodsTaxPrice: "99"
-              goodsTax: "9"
-              goodsValidDate: "3个月"
-              goodsUnicode: "10068"
-              packageQty: "1"
-              goodsProduceDate: "2016-10-10"
-              goodsSellerInfo: "{'businessLicense':'123546'}"
-              shipBatchNo: "batchNo1"
-              shipBatchNoSeq: "batchNo1-1"
-              inspectReportUrl: "[ 'http://abc.com/pictures/abcd.jpg', 'ftp://abc:123@ddd.cn/photos/38923983828389238.gif'\
-                \ ]"
-              shipDetailAdditionalInfo: "{ 'remark':'出库详情备注信息', 'salesType':'ERP中对\
-                应的销售类型', 'orderDetailGuid':'对应ERP订单详情的GUID' }"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      security:
-      - token: []
-      x-swagger-router-controller: "Ship"
-  /shipExport:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Recruit"
+  /fileExport:
     post:
       tags:
       - "download"
-      summary: "出库单信息导出"
-      description: "根据出库单的id列表导出指定出库单信息"
-      operationId: "exportShips"
+      summary: "信息导出"
+      description: "根据id列表导出指定信息"
+      operationId: "exportFile"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
       produces:
       - "application/vnd.ms-excel"
       parameters:
@@ -175,185 +148,19 @@ paths:
         description: "出库单的id列表"
         required: true
         schema:
-          $ref: "#/definitions/ShipExportList"
+          $ref: "#/definitions/body_2"
       responses:
         200:
           description: "Success"
           schema:
-            $ref: "#/definitions/inline_response_200"
+            $ref: "#/definitions/inline_response_200_3"
         400:
           description: "An unexpected client error occured."
         500:
           description: "An unexpected error occured."
           schema:
-            $ref: "#/definitions/Error"
-      security:
-      - token: []
+            $ref: "#/definitions/inline_response_500"
       x-swagger-router-controller: "Download"
-  /inquiryList:
-    post:
-      tags:
-      - "inquiry"
-      summary: "采购方询价单列表"
-      description: "显示采购方所有询价单列表信息"
-      operationId: "postInquiryList"
-      parameters:
-      - in: "body"
-        name: "filter"
-        description: "页面显示内容筛选器"
-        required: true
-        schema:
-          $ref: "#/definitions/InquiryFilter"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/InquiryList"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
-  /inquiryDetails/{inquirySfId}:
-    get:
-      tags:
-      - "inquiry"
-      summary: "采购方询价单详情"
-      description: "根据inquiryDetailSfId显示采购方询价单详情"
-      operationId: "getInquiryDetails"
-      parameters:
-      - name: "inquirySfId"
-        in: "path"
-        description: "询价单唯一标识id snowflake ID"
-        required: true
-        type: "string"
-        maxLength: 128
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/InquiryDetails"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
-  /quotationList/{hasQuoted}:
-    post:
-      tags:
-      - "inquiry"
-      summary: "供应商报价单列表"
-      description: "显示供应商所有报价单列表信息"
-      operationId: "postQuotationList"
-      parameters:
-      - name: "hasQuoted"
-        in: "path"
-        description: "false 未报价 true 已报价"
-        required: true
-        type: "boolean"
-      - in: "body"
-        name: "filter"
-        description: "页面显示内容筛选器"
-        required: true
-        schema:
-          $ref: "#/definitions/InquiryFilter"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/QuotationList"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
-  /quotationDetails/{inquirySfId}/{hasQuoted}:
-    get:
-      tags:
-      - "inquiry"
-      summary: "供应商报价单详情"
-      description: "根据inquiryDetailSfId显示供应商报价单详情"
-      operationId: "getQuotationDetails"
-      parameters:
-      - name: "hasQuoted"
-        in: "path"
-        description: "false 未报价 true 已报价"
-        required: true
-        type: "boolean"
-      - name: "inquirySfId"
-        in: "path"
-        description: "询价单唯一标识id snowflake ID"
-        required: true
-        type: "string"
-        maxLength: 128
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/QuotationDetails"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
-  /quotationSubmission:
-    post:
-      tags:
-      - "inquiry"
-      summary: "供应商提交报价操作"
-      description: "供应商提交报价相关数据后将数据写入对应数据库"
-      operationId: "postQuotationSubmission"
-      parameters:
-      - in: "body"
-        name: "quotationData"
-        description: "要提交的报价数据"
-        required: true
-        schema:
-          $ref: "#/definitions/QuotationData"
-      responses:
-        200:
-          description: "Success"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
-  /inquirySuppliers:
-    post:
-      tags:
-      - "inquiry"
-      summary: "获取供应商信息"
-      description: "根据询价单号获取相关供应商信息"
-      operationId: "postInquirySuppliers"
-      parameters:
-      - in: "body"
-        name: "inquirySfIdArray"
-        description: "已拉取的询价单单号序列"
-        required: true
-        schema:
-          $ref: "#/definitions/InquirySfIdArray"
-      responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/SuppliersInfo"
-        400:
-          description: "An unexpected client error occured."
-        500:
-          description: "An unexpected error occured."
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Inquiry"
 securityDefinitions:
   token:
     type: "apiKey"
@@ -372,40 +179,45 @@ definitions:
   enabled:
     type: "boolean"
     description: "true 启用中  false 禁用中"
-  customerSfId:
+  recruitSfId:
     type: "string"
-    description: "企业进驻edi的唯一id snowflake ID"
-  businessLicense:
-    type: "string"
-    description: "企业的新版营业执照号,如果是旧版营业执照，请填写组织机构代码"
-  customerOrgNo:
-    type: "string"
-    description: "医药365平台分配的机构编号"
-  customerName:
+    description: "唯一id snowflake ID"
+  enterpriseName:
     type: "string"
     description: "企业名称全名"
-  customerAbbrName:
+  startTime:
     type: "string"
-    description: "企业名称缩写"
-  resourceType:
+    description: "开始时间"
+  jobTitle:
     type: "string"
-    description: "企业对接方式"
+    description: "职位名"
+  salaryMin:
+    type: "string"
+    description: "企业薪资下限"
+  salaryMax:
+    type: "string"
+    description: "企业薪资下限"
+  salary:
+    type: "string"
+    description: "企业薪资"
+  location:
+    type: "string"
+    description: "工作地点"
+  jobDesc:
+    type: "string"
+    description: "职位描述"
+  requireExp:
+    type: "string"
+    description: "经验要求"
+  languageType:
+    type: "string"
+    description: "语言类型"
     enum:
-    - "G3ERP"
-    - "EDX"
-    default: "EDX"
-  customerInfo:
-    type: "string"
-    description: "企业信息"
-  resourceSfId:
-    type: "string"
-    description: "企业线下资源唯一snowflake ID"
-  resourceName:
-    type: "string"
-    description: "企业线下资源名称"
-  resourceConfig:
-    type: "string"
-    description: "企业线下系统连接参数"
+    - "NODEJS"
+    - "JAVA"
+    - "PYTHON"
+    - "OTHER"
+    default: "OTHER"
   operatorSfId:
     type: "string"
     description: "操作员snowflake ID"
@@ -428,149 +240,11 @@ definitions:
     type: "string"
     format: "email"
     description: "email邮箱地址"
-  inquirySfId:
-    type: "string"
-    description: "询价单id snowflake ID"
-  inquiryCustomerGuid:
-    type: "string"
-    description: "企业自定义的询价单唯一识别标识"
-  inquiryExpire:
-    type: "string"
-    description: "询价单的失效时间"
-  inquiryCreatedAt:
-    type: "string"
-    description: "询价单的创建时间"
-  quotationCreatedAt:
-    type: "string"
-    description: "报价的创建时间"
-  inquiryDetailSfId:
-    type: "string"
-    description: "询价单详情唯一标识id snowflake ID"
-  goodsInfo:
-    type: "string"
-    description: "商品基础信息"
-  buyerGoodsNo:
-    type: "string"
-    description: "采购方商品货号"
-  sellerGoodsNo:
-    type: "string"
-    description: "销售方商品货号"
-  inquiryQuantity:
-    type: "number"
-    format: "double"
-    description: "商品询价详情的计划数量"
-  inquiryTypeCount:
-    type: "integer"
-    format: "int32"
-    description: "询价商品种类数量"
-  quotationTypeCount:
-    type: "integer"
-    format: "int32"
-    description: "报价商品种类数量"
-  purchasePrice:
-    type: "number"
-    format: "double"
-    description: "商品询价详情的计划价格"
-  inquiryAdditionalInfo:
-    type: "string"
-    description: "询价详情的其他备注信息"
-  lastQuotationPrice:
-    type: "number"
-    format: "double"
-    description: "上次报价价格"
-  lastQuotationDate:
-    type: "string"
-    description: "上次报价时间"
-  quotationPrice:
-    type: "number"
-    format: "double"
-    description: "报价价格"
-  quotationQuantity:
-    type: "number"
-    format: "double"
-    description: "报价供货数量"
-  quotationExpire:
-    type: "string"
-    description: "报价失效时间"
-  quotationAdditionalInfo:
-    type: "string"
-    description: "报价备注信息"
-  roleType:
-    type: "string"
-    description: "企业关系描述"
-    enum:
-    - "SELLER"
-    - "BUYER"
-    default: "SELLER"
-  shipSfId:
-    type: "string"
-    description: "出库单唯一标识id snowflake ID"
-  customerShipNo:
-    type: "string"
-    description: "企业线下系统定义的出库单号"
-  shipBillDate:
-    type: "string"
-    description: "出库单据日期时间"
-  customerOrderNo:
-    type: "string"
-    description: "企业线下系统订单号"
-  shipLogisticsInfo:
-    type: "string"
-    description: "出库单发货信息"
-  shipAdditionalInfo:
-    type: "string"
-    description: "出库单附加信息"
-  shipDetailSfId:
-    type: "string"
-    description: "出库单详情唯一标识 snowflake ID"
-  customerShipDetailNo:
-    type: "string"
-    description: "企业线下系统定义的出库单详情号"
-  goodsQuantity:
-    type: "number"
-    format: "double"
-    description: "商品的数量"
-  goodsTaxPrice:
-    type: "number"
-    format: "double"
-    description: "商品的含税单价"
-  goodsTax:
-    type: "number"
-    format: "double"
-    description: "单个商品的税额"
-  goodsValidDate:
-    type: "string"
-    description: "商品的有效期，为描述文字，不是日期时间类型"
-  goodsProduceDate:
-    type: "string"
-    description: "商品的生产日期"
-  goodsUnicode:
-    type: "string"
-    description: "医药365药品母库的商品云端统一编码"
-  packageQty:
-    type: "number"
-    format: "double"
-    description: "商品包装量换算关系"
-  goodsSellerInfo:
-    type: "string"
-    description: "商品上家的标示信息，JSON格式，可为空"
-  shipBatchNo:
-    type: "string"
-    description: "出库详情的商品的批号"
-  shipBatchNoSeq:
-    type: "string"
-    description: "出库详情的商品的批次号"
-  inspectReportUrl:
-    type: "string"
-    description: "质检报告单url数组, JSON数组格式保存"
-  shipDetailAdditionalInfo:
-    type: "string"
-    description: "出库详情备注"
   OrderBy:
     type: "array"
     description: "排序条件列表"
     items:
-      $ref: "#/definitions/OrderByInner"
+      $ref: "#/definitions/OrderBy_inner"
   OrderByInner:
     properties:
       name:
@@ -579,16 +253,16 @@ definitions:
       order:
         type: "string"
         description: "顺序"
+        default: "ASC"
         enum:
         - "ASC"
         - "DESC"
-        default: "ASC"
-  ShipExportList:
+  ExportList:
     type: "object"
     properties:
-      shipSfIds:
+      exportIds:
         type: "string"
-    description: "导出出库单id列表"
+    description: "导出id列表"
   Filter:
     required:
     - "page"
@@ -605,19 +279,6 @@ definitions:
       search:
         type: "string"
         description: "搜索模糊匹配关键字"
-  InquiryFilter:
-    allOf:
-    - $ref: "#/definitions/Filter"
-    - properties:
-        closed:
-          type: "boolean"
-          description: "true 已关闭  false 活动中"
-        startTime:
-          type: "string"
-          description: "起始日期"
-        endTime:
-          type: "string"
-          description: "截止日期"
   page:
     type: "integer"
     format: "int32"
@@ -658,358 +319,53 @@ definitions:
       token:
         type: "string"
     description: "用户信息"
-  ShipList:
+  RecruitList:
     type: "array"
     description: "出库单列表"
     items:
-      $ref: "#/definitions/ShipInfo"
-  ShipInfo:
+      $ref: "#/definitions/inline_response_200_2"
+  RecruitInfo:
     type: "object"
     properties:
-      shipSfId:
+      recruitSfId:
         type: "string"
-        description: "出库单唯一标识id snowflake ID"
-        maxLength: 128
-      customerShipNo:
+        description: "唯一id snowflake ID"
+      enterpriseName:
         type: "string"
-        description: "企业线下系统定义的出库单号"
-        maxLength: 128
-      customerShipDetailNo:
+        description: "企业名称全名"
+      startTime:
         type: "string"
-        description: "企业线下系统定义的出库单详情号"
-        maxLength: 128
-      customerOrderNo:
+        description: "开始时间"
+      jobTitle:
         type: "string"
-        description: "企业线下系统订单号"
-        maxLength: 128
-      shipLogisticsInfo:
+        description: "职位名"
+      salaryMin:
         type: "string"
-        description: "出库单发货信息"
-      shipAdditionalInfo:
+        description: "企业薪资下限"
+      salaryMax:
         type: "string"
-        description: "出库单附加信息"
-    description: "单列出库表"
-  ShipDetails:
-    type: "array"
-    description: "某个出库单号下的出库详情"
-    items:
-      $ref: "#/definitions/ShipDetailItem"
-  ShipDetailItem:
-    type: "object"
-    properties:
-      shipDetailSfId:
+        description: "企业薪资下限"
+      salary:
         type: "string"
-        description: "出库单详情唯一标识 snowflake ID"
-        maxLength: 128
-      customerShipDetailNo:
+        description: "企业薪资"
+      location:
         type: "string"
-        description: "企业线下系统定义的出库单详情号"
-        maxLength: 128
-      goodsInfo:
+        description: "工作地点"
+      jobDesc:
         type: "string"
-        description: "商品基础信息"
-      buyerGoodsNo:
+        description: "职位描述"
+      requireExp:
         type: "string"
-        description: "采购方商品货号"
-        maxLength: 50
-      sellerGoodsNo:
+        description: "经验要求"
+      languageType:
         type: "string"
-        description: "销售方商品货号"
-        maxLength: 50
-      goodsQuantity:
-        type: "number"
-        format: "double"
-        description: "商品的数量"
-      goodsTaxPrice:
-        type: "number"
-        format: "double"
-        description: "商品的含税单价"
-      goodsTax:
-        type: "number"
-        format: "double"
-        description: "单个商品的税额"
-      goodsValidDate:
-        type: "string"
-        description: "商品的有效期，为描述文字，不是日期时间类型"
-      goodsUnicode:
-        type: "string"
-        description: "医药365药品母库的商品云端统一编码"
-      packageQty:
-        type: "number"
-        format: "double"
-        description: "商品包装量换算关系"
-      goodsProduceDate:
-        type: "string"
-        description: "商品的生产日期"
-      goodsSellerInfo:
-        type: "string"
-        description: "商品上家的标示信息，JSON格式，可为空"
-      shipBatchNo:
-        type: "string"
-        description: "出库详情的商品的批号"
-        maxLength: 50
-      shipBatchNoSeq:
-        type: "string"
-        description: "出库详情的商品的批次号"
-        maxLength: 50
-      inspectReportUrl:
-        type: "string"
-        description: "质检报告单url数组, JSON数组格式保存"
-      shipDetailAdditionalInfo:
-        type: "string"
-        description: "出库详情备注"
-    description: "单条出库详情"
-  BuyerGoodsDetail:
-    allOf:
-    - $ref: "#/definitions/goodsInfo"
-    - properties:
-        buyerGoodsNo:
-          type: "string"
-          description: "采购方商品货号"
-          maxLength: 50
-        inquiryDetailSfId:
-          type: "string"
-          description: "询价单详情唯一标识id snowflake ID"
-          maxLength: 128
-        inquiryQuantity:
-          type: "number"
-          format: "double"
-          description: "商品询价详情的计划数量"
-        purchasePrice:
-          type: "number"
-          format: "double"
-          description: "商品询价详情的计划价格"
-        quotationQuantity:
-          type: "number"
-          format: "double"
-          description: "报价供货数量"
-        quotationPrice:
-          type: "number"
-          format: "double"
-          description: "报价价格"
-        quotationAdditionalInfo:
-          type: "string"
-          description: "报价备注信息"
-    description: "采购方商品详情"
-  BuyerGoodsDetailArray:
-    type: "array"
-    description: "采购方商品详情数组"
-    items:
-      $ref: "#/definitions/BuyerGoodsDetail"
-  SellerGoodsDetail:
-    allOf:
-    - $ref: "#/definitions/goodsInfo"
-    - properties:
-        buyerGoodsNo:
-          type: "string"
-          description: "采购方商品货号"
-          maxLength: 50
-        sellerGoodsNo:
-          type: "string"
-          description: "销售方商品货号"
-          maxLength: 50
-        inquiryDetailSfId:
-          type: "string"
-          description: "询价单详情唯一标识id snowflake ID"
-          maxLength: 128
-        inquiryQuantity:
-          type: "number"
-          format: "double"
-          description: "商品询价详情的计划数量"
-        lastQuotationPrice:
-          type: "number"
-          format: "double"
-          description: "上次报价价格"
-        lastQuotationDate:
-          type: "string"
-          description: "上次报价时间"
-        quotationQuantity:
-          type: "number"
-          format: "double"
-          description: "报价供货数量"
-        quotationPrice:
-          type: "number"
-          format: "double"
-          description: "报价价格"
-        quotationAdditionalInfo:
-          type: "string"
-          description: "报价备注信息"
-    description: "供应商商品详情"
-  SellerGoodsDetailArray:
-    type: "array"
-    description: "供应商商品详情数组"
-    items:
-      $ref: "#/definitions/SellerGoodsDetail"
-  Inquiry:
-    type: "object"
-    properties:
-      inquirySfId:
-        type: "string"
-        description: "询价单id snowflake ID"
-        maxLength: 128
-      inquiryTypeCount:
-        type: "integer"
-        format: "int32"
-        description: "询价商品种类数量"
-      quotationTypeCount:
-        type: "integer"
-        format: "int32"
-        description: "报价商品种类数量"
-      inquiryCreatedAt:
-        type: "string"
-        description: "询价单的创建时间"
-      inquiryExpire:
-        type: "string"
-        description: "询价单的失效时间"
-      newestQuotationDate:
-        type: "string"
-        description: "最新报价时间"
-    description: "询价单对象"
-  InquiryArray:
-    type: "array"
-    description: "询价单对象询数组"
-    items:
-      $ref: "#/definitions/Inquiry"
-  InquiryList:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/InquiryArray"
-    description: "询价单列表"
-  InquiryDetails:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/InquiryDetails_data"
-    description: "询价单详情对象"
-  Quotation:
-    type: "object"
-    properties:
-      inquirySfId:
-        type: "string"
-        description: "询价单id snowflake ID"
-        maxLength: 128
-      customerInfo:
-        type: "string"
-        description: "企业信息"
-      inquiryTypeCount:
-        type: "integer"
-        format: "int32"
-        description: "询价商品种类数量"
-      quotationTypeCount:
-        type: "integer"
-        format: "int32"
-        description: "报价商品种类数量"
-      inquiryCreatedAt:
-        type: "string"
-        description: "询价单的创建时间"
-      inquiryExpire:
-        type: "string"
-        description: "询价单的失效时间"
-      newestQuotationDate:
-        type: "string"
-        description: "最新报价时间"
-    description: "报价单对象"
-  QuotationArray:
-    type: "array"
-    description: "报价单对象询数组"
-    items:
-      $ref: "#/definitions/Quotation"
-  QuotationList:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/QuotationArray"
-    description: "报价单列表"
-  QuotationDetails:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/QuotationDetails_data"
-    description: "报价单详情对象"
-  QuotationObj:
-    type: "object"
-    properties:
-      inquiryDetailSfId:
-        type: "string"
-        description: "询价单详情唯一标识id snowflake ID"
-        maxLength: 128
-      sellerGoodsNo:
-        type: "string"
-        description: "销售方商品货号"
-        maxLength: 50
-      quotationQuantity:
-        type: "number"
-        format: "double"
-        description: "报价供货数量"
-      quotationPrice:
-        type: "number"
-        format: "double"
-        description: "报价价格"
-      quotationAdditionalInfo:
-        type: "string"
-        description: "报价备注信息"
-    description: "报价对象"
-  QuotationData:
-    type: "object"
-    properties:
-      inquirySfId:
-        type: "string"
-        description: "询价单id snowflake ID"
-        maxLength: 128
-      customerSfId:
-        type: "string"
-        description: "企业进驻edi的唯一id snowflake ID"
-        maxLength: 128
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/QuotationObj"
-    description: "要提价的报价数据"
-  InquirySfIdArray:
-    type: "object"
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "#/definitions/inquirySfId"
-    description: "已拉取的询价单单号序列"
-  Supplier:
-    type: "object"
-    properties:
-      customerInfo:
-        type: "string"
-        description: "企业信息"
-      hasQuoted:
-        type: "boolean"
-        description: "false 未报价 true 已报价"
-    description: "供应商信息"
-  Suppliers:
-    type: "array"
-    description: "供应商信息数组"
-    items:
-      $ref: "#/definitions/Supplier"
-  SupplierOfInquiry:
-    type: "object"
-    properties:
-      inquirySfId:
-        type: "string"
-        description: "询价单id snowflake ID"
-        maxLength: 128
-      suppliers:
-        $ref: "#/definitions/Suppliers"
-    description: "对应一条询价单的供应商信息"
-  SupplierOfInquiries:
-    type: "array"
-    description: "对应多条询价单的供应商信息"
-    items:
-      $ref: "#/definitions/SupplierOfInquiry"
-  SuppliersInfo:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/SupplierOfInquiries"
-    description: "封装对应多条询价单的供应商信息"
+        description: "语言类型"
+        default: "OTHER"
+        enum:
+        - "NODEJS"
+        - "JAVA"
+        - "PYTHON"
+        - "OTHER"
   Error:
     properties:
       code:
@@ -1020,58 +376,120 @@ definitions:
     properties:
       urls:
         type: "string"
-  InquiryDetails_data:
+  body:
+    type: "object"
+    required:
+    - "operatorPassword"
+    - "operatorUsername"
     properties:
-      inquirySfId:
+      operatorUsername:
         type: "string"
-        description: "询价单id snowflake ID"
+        description: "平台操作员登录名"
         maxLength: 128
-      inquiryTypeCount:
+      operatorPassword:
+        type: "string"
+        description: "平台操作员登录密码"
+        maxLength: 255
+    description: "登录认证信息"
+  inline_response_200_1:
+    properties:
+      operatorSfId:
+        type: "string"
+        description: "操作员snowflake ID"
+        maxLength: 128
+      operatorUsername:
+        type: "string"
+        description: "平台操作员登录名"
+        maxLength: 128
+      token:
+        type: "string"
+    description: "用户信息"
+  inline_response_500:
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+  body_1:
+    required:
+    - "page"
+    - "pageSize"
+    properties:
+      page:
         type: "integer"
         format: "int32"
-        description: "询价商品种类数量"
-      quotationTypeCount:
+        description: "页码，默认1"
+      pageSize:
         type: "integer"
         format: "int32"
-        description: "报价商品种类数量"
-      inquiryCreatedAt:
+        description: "每页数量，默认10"
+      search:
         type: "string"
-        description: "询价单的创建时间"
-      inquiryExpire:
-        type: "string"
-        description: "询价单的失效时间"
-      newestQuotationDate:
-        type: "string"
-        description: "最新报价时间"
-      goods:
-        $ref: "#/definitions/BuyerGoodsDetailArray"
-  QuotationDetails_data:
+        description: "搜索模糊匹配关键字"
+  inline_response_200_2:
     properties:
-      inquirySfId:
+      recruitSfId:
         type: "string"
-        description: "询价单id snowflake ID"
-        maxLength: 128
-      customerInfo:
+        description: "唯一id snowflake ID"
+      enterpriseName:
         type: "string"
-        description: "企业信息"
-      inquiryCreatedAt:
+        description: "企业名称全名"
+      startTime:
         type: "string"
-        description: "询价单的创建时间"
-      inquiryExpire:
+        description: "开始时间"
+      jobTitle:
         type: "string"
-        description: "询价单的失效时间"
-      newestQuotationDate:
+        description: "职位名"
+      salaryMin:
         type: "string"
-        description: "最新报价时间"
-      goods:
-        $ref: "#/definitions/SellerGoodsDetailArray"
+        description: "企业薪资下限"
+      salaryMax:
+        type: "string"
+        description: "企业薪资下限"
+      salary:
+        type: "string"
+        description: "企业薪资"
+      location:
+        type: "string"
+        description: "工作地点"
+      jobDesc:
+        type: "string"
+        description: "职位描述"
+      requireExp:
+        type: "string"
+        description: "经验要求"
+      languageType:
+        type: "string"
+        description: "语言类型"
+        default: "OTHER"
+        enum:
+        - "NODEJS"
+        - "JAVA"
+        - "PYTHON"
+        - "OTHER"
+  body_2:
+    type: "object"
+    properties:
+      exportIds:
+        type: "string"
+    description: "导出id列表"
+  inline_response_200_3:
+    properties:
+      urls:
+        type: "string"
+  OrderBy_inner:
+    properties:
+      name:
+        type: "string"
+        description: "字段名"
+      order:
+        type: "string"
+        description: "顺序"
+        default: "ASC"
+        enum:
+        - "ASC"
+        - "DESC"
 parameters:
-  businessLicense:
-    name: "businessLicense"
-    in: "path"
-    description: "企业的新版营业执照号"
-    required: true
-    type: "string"
   operatorUsername:
     name: "operatorUsername"
     in: "path"
@@ -1096,12 +514,6 @@ parameters:
     description: "截止日期"
     required: false
     type: "string"
-  changeReason:
-    name: "changeReason"
-    in: "query"
-    description: "变更原因"
-    required: false
-    type: "string"
   page:
     name: "page"
     in: "query"
@@ -1124,46 +536,30 @@ parameters:
     description: "登录验证信息"
     required: true
     schema:
-      $ref: "#/definitions/AuthInfo"
-  inquiryFilter:
-    in: "body"
-    name: "filter"
-    description: "页面显示内容筛选器"
-    required: true
-    schema:
-      $ref: "#/definitions/InquiryFilter"
-  inquirySfId:
-    name: "inquirySfId"
-    in: "path"
-    description: "询价单唯一标识id snowflake ID"
-    required: true
-    type: "string"
-    maxLength: 128
-  hasQuoted:
-    name: "hasQuoted"
-    in: "path"
-    description: "false 未报价 true 已报价"
-    required: true
-    type: "boolean"
-  quotationData:
-    in: "body"
-    name: "quotationData"
-    description: "要提交的报价数据"
-    required: true
-    schema:
-      $ref: "#/definitions/QuotationData"
-  inquirySfIdArray:
-    in: "body"
-    name: "inquirySfIdArray"
-    description: "已拉取的询价单单号序列"
-    required: true
-    schema:
-      $ref: "#/definitions/InquirySfIdArray"
+      type: "object"
+      required:
+      - "operatorPassword"
+      - "operatorUsername"
+      properties:
+        operatorUsername:
+          type: "string"
+          description: "平台操作员登录名"
+          maxLength: 128
+        operatorPassword:
+          type: "string"
+          description: "平台操作员登录密码"
+          maxLength: 255
+      description: "登录认证信息"
 responses:
   Standard500ErrorResponse:
     description: "An unexpected error occured."
     schema:
-      $ref: "#/definitions/Error"
+      type: "object"
+      properties:
+        code:
+          type: "string"
+        message:
+          type: "string"
   Standard204Response:
     description: "empty content."
   Standard400ErrorResponse:
@@ -1173,69 +569,81 @@ responses:
   postAuth:
     description: "Success"
     schema:
-      $ref: "#/definitions/UserMiniInfo"
+      type: "object"
+      description: "用户信息"
+      properties:
+        operatorSfId:
+          type: "string"
+          description: "操作员snowflake ID"
+          maxLength: 128
+        operatorUsername:
+          type: "string"
+          description: "平台操作员登录名"
+          maxLength: 128
+        token:
+          type: "string"
     examples:
       application/json:
         operatorSfId: "1234567894554"
         operatorUsername: "dawei"
         token: "asdfasdfasdflasdfawqiegfasd.asdfjasdgasncxuawetrfnh"
-  ShipList:
+  RecruitList:
     description: "Success"
     schema:
-      $ref: "#/definitions/ShipList"
+      type: "array"
+      description: "出库单列表"
+      items:
+        type: "object"
+        properties:
+          recruitSfId:
+            type: "string"
+            description: "唯一id snowflake ID"
+          enterpriseName:
+            type: "string"
+            description: "企业名称全名"
+          startTime:
+            type: "string"
+            description: "开始时间"
+          jobTitle:
+            type: "string"
+            description: "职位名"
+          salaryMin:
+            type: "string"
+            description: "企业薪资下限"
+          salaryMax:
+            type: "string"
+            description: "企业薪资下限"
+          salary:
+            type: "string"
+            description: "企业薪资"
+          location:
+            type: "string"
+            description: "工作地点"
+          jobDesc:
+            type: "string"
+            description: "职位描述"
+          requireExp:
+            type: "string"
+            description: "经验要求"
+          languageType:
+            type: "string"
+            description: "语言类型"
+            default: "OTHER"
+            enum:
+            - "NODEJS"
+            - "JAVA"
+            - "PYTHON"
+            - "OTHER"
     examples:
       application/json:
-      - shipSfId: "asdfgh123456"
-        customerShipNo: "jklmn7890"
-        shipBillDate: "2016-12-12"
-        customerOrderNo: "iop09876"
-        shipLogisticsInfo: "{ 'FHRY':'发货人员', 'FHRQ':'发货日期', 'logisticsName':'物流公司名\
-          字', 'logisticsNo':'物流单编号', 'STATUS':'已发货' }"
-        shipAdditionalInfo: " { 'remark':'出库单备注信息', 'orderGuid':'订单编码guid' }"
-  ShipDetails:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/ShipDetails"
-    examples:
-      application/json:
-      - shipDetailSfId: "asdfg123"
-        customerShipDetailNo: "qwert123"
-        goodsInfo: "{ 'commonName':'愈创甘油醚糖浆', 'licenseNo':'国药准字H11022321', 'producer':'史\
-          达德药业(北京)有限公司', 'spec':'120毫升', 'drugsType':'糖浆剂', 'measureUnit':'支', 'package':\
-          \ '盒', 'birthPlace':'西安' }"
-        sellerGoodsNo: "s90876765"
-        buyerGoodsNo: "b1235467"
-        goodsQuantity: "10"
-        goodsTaxPrice: "99"
-        goodsTax: "9"
-        goodsValidDate: "3个月"
-        goodsUnicode: "10068"
-        packageQty: "1"
-        goodsProduceDate: "2016-10-10"
-        goodsSellerInfo: "{'businessLicense':'123546'}"
-        shipBatchNo: "batchNo1"
-        shipBatchNoSeq: "batchNo1-1"
-        inspectReportUrl: "[ 'http://abc.com/pictures/abcd.jpg', 'ftp://abc:123@ddd.cn/photos/38923983828389238.gif'\
-          \ ]"
-        shipDetailAdditionalInfo: "{ 'remark':'出库详情备注信息', 'salesType':'ERP中对应的销售类型\
-          ', 'orderDetailGuid':'对应ERP订单详情的GUID' }"
-  GetInquiryListResponse:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/InquiryList"
-  GetInquiryDetailsResponse:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/InquiryDetails"
-  GetQuotationListResponse:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/QuotationList"
-  GetQuotationDetailsResponse:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/QuotationDetails"
-  PostInquirySuppliersResponse:
-    description: "Success"
-    schema:
-      $ref: "#/definitions/SuppliersInfo"
+      - recruitSfId: "asdfgh123456"
+        enterpriseName: "jklmn7890"
+        startTime: "2016-12-12"
+        jobTitle: "iop09876"
+        salaryMin: "5000"
+        salaryMax: "10000"
+        salary: ""
+        location: "cd"
+        jobDesc: "blabla"
+        requireExp: "above 3 years"
+        languageType: "OTHER"

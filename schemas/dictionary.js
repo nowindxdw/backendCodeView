@@ -276,6 +276,26 @@ module.exports = {
         field: 'salary'
     },
     /**
+     * @description 薪资
+     *
+     */
+    salaryMin: {
+        comment: "薪资下限",
+        type: Sequelize.DOUBLE,
+        allowNull: true,
+        field: 'salaryMin'
+    },
+    /**
+     * @description 薪资上限
+     *
+     */
+    salaryMax: {
+        comment: "薪资上限",
+        type: Sequelize.DOUBLE,
+        allowNull: true,
+        field: 'salaryMax'
+    },
+    /**
      * @description 工作地点
      *
      */

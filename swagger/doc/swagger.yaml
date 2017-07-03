@@ -1,0 +1,413 @@
+---
+swagger: "2.0"
+info:
+  description: "Interface of Recruit system"
+  version: "0.0.10"
+  title: "Recruit system"
+  contact:
+    name: "dawei"
+    email: "nowindxdw@126.com"
+basePath: "/v1/api"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+- "multipart/form-data"
+produces:
+- "application/json"
+#登录接口
+paths:
+  /auth:
+    post:
+      tags:
+      - "auth"
+      summary: "登录认证接口"
+      description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
+      operationId: "postAuth"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "登录验证信息"
+        required: true
+        schema:
+          $ref: "#/definitions/AuthInfo"
+      responses:
+        200:
+         $ref: "#/responses/postAuth"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /auth/{operatorUsername}:
+    delete:
+      tags:
+      - "auth"
+      summary: "退出登录接口"
+      description: "登出将删除服务器端的session信息，用户的token也将失效"
+      operationId: "deleteAuth"
+      parameters:
+      - name: "operatorUsername"
+        in: "path"
+        description: "退出登录参数"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+      security:
+      - token: []
+#业务接口
+  /recruitlist:
+    post:
+      tags:
+      - "recruit"
+      summary: "职位列表"
+      description: "根据查询条件获取所有的职位列表"
+      operationId: "pullRecruitList"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "查询条件"
+        required: true
+        schema:
+          $ref: "#/definitions/Filter"
+      responses:
+        200:
+         $ref: "#/responses/RecruitList"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+
+  /fileExport:
+    post:
+      tags:
+      - "download"
+      summary: "信息导出"
+      description: "根据id列表导出指定信息"
+      operationId: "exportFile"
+      produces:
+      - "application/vnd.ms-excel"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "出库单的id列表"
+        required: true
+        schema:
+          $ref: "#/definitions/ExportList"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+
+securityDefinitions:
+  token:
+    type: "apiKey"
+    name: "authorization"
+    in: "header"
+
+definitions:
+  closed:
+    type: "boolean"
+    description: "true 已关闭  false 活动中"
+  deleted:
+    type: "boolean"
+    description: "true 已删除  false 未删除"
+  visible:
+    type: "boolean"
+    description: "true 可见  false 隐藏"
+  enabled:
+    type: "boolean"
+    description: "true 启用中  false 禁用中"
+
+  recruitSfId:
+    type: "string"
+    description: "唯一id snowflake ID"
+  enterpriseName:
+    type: "string"
+    description: "企业名称全名"
+  startTime:
+    type: "string"
+    description: "开始时间"
+  jobTitle:
+    type: "string"
+    description: "职位名"
+  salaryMin:
+    type: "string"
+    description: "企业薪资下限"
+  salaryMax:
+    type: "string"
+    description: "企业薪资下限"
+  salary:
+    type: "string"
+    description: "企业薪资"
+  location:
+    type: "string"
+    description: "工作地点"
+  jobDesc:
+    type: "string"
+    description: "职位描述"
+  requireExp:
+    type: "string"
+    description: "经验要求"
+  languageType:
+    type: "string"
+    description: "语言类型"
+    enum:
+    - "NODEJS"
+    - "JAVA"
+    - "PYTHON"
+    - "OTHER"
+    default: "OTHER"
+
+#操作员相关字段
+  operatorSfId:
+    type: "string"
+    description: "操作员snowflake ID"
+  operatorAdmin:
+    type: "boolean"
+    description: "true 是管理员  false 不是管理员"
+  operatorRoles:
+    type: "string"
+    description: "平台操作员权限控制字符串"
+  operatorUsername:
+    type: "string"
+    description: "平台操作员登录名"
+  operatorPassword:
+    type: "string"
+    description: "平台操作员登录密码"
+  mobile:
+    type: "string"
+    description: "手机号码"
+  email:
+    type: "string"
+    format: "email"
+    description: "email邮箱地址"
+
+#排序字段
+  OrderBy:
+    type: "array"
+    description: "排序条件列表"
+    items:
+      $ref: "#/definitions/OrderByInner"
+  OrderByInner:
+    properties:
+      name:
+        type: "string"
+        description: "字段名"
+      order:
+        type: "string"
+        description: "顺序"
+        enum:
+        - "ASC"
+        - "DESC"
+        default: "ASC"
+  ExportList:
+    type: "object"
+    properties:
+      exportIds:
+        type: "string"
+    description: "导出id列表"
+#筛选分页字段
+  Filter:
+    required:
+    - "page"
+    - "pageSize"
+    properties:
+      page:
+        type: "integer"
+        format: "int32"
+        description: "页码，默认1"
+      pageSize:
+        type: "integer"
+        format: "int32"
+        description: "每页数量，默认10"
+      search:
+        type: "string"
+        description: "搜索模糊匹配关键字"
+  page:
+    type: "integer"
+    format: "int32"
+    description: "页码，默认1"
+  pageSize:
+    type: "integer"
+    format: "int32"
+    description: "每页数量，默认10"
+  search:
+    type: "string"
+    description: "搜索模糊匹配关键字"
+
+
+  AuthInfo:
+    type: "object"
+    required:
+    - "operatorPassword"
+    - "operatorUsername"
+    properties:
+      operatorUsername:
+        type: "string"
+        description: "平台操作员登录名"
+        maxLength: 128
+      operatorPassword:
+        type: "string"
+        description: "平台操作员登录密码"
+        maxLength: 255
+    description: "登录认证信息"
+  UserMiniInfo:
+    type: "object"
+    properties:
+      operatorSfId:
+        type: "string"
+        description: "操作员snowflake ID"
+        maxLength: 128
+      operatorUsername:
+        type: "string"
+        description: "平台操作员登录名"
+        maxLength: 128
+      token:
+        type: "string"
+    description: "用户信息"
+
+  RecruitList:
+    type: "array"
+    description: "出库单列表"
+    items:
+      $ref: "#/definitions/RecruitInfo"
+  RecruitInfo:
+    type: "object"
+    properties:
+      recruitSfId:
+        $ref: "#/definitions/recruitSfId"
+      enterpriseName:
+        $ref: "#/definitions/enterpriseName"
+      startTime:
+        $ref: "#/definitions/startTime"
+      jobTitle:
+        $ref: "#/definitions/jobTitle"
+      salaryMin:
+        $ref: "#/definitions/salaryMin"
+      salaryMax:
+        $ref: "#/definitions/salaryMax"
+      salary:
+        $ref: "#/definitions/salary"
+      location:
+        $ref: "#/definitions/location"
+      jobDesc:
+        $ref: "#/definitions/jobDesc"
+      requireExp:
+        $ref: "#/definitions/requireExp"
+      languageType:
+        $ref: "#/definitions/languageType"
+  Error:
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+  inline_response_200:
+    properties:
+      urls:
+        type: "string"
+#参数定义
+parameters:
+  operatorUsername:
+    name: "operatorUsername"
+    in: "path"
+    description: "退出登录参数"
+    required: true
+    type: "string"
+  operatorId:
+    name: "operatorId"
+    in: "path"
+    description: "管理员ID"
+    required: true
+    type: "string"
+  startTime:
+    name: "startTime"
+    in: "query"
+    description: "起始日期"
+    required: false
+    type: "string"
+  endTime:
+    name: "endTime"
+    in: "query"
+    description: "截止日期"
+    required: false
+    type: "string"
+  page:
+    name: "page"
+    in: "query"
+    description: "页码"
+    required: false
+    type: "integer"
+    default: 1
+    format: "int32"
+  pageSize:
+    name: "pageSize"
+    in: "query"
+    description: "每页数量"
+    required: false
+    type: "integer"
+    default: 10
+    format: "int32"
+  userinfo:
+    in: "body"
+    name: "body"
+    description: "登录验证信息"
+    required: true
+    schema:
+      $ref: "#/definitions/AuthInfo"
+
+
+#返回信息定义
+responses:
+  Standard500ErrorResponse:
+    description: "An unexpected error occured."
+    schema:
+      $ref: "#/definitions/Error"
+  Standard204Response:
+    description: "empty content."
+  Standard400ErrorResponse:
+    description: "An unexpected client error occured."
+  Standard200Response:
+    description: "Success"
+
+  postAuth:
+    description: "Success"
+    schema:
+      $ref: "#/definitions/UserMiniInfo"
+    examples:
+      application/json:
+        operatorSfId: "1234567894554"
+        operatorUsername: "dawei"
+        token: "asdfasdfasdflasdfawqiegfasd.asdfjasdgasncxuawetrfnh"
+
+  RecruitList:
+    description: "Success"
+    schema:
+      $ref: "#/definitions/RecruitList"
+    examples:
+      application/json:
+      - recruitSfId: "asdfgh123456"
+        enterpriseName: "jklmn7890"
+        startTime: "2016-12-12"
+        jobTitle: "iop09876"
+        salaryMin: "5000"
+        salaryMax: "10000"
+        salary: ""
+        location: "cd"
+        jobDesc: "blabla"
+        requireExp: "above 3 years"
+        languageType: "OTHER"
+
+

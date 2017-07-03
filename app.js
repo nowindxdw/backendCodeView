@@ -74,8 +74,8 @@ if(schedulerConfig.on=="on"){
 }
 
 // initiate db singleton
-//var cloudDb = require("db-singleton")(dbConfig, __dirname + "/schemas/cloudDB", "cloudDB_schema");
-//cloudDb.sequelize(__dbConfig.cloudDB);
+var cloudDb = require("db-singleton")(dbConfig, __dirname + "/schemas/cloudDB", "cloudDB_schema");
+cloudDb.sequelize(__dbConfig.cloudDB);
 
 //init kue singleton obj
 var initKue = function(){

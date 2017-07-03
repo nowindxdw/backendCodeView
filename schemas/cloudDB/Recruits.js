@@ -28,6 +28,14 @@ module.exports = function (sequelize) {
          */
         salary: FIELDS.salary,
         /**
+         * @see [salaryMin](module-dictionary.html#.salaryMin__anchor)
+         */
+        salaryMin: FIELDS.salaryMin,
+        /**
+         * @see [salaryMax](module-dictionary.html#.salaryMax__anchor)
+         */
+        salaryMax: FIELDS.salaryMax,
+        /**
          * @see [location](module-dictionary.html#.location__anchor)
          */
         location:FIELDS.location,
