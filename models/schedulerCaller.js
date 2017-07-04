@@ -32,7 +32,6 @@ module.exports = function (onoff) {
         receiveSchedulerCaller(req);
         return res.status(200).json("离线任务已送达");
     };
-
     function receiveSchedulerCaller(req){
         logger.debug(req.body);
         var bodyData = req.body;
@@ -85,7 +84,6 @@ module.exports = function (onoff) {
             }
         }
 
-
     function sampleAction1(data1,data2,statusToken){
         logger.info("enter sample action1,data1:"+data1+"data2:"+data2);
         var status = "SUCCESS";
@@ -127,7 +125,6 @@ module.exports = function (onoff) {
             })
         }
     }
-
     function resetKueJob(filter,statusToken){
         var jobs = __kue.getJobs();//获取所有jobs的对象
         logger.trace("reset filter :",filter);
@@ -232,9 +229,6 @@ module.exports = function (onoff) {
         };
         return schedulerClient.taskStatusPost(taskUrl, taskToken, taskResult)
     }
-
-
-
     function restartKueJob(statusToken){
         var status = "SUCCESS";
         var jobs = __kue.getJobs();//获取所有jobs的对象
