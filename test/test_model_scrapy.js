@@ -13,6 +13,7 @@ describe(" unit tests for scrapy", function(){
      * @description  测试组件module
      */
     describe("#scrapy model", function(){
+        var testData = undefined;
         /**
          * @static 测试scrapy.start()方法
          */
@@ -20,24 +21,29 @@ describe(" unit tests for scrapy", function(){
             this.timeout(10000);
             logger.trace('start test scrapy.start');
             var trackList = [
-
+                'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
+                //bosszhipin
+                //neitui
             ];
             scrapyModel.start(trackList,function(err,result){
                 if(err){
                     logger.error(err.stack);
                 }else{
                     logger.debug(result);
+                    testData = result;
                 }
                 done();
             })
         })
         );
         /**
-         * @static 测试ShipModel.getShipDetails()方法
+         * @static 测试translateRecruit()方法
          */
-        xit(".translateRecruit()", sinon.test(function(done){
-                this.timeout(10000);
-                done();
+        it(".translateRecruit()", sinon.test(function(done){
+            this.timeout(10000);
+            scrapyModel.translateRecruitLagou(testData,function(err,result){
+                    done();
+                })
             })
         )
     });

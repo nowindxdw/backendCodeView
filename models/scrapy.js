@@ -18,27 +18,33 @@ module.exports = function () {
          * @param trackList
          * @param callback
          */
-        start:function(trackList,callback){
-            var urls =_.map(trackList,"trackUrl");
+        start: function (trackList, callback) {
+            var urls = trackList;
             var ep = new eventproxy();
-            ep.after("eventName",urls.length,function(urlResults){
-                callback(null,urlResults);
+            ep.after("eventName", urls.length, function (urlResults) {
+                callback(null, urlResults);
             });
-            urls.forEach(function(url){
+            urls.forEach(function (url) {
                 superagent.get(url)
-                    .end(function(err,urlRes){
-                        ep.emit("eventName",[url,urlRes.text])
+                    .end(function (err, urlRes) {
+                        ep.emit("eventName", [url, urlRes.text])
                     });
             });
         },
         /**
          * 根据业务翻译抓取内容存到数据库
-         * @param db
          * @param data
+         * @param callback
          */
-        translateRecruit:function(db,data){
+        translateRecruitLagou: function (data, callback) {
+            var url = data[0][0];
+            logger.trace(url);
+            var $ = cheerio.load(data[0][1]);
+            //通过jquery方式获取内容链接
+            var companyEle = $('body > div.position-head > div > div.position-content-l > div > div.company');
+            var company = companyEle.text();
 
-        }
-    };
+        },
+    }
     return model;
 }
