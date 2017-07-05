@@ -36,11 +36,10 @@ module.exports = function (onoff) {
         logger.debug(req.body);
         var bodyData = req.body;
         var statusToken = req.query.statusToken;
-        if(bodyData.action == 'sampleAction1') {
-            logger.info("开始sampleAction1");
-            var data1 = bodyData.data1;
-            var data2 = bodyData.data2||"2012-01-01";
-            sampleAction1(data1,data2,statusToken);
+        if(bodyData.action == 'startScrapyLagou') {
+            logger.info("startScrapyLagou");
+            var data = bodyData.startUrl;
+            startScrapyLagou(data,statusToken);
         }else if(bodyData.action == "sampleAction2"){
             //处理同步任务的G3基础数据离线任务
             logger.info("开始sampleAction2");
@@ -84,16 +83,51 @@ module.exports = function (onoff) {
             }
         }
 
-    function sampleAction1(data1,data2,statusToken){
-        logger.info("enter sample action1,data1:"+data1+"data2:"+data2);
-        var status = "SUCCESS";
-        logger.info("离线任务sampleAction1执行完毕，执行状态"+status);
-        var taskUrl = schedulerConfig.url;
-        var taskToken = statusToken;
-        var taskResult = {
-          status:status
-        };
-        return schedulerClient.taskStatusPost(taskUrl, taskToken, taskResult)
+    function startScrapyLagou(oriUrl,statusToken){
+        logger.info("enter sample action1,oriUrl"+oriUrl+"statusToken:"+statusToken);
+        var scrapyModel = require('./scrapy')();
+        var sqlCRUD = require('./SqlCRUDModel');
+        var async = require('async');
+        var dbName = config.get('mysql').cloudDBPrefix;
+        //递归拉取所有页面并存入数据库
+        function scrapyLagou(urls){
+            if(urls.length ===0){
+                return ;
+            }
+            scrapyModel.start(urls,function(err,results){
+               async.mapSeries(results,
+                    function(item,mpCb){
+                        scrapyModel.translateRecruitLagou(item,'nodejs',function(err,transData){
+                            var insertData = transData.recruitObj;
+                            if(_.isEmpty(insertData)){
+                                var nextUrls = transData.similarUrls;
+                                scrapyLagou(nextUrls);
+                                mpCb(err,transData);
+                            }else{
+                                return sqlCRUD.insert(dbName,'Recruits',insertData)
+                                    .then(function(){
+                                        var nextUrls = transData.similarUrls;
+                                        scrapyLagou(nextUrls);
+                                        mpCb(err,transData);
+                                    })
+                            }
+                        })
+                    },
+                    function(errs,results){
+                        logger.info("urls="+JSON.stringify(urls)+"done")
+                    })
+            })
+        }
+        scrapyLagou([oriUrl]);
+        //todo 回传给离线任务服务
+        // var status = "SUCCESS";
+        // logger.info("离线任务startScrapy执行完毕，执行状态"+status);
+        // var taskUrl = schedulerConfig.url;
+        // var taskToken = statusToken;
+        // var taskResult = {
+        //   status:status
+        // };
+        // return schedulerClient.taskStatusPost(taskUrl, taskToken, taskResult)
 
     }
     function sampleAction2(ownerSfId, syncStartAt,pageSize, statusToken){
