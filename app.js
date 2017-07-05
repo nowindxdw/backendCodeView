@@ -28,8 +28,8 @@ if (!dbConfig.dialect)
     dbConfig['dialect'] = 'mysql';
 
 // 为数据库名称上加上每个用户名称
-dbConfig.cloudDB = dbConfig.cloudDBPrefix + "_" + process.env.USER;
-redisConfig.prefix = redisConfig.redisPrefix + "_" + process.env.USER;
+dbConfig.cloudDB = dbConfig.cloudDBPrefix;
+redisConfig.prefix = redisConfig.redisPrefix;
 /**
  * 设置全局配置参数，启动app.js时加载到内存使用
  */
