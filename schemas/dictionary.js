@@ -241,7 +241,7 @@ module.exports = {
         comment: "企业名称",
         type: Sequelize.STRING(200),
         allowNull: true,
-        field: 'inquiryCustomerGuid'
+        field: 'enterpriseName'
     },
     /**
      * @description 消息发布时间<br/>
