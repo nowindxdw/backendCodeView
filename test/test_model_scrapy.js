@@ -41,7 +41,7 @@ describe(" unit tests for scrapy", function(){
          */
         it(".translateRecruit()", sinon.test(function(done){
             this.timeout(10000);
-            scrapyModel.translateRecruitLagou(testData,function(err,result){
+            scrapyModel.translateRecruitLagou(testData[0],function(err,result){
                     done();
                 })
             })
