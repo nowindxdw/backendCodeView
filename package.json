@@ -51,6 +51,7 @@
     "redis-connection-factory-romens": "^1.0.0",
     "reverse-mustache": "^1.8.1",
     "sequelize": "^3.24.8",
+    "scheduler-client-romens": "0.0.2",
     "snowflakeid-romens": "^1.0.2",
     "sprintf": "^0.1.5",
     "strftime": "=0.9.2",
