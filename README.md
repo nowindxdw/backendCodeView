@@ -5,7 +5,7 @@
 
 
 首次启动时复制
-
+先将lib下zip解压到根路径node_modules文件夹下(没有私有源无法NPM-INSTALL这几个包)
 $ npm set registry http://npm.romenscd.cn   # 仅在系统中设置一次即可
 $ . ./bin/setenv.sh                         # 有两个点，不要省略第一个点
 $ npm install

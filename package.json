@@ -49,7 +49,7 @@
     "mysql": "^2.11.1",
     "path": "^0.12.7",
     "redis-connection-factory-romens": "^1.0.0",
-    "reverse-mustache": "^1.8.1",
+    "reverse-mustache": "^1.8.0",
     "sequelize": "^3.24.8",
     "scheduler-client-romens": "0.0.2",
     "snowflakeid-romens": "^1.0.2",
