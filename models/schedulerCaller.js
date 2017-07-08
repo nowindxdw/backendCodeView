@@ -39,7 +39,8 @@ module.exports = function (onoff) {
         if(bodyData.action == 'startScrapyLagou') {
             logger.info("startScrapyLagou");
             var data = bodyData.startUrl;
-            startScrapyLagou(data,statusToken);
+            var language = bodyData.language;
+            startScrapyLagou(data,language,statusToken);
         }else if(bodyData.action == "sampleAction2"){
             //处理同步任务的G3基础数据离线任务
             logger.info("开始sampleAction2");
@@ -83,52 +84,56 @@ module.exports = function (onoff) {
             }
         }
 
-    function startScrapyLagou(oriUrl,statusToken){
+    function startScrapyLagou(oriUrl,language,statusToken){
         logger.info("enter sample action1,oriUrl"+oriUrl+"statusToken:"+statusToken);
         var scrapyModel = require('./scrapy')();
         var sqlCRUD = require('./SqlCRUDModel');
         var async = require('async');
         var dbName = config.get('mysql').cloudDBPrefix;
-        //递归拉取所有页面并存入数据库
-        function scrapyLagou(urls){
-            if(urls.length ===0){
-                return ;
-            }
-            scrapyModel.start(urls,function(err,results){
-               async.mapSeries(results,
+        scrapyModel.start([oriUrl],function(err,results){
+            var data = results[0];
+            logger.debug(data[1]);
+            var cheerio = require('cheerio');
+            var $ = cheerio.load(data[1]);
+            var jobListEle = $('#jobs_similar_detail > ul li');
+            var Urls = [];
+            _.each(jobListEle,function(item){
+                var $element = $(item);
+                var jobId = $element.attr('data-jobid');
+                logger.debug(jobId);
+                Urls.push('https://www.lagou.com/jobs/'+jobId+'.html');
+            });
+            logger.trace('Urls',Urls);
+            logger.trace('Urls len',Urls.length);
+            scrapyModel.start(Urls,function(err,results){
+                async.mapSeries(results,
                     function(item,mpCb){
-                        scrapyModel.translateRecruitLagou(item,'nodejs',function(err,transData){
+                        scrapyModel.translateRecruitLagou(item,language,function(err,transData){
                             var insertData = transData.recruitObj;
                             if(_.isEmpty(insertData)){
-                                var nextUrls = transData.similarUrls;
-                                scrapyLagou(nextUrls);
-                                mpCb(err,transData);
+                                mpCb(err);
                             }else{
                                 return sqlCRUD.insert(dbName,'Recruits',insertData)
                                     .then(function(){
-                                        var nextUrls = transData.similarUrls;
-                                        scrapyLagou(nextUrls);
-                                        mpCb(err,transData);
+                                        mpCb(err);
                                     })
                             }
                         })
                     },
                     function(errs,results){
-                        logger.info("urls="+JSON.stringify(urls)+"done")
+                        logger.info("urls="+JSON.stringify(Urls)+"done");
+                        //todo 回传给离线任务服务
+                        // var status = "SUCCESS";
+                        // logger.info("离线任务startScrapy执行完毕，执行状态"+status);
+                        // var taskUrl = schedulerConfig.url;
+                        // var taskToken = statusToken;
+                        // var taskResult = {
+                        //   status:status
+                        // };
+                        // return schedulerClient.taskStatusPost(taskUrl, taskToken, taskResult)
                     })
             })
-        }
-        scrapyLagou([oriUrl]);
-        //todo 回传给离线任务服务
-        // var status = "SUCCESS";
-        // logger.info("离线任务startScrapy执行完毕，执行状态"+status);
-        // var taskUrl = schedulerConfig.url;
-        // var taskToken = statusToken;
-        // var taskResult = {
-        //   status:status
-        // };
-        // return schedulerClient.taskStatusPost(taskUrl, taskToken, taskResult)
-
+        })
     }
     function sampleAction2(ownerSfId, syncStartAt,pageSize, statusToken){
         //todo not implement func

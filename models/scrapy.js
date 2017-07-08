@@ -75,15 +75,7 @@ module.exports = function () {
                 };
                 logger.debug(recruitObj);
             }
-            var similarList = $('#jobs_similar_detail > ul li');
-            var similarUrls = [];
-            _.each(similarList,function(item){
-                var $element = $(item);
-                var jobId = $element.attr('data-jobid');
-                similarUrls.push('https://www.lagou.com/jobs/'+jobId+'.html');
-            });
-            logger.trace('similarUrls',similarUrls);
-            callback(null,{recruitObj:recruitObj,similarUrls:similarUrls})
+            callback(null,{recruitObj:recruitObj})
         },
     };
     return model;

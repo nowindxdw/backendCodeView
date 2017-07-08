@@ -69,7 +69,6 @@ if(schedulerConfig.on=="on"){
     var schedulerCaller = require(__base+'/models/schedulerCaller');
     app.use(schedulerCaller(schedulerConfig.on));
     app.post('/scheduler/callback', function(req, res){
-        res.send('received scheduler callback');
     });
 }
 
