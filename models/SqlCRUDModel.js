@@ -86,5 +86,17 @@ module.exports = {
             .then((result) => {
                 return result;
             });
+    },
+    //任意sql语句
+    raw: function (dbName, rawSql) {
+        logger.trace('Enter into delete');
+
+        let sql = db(tableName)
+            .raw(rawSql);
+        logger.trace(sql.toString());
+        return sql
+            .then((result) => {
+                return result;
+            });
     }
 };
