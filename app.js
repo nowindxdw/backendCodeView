@@ -24,6 +24,7 @@ var logConfig = config.get("logger");
 var dbConfig = config.get("mysql");
 var redisConfig = config.get("redis");
 var schedulerConfig = config.get("scheduler");
+var localConfig = config.get('local');
 if (!dbConfig.dialect)
     dbConfig['dialect'] = 'mysql';
 
@@ -39,7 +40,7 @@ global.__authConfig = authConfig;
 global.__logConfig = logConfig;
 global.__serverConfig = serverConfig;
 global.__base = __dirname;
-
+global.__localConfig = localConfig;
 var logger = new Logger(logConfig);
 var serverHost = serverConfig.host;
 var serverPort = serverConfig.port;
