@@ -1,12 +1,13 @@
 "use strict";
 const Logger = require('logger-romens');
-let logger = new Logger();
+let   logger = new Logger();
 const _ = require("lodash");
 const async = require('async');
 const authModel = require('./model/AuthModel')();
 const regTest = require('../../../models/regTest')();
 const RETCODE = require("../../../models/retcode").RETCODE;
 const MSG = require("../../../local/local")[__localConfig];
+const crypto = require("../../../models/crypto")();
 exports.deleteAuth = function(req,args, res, next) {
   /**
    * parameters expected in the args:
@@ -54,9 +55,8 @@ exports.postAuth = function(args, res, next) {
         res.end(JSON.stringify({error: MSG.UNAUTHORIZED} || {}, null, 2));
         return;
     }
-    // step2. 登录密码解密
-    // todo 密码加解密方式未定, 待定后实现。
-    let decodedPassword = password;
+    // step2. 登录密码前端回传解密，前端用base64加密
+    let decodedPassword = crypto.decodeFrontLoginPwd(password);
     let loginData = {
         username: username,
         password: decodedPassword
@@ -64,20 +64,21 @@ exports.postAuth = function(args, res, next) {
     // step3. 登录认证
     return authModel.adminLoginAuth(loginData)
         .then(data=>{
-            logger.info("登录成功，返回token数据" + JSON.stringify(data));
-            res.statusCode = RETCODE.SUCCESS;
-            res.setHeader('Content-Type', 'application/json');
-            return res.end(JSON.stringify(data || {}, null, 2));
+            if(data==RETCODE.UNAUTHORIZED){
+                return res.end(JSON.stringify({error: MSG.LOGIN_FAILED} || {}, null, 2));
+            }else{
+                logger.info("登录成功，返回token数据" + JSON.stringify(data));
+                res.statusCode = RETCODE.SUCCESS;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(JSON.stringify(data || {}, null, 2));
+            }
         })
         .catch(err=>{
             logger.warn("登录异常"+err);
             res.setHeader('Content-Type', 'application/json');
             res.statusCode = err;
-            if(err==RETCODE.INTER_ERR){
-                return res.end(JSON.stringify({error: MSG.INTER_ERR} || {}, null, 2));
-            }else if(err == RETCODE.UNAUTHORIZED){
-                return res.end(JSON.stringify({error: MSG.UNAUTHORIZED} || {}, null, 2));
-            }
+            return res.end(JSON.stringify({error: MSG.INTER_ERR} || {}, null, 2));
+
         })
 }
 

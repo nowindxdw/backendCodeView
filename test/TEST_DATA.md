@@ -21,13 +21,16 @@ body:
 }
 
 
+git push https://nowindxdw@github.com/nowindxdw/Recruitments.git
+
+
 insert Operators
 (operatorSfId,operatorUsername,operatorPassword,
 visible,operatorAdmin,enabled,
 operatorName,mobile,email,operatorRoles,
 createdAt,updatedAt)
 values
-('140000000001','18980712136','100821',
+('140000000001','18980712136','VFZSQmQwOUVTWGc9',
 1,1,1,
 'dawei','18980712136','nowindxdw@126.com','',
 now(),now());

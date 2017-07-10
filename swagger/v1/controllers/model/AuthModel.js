@@ -9,20 +9,20 @@ const Logger = require('logger-romens');
 let logger = new Logger();
 const sqlModel = require("../../../../models/SqlCRUDModel");
 const RETCODE = require("../../../../models/retcode").RETCODE;
+const crypto = require("../../../../models/crypto")();
 module.exports = function () {
 
     var authModel = {
         adminLoginAuth: (loginData)=>{
-            logger.trace("enter adminLoginAuth");
+            logger.trace("enter adminLoginAuth loginData",loginData);
             let username = loginData.username;
             let password = loginData.password;
-            //todo password 加密存储再数据库encode;
-            let operatorPassword = password;
+            let operatorPassword = crypto.encodeLoginPwd(password);
             let dbName = __dbConfig.cloudDB;
             var tableName = "Operators";
             var columns =  ['operatorSfId'];
-            var whereStr = "operatorUsername="+username
-                +" and operatorPassword="+ operatorPassword;
+            var whereStr = "`operatorUsername`='"+username
+                +"' and `operatorPassword`='"+ operatorPassword+"'";
             return sqlModel.select(dbName,tableName,columns,whereStr)
                 .then(results=>{
                     if(results.length>0){
@@ -33,11 +33,11 @@ module.exports = function () {
                         return data;
                     }else{
                         logger.info("没有查询到对应用户名和密码");
-                        return Promise.reject(RETCODE.UNAUTHORIZED);
+                        return Promise.resolve(RETCODE.UNAUTHORIZED);
                     }
                 })
                 .catch(err=>{
-                    logger.error(err);
+                    logger.error(err.stack);
                     return Promise.reject(RETCODE.INTER_ERR);
                 })
         },
