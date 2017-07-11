@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.10"
+  version: "0.0.11"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -18,6 +18,34 @@ produces:
 - "application/json"
 #登录接口
 paths:
+  /index:
+    get:
+      tags:
+      - "index"
+      summary: "主页接口"
+      description: "展示默认主页接口"
+      operationId: "getIndex"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /login:
+    get:
+      tags:
+      - "index"
+      summary: "主页登录接口"
+      description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
+      operationId: "getLogin"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
   /auth:
     post:
       tags:

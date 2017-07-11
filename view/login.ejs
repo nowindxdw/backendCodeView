@@ -1,0 +1,59 @@
+<% include header.ejs %>
+<!--Off-Canvas-->
+
+<div style="position:relative;width:100%;min-height:100%;">
+  <!--Layout-->
+  <div class="site-layout login-page">
+    <!--Header Toolbar-->
+    <% include _nav_top.ejs %>
+    <!--Header Toolbar Close-->
+    <div>
+      <div class="sm-nav-head">
+        <div class="container">
+          <div class="col-md-2 sm-nav-head-logo">
+            <a href="/">
+              <img src="/static/img/yuetong/head_logo.png" alt="<%=enterpriseInfo.websiteName%>"/>
+            </a>
+          </div>
+          <div class="col-md-3 sm-nav-head-logo">
+            <a>欢迎登录</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container sm-page-login">
+      <div class="sm-page-login-img">
+        <img src="/static/img/login_background.jpg"/>
+        <input type="hidden" id="nextToValue" name="nextTo" value="<%= data.nextTo %>"/>
+
+        <div class="sm-page-login-box">
+          <div>
+            <label>
+              <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名"/>
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码"/>
+            </label>
+          </div>
+          <div id="codeTip">
+            <span id="loginTip"></span>
+          </div>
+          <div>
+            <a class="btn btn-md btn-primary" type="button" id="login">登录</a>
+          </div>
+          <div>
+            <a href="/forgot_pwd">忘记密码</a>
+            <a href="/page/register">立即注册</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position: relative;top:130px;">
+    <% include _nav_bottom_version.ejs %>
+  </div>
+    <% include footer.ejs %>
+  <script src="/static/source/js/login.js"></script>
+</div>
