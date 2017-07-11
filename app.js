@@ -47,6 +47,7 @@ var serverPort = serverConfig.port;
 
 var app = express();
 app.set('port', serverPort);
+app.set('view engine', 'ejs');
 // T允许跨域
 // https://www.npmjs.com/package/cors 设置跨域
 

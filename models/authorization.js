@@ -19,15 +19,21 @@ module.exports = function(isOn) {
             return next();
         }
         var apiPath = /^\/v1\/api(\/){1}/;
+        var indexPath = /^\/v1\/api\/index/;
+        var loginPagePath = /^\/v1\/api\/login/;
         var loginPath = /^\/v1\/api\/auth/;
-
         if (!apiPath.test(req.path)) {
             return next();
         }
         if (loginPath.test(req.path) && (req.method === 'POST')) {
             return next();
         }
-
+        if (indexPath.test(req.path) && (req.method === 'GET')) {
+            return next();
+        }
+        if (loginPagePath.test(req.path) && (req.method === 'GET')) {
+            return next();
+        }
         var token = req.header('authorization');
         if (token === undefined || !token) {
             return res.status(401).end('invalid token');

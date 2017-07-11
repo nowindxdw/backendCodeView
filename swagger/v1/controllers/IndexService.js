@@ -7,7 +7,10 @@ exports.getIndex = function(args, res, next) {
    *
    * no response value expected for this operation
    **/
-  res.end();
+   let data = {
+       "user":"dawei"
+   };
+   res.render('index_sample.ejs',{data:data})
 }
 
 exports.getLogin = function(args, res, next) {

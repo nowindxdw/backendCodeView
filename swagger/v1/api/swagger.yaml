@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.10"
+  version: "0.0.11"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -17,6 +17,52 @@ consumes:
 produces:
 - "application/json"
 paths:
+  /index:
+    get:
+      tags:
+      - "index"
+      summary: "主页接口"
+      description: "展示默认主页接口"
+      operationId: "getIndex"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Index"
+  /login:
+    get:
+      tags:
+      - "index"
+      summary: "主页登录接口"
+      description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
+      operationId: "getLogin"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Index"
   /auth:
     post:
       tags:
@@ -376,6 +422,12 @@ definitions:
     properties:
       urls:
         type: "string"
+  inline_response_500:
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
   body:
     type: "object"
     required:
@@ -404,12 +456,6 @@ definitions:
       token:
         type: "string"
     description: "用户信息"
-  inline_response_500:
-    properties:
-      code:
-        type: "string"
-      message:
-        type: "string"
   body_1:
     required:
     - "page"
