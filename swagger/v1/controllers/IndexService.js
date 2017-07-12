@@ -10,7 +10,7 @@ exports.getIndex = function(args, res, next) {
    let data = {
        "user":"dawei"
    };
-   res.render('index_sample.ejs',{data:data})
+   res.render('index.ejs',{data:data})
 }
 
 exports.getLogin = function(args, res, next) {
