@@ -9,7 +9,7 @@ mysql:
     cloudDBPrefix:    "RecruitDB"    # Cloud数据库名称前缀
     host: localhost                  # MySQL主机host
     user: root                # MySQL用户名
-    password: "romens@2015"          # MySQL密码
+    password: "password"          # MySQL密码
     port: 3306                # 默认Mysql端口
     maxConnection: 20         # 连接池最大数量
     minConnection: 2          # 连接池最小数量

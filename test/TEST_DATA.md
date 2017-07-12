@@ -2,12 +2,12 @@
 管理员账号
 {
   "operatorUsername": "recon@romens.cn",
-  "operatorPassword": "romens2015"
+  "operatorPassword": "password"
 }
 员工账号
 {
   "operatorUsername": "13402802006",
-  "operatorPassword": "romens"
+  "operatorPassword": "password"
 }
 
 postman:
