@@ -6,7 +6,7 @@
  */
 const jwt = require('jsonwebtoken');
 const Logger = require('logger-romens');
-let logger = new Logger();
+let logger = new Logger(__logConfig);
 const sqlModel = require("../../../../models/SqlCRUDModel");
 const RETCODE = require("../../../../models/retcode").RETCODE;
 const crypto = require("../../../../models/crypto")();

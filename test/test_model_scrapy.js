@@ -1,9 +1,9 @@
 var sinon = require('sinon');
 var assert = require('chai').assert;
-var config = require("config");
-var _ = require('lodash');
 var Logger = require('logger-romens');
-var logger = new Logger();
+var config = require("config");
+global.__logConfig = config.get('logger');
+var logger = new Logger(__logConfig);
 var scrapyModel = require('../models/scrapy')();
 /**
  * @module scrapy单元测试用例

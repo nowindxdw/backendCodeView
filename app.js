@@ -138,6 +138,14 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     initKue();
     http.createServer(app).listen(serverPort, function () {
         logger.info('主程序 已经在 http://' + serverHost + ":" + serverPort + "/ 运行");
+        //test log
+        logger.trace("logger trace is working...");
+        logger.debug("logger debug is working...");
+        logger.sql("logger sql is working...");
+        logger.warn("logger warn is working...");
+        logger.info("logger info is working...");
+        logger.error("logger error is working...");
+        logger.fatal("logger fatal is working...");
         if (mockConfig)
             logger.info('Swagger-ui执行在 http://' + serverHost + ":" + serverPort + '/docs');
     });

@@ -2,7 +2,7 @@
 const Header = require("../../../local/local").header;
 const regTest = require('../../../models/regTest')();
 const Logger = require('logger-romens');
-let   logger = new Logger();
+let   logger = new Logger(__logConfig);
 exports.getIndex = function(args, res, next) {
   /**
    * 主页接口

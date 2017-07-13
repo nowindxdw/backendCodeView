@@ -1,6 +1,6 @@
 
 var Logger = require("logger-romens");
-var logger = new Logger();
+var logger = new Logger(__logConfig);
 var _ = require("lodash");
 var moment = require("moment");
 var statusCode = require("./statusCode");

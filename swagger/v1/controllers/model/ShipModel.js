@@ -5,7 +5,7 @@
  *
  */
 var Logger = require('logger-romens');
-var logger = new Logger();
+var logger = new Logger(__logConfig);
 var DBSingleton = require("db-singleton");
 var sqlModel = require("./../../../../models/SqlCRUDModel");
 module.exports = function () {
