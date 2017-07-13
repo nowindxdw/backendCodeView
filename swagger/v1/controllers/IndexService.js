@@ -1,5 +1,8 @@
 'use strict';
-
+const Header = require("../../../local/local").header;
+const regTest = require('../../../models/regTest')();
+const Logger = require('logger-romens');
+let   logger = new Logger();
 exports.getIndex = function(args, res, next) {
   /**
    * 主页接口
@@ -7,10 +10,19 @@ exports.getIndex = function(args, res, next) {
    *
    * no response value expected for this operation
    **/
-   let data = {
-       "user":"dawei"
-   };
-   res.render('index.ejs',{data:data})
+   let lang = args.pageLang.value;
+   let style = args.pageStyle.value;
+   logger.debug("enter info getIndex lang="+lang+",style="+style);
+   //数据校验
+   if (!regTest.testLang(lang)) {
+      lang = __localConfig;
+   }
+   if (!regTest.testStyle(style)) {
+      style = "nightsky";
+   }
+   logger.trace(lang);
+   let header = Header[lang];
+   res.render(style+'/'+'index.ejs',{header:header})
 }
 
 exports.getLogin = function(args, res, next) {
