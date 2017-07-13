@@ -14,5 +14,24 @@ const en = {
     "NOT_FOUND":"Require not exist resources",
     "INTER_ERR":"Unexpected error in server "
 };
+
+const header = {
+    "cn":{
+        "lang":"cn",
+        "name":"大维",
+        "title":" 大维小窝",
+        "description":"大维家的主页",
+        "keywords":" dawei home lingsheng 大维"
+    },
+    "en":{
+        "lang":"en",
+        "name":"dawei",
+        "title":" dawei home",
+        "description":"personal page for dawei's home",
+        "keywords":" dawei home lingsheng"
+    }
+
+};
 module.exports.cn = cn;
 module.exports.en = en;
+module.exports.header = header;

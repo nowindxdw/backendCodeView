@@ -3,7 +3,7 @@
 
 const _ = require('lodash');
 const Logger = require('logger-romens');
-const logger = new Logger();
+const logger = new Logger(__logConfig);
 const db = require('./db');
 
 module.exports = {

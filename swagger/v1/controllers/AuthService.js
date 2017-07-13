@@ -1,6 +1,6 @@
 "use strict";
 const Logger = require('logger-romens');
-let   logger = new Logger();
+let   logger = new Logger(__logConfig);
 const _ = require("lodash");
 const async = require('async');
 const authModel = require('./model/AuthModel')();

@@ -1,9 +1,10 @@
 var sinon = require('sinon');
 var assert = require('chai').assert;
 var config = require("config");
+global.__logConfig = config.get('logger');
 var _ = require('lodash');
 var Logger = require('logger-romens');
-var logger = new Logger();
+var logger = new Logger(__logConfig);
 var cryptoModel = require('../models/crypto')();
 /**
  * @module crypto单元测试用例

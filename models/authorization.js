@@ -3,7 +3,7 @@ var CacheServerFactory = require('cache-server-factory-romens');
 var RedisConnectionFactory = require('redis-connection-factory-romens');
 var DBSingleton = require("db-singleton");
 var Logger = require("logger-romens");
-var logger = new Logger();
+var logger = new Logger(__logConfig);
 
 // the middleware function\
 /**

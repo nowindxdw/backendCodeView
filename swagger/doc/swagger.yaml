@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.11"
+  version: "0.0.12"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -25,6 +25,9 @@ paths:
       summary: "主页接口"
       description: "展示默认主页接口"
       operationId: "getIndex"
+      parameters:
+        - $ref: "#/parameters/pageLang"
+        - $ref: "#/parameters/pageStyle"
       responses:
         200:
          $ref: "#/responses/Standard200Response"
@@ -39,6 +42,9 @@ paths:
       summary: "主页登录接口"
       description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
       operationId: "getLogin"
+      parameters:
+        - $ref: "#/parameters/pageLang"
+        - $ref: "#/parameters/pageStyle"
       responses:
         200:
          $ref: "#/responses/Standard200Response"
@@ -104,6 +110,8 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Filter"
+      - $ref: "#/parameters/pageLang"
+      - $ref: "#/parameters/pageStyle"
       responses:
         200:
          $ref: "#/responses/RecruitList"
@@ -145,6 +153,12 @@ securityDefinitions:
     in: "header"
 
 definitions:
+  lang:
+    type: "string"
+    description: "语言"
+  style:
+    type: "string"
+    description: "风格"
   closed:
     type: "boolean"
     description: "true 已关闭  false 活动中"
@@ -348,6 +362,18 @@ definitions:
         type: "string"
 #参数定义
 parameters:
+  pageLang:
+    name: "pageLang"
+    in: "query"
+    description: "页面语言"
+    required: false
+    type: "string"
+  pageStyle:
+    name: "pageStyle"
+    in: "query"
+    description: "页面风格"
+    required: false
+    type: "string"
   operatorUsername:
     name: "operatorUsername"
     in: "path"

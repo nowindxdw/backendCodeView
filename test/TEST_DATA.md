@@ -1,29 +1,30 @@
-** 测试登陆账号** 
-管理员账号
+##### 测试登陆账号 
+*管理员账号
+```
 {
   "operatorUsername": "recon@romens.cn",
-  "operatorPassword": "romens2015"
+  "operatorPassword": "password"
 }
-员工账号
-{
-  "operatorUsername": "13402802006",
-  "operatorPassword": "romens"
-}
-
+```
+####postman test
 postman:
 
 post:
 http://0.0.0.0:3456/scheduler/callback?statusToken=1234567891010
 body:
+```
 {
 	"action":"startScrapyLagou",
 	"startUrl":"https://www.lagou.com/jobs/2678740.html"
 }
-
-
+```
+#### push to github
+```
 git push https://nowindxdw@github.com/nowindxdw/Recruitments.git
+```
 
-
+####initDB sql
+```
 insert Operators
 (operatorSfId,operatorUsername,operatorPassword,
 visible,operatorAdmin,enabled,
@@ -34,3 +35,4 @@ values
 1,1,1,
 'dawei','18980712136','nowindxdw@126.com','',
 now(),now());
+```

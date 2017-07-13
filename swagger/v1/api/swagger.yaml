@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.11"
+  version: "0.0.12"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -29,7 +29,17 @@ paths:
       - "multipart/form-data"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
       responses:
         200:
           description: "Success"
@@ -52,7 +62,17 @@ paths:
       - "multipart/form-data"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
       responses:
         200:
           description: "Success"
@@ -148,6 +168,16 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/body_1"
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
       responses:
         200:
           description: "Success"
@@ -213,6 +243,12 @@ securityDefinitions:
     name: "authorization"
     in: "header"
 definitions:
+  lang:
+    type: "string"
+    description: "语言"
+  style:
+    type: "string"
+    description: "风格"
   closed:
     type: "boolean"
     description: "true 已关闭  false 活动中"
@@ -536,6 +572,18 @@ definitions:
         - "ASC"
         - "DESC"
 parameters:
+  pageLang:
+    name: "pageLang"
+    in: "query"
+    description: "页面语言"
+    required: false
+    type: "string"
+  pageStyle:
+    name: "pageStyle"
+    in: "query"
+    description: "页面风格"
+    required: false
+    type: "string"
   operatorUsername:
     name: "operatorUsername"
     in: "path"
