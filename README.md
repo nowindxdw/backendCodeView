@@ -19,6 +19,9 @@ $ npm start
 $ . ./bin/setenv.sh       # 仅在新开Terminal时设置一次即可
 $ npm start
 
+环境配置检查
+
+$ node bin/envcheck.js
 
 再次在已经启动过的Terminal中启动时复制
 
