@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 /**
- * @module  JobProcessModel.js
- * @description 队列启动/重启执行任务
+ * @module  crypto.js
+ * @description 加密解密模块
  * @returns {Function}
  */
 module.exports = function () {
