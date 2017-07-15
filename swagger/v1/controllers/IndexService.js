@@ -1,5 +1,4 @@
 'use strict';
-const Header = require("../../../local/local").header;
 const regTest = require('../../../models/regTest')();
 const Logger = require('logger-romens');
 let   logger = new Logger(__logConfig);
@@ -21,8 +20,13 @@ exports.getIndex = function(args, res, next) {
       style = "nightsky";
    }
    logger.trace(lang);
+   const Header = require("../../../local/local").header;
+   const Menubar = require("../../../local/local").menubar;
+   const Footer = require("../../../local/local").footer;
    let header = Header[lang];
-   res.render(style+'/'+'index.ejs',{header:header})
+   let menubar = Menubar[lang];
+   let footer = Footer[lang];
+   res.render(style+'/'+'index.ejs',{header:header,menubar:menubar,footer:footer})
 }
 
 exports.getLogin = function(args, res, next) {

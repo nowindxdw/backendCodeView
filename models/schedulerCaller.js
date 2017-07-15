@@ -12,7 +12,7 @@ var schedulerClient = require("scheduler-client-romens")();
  * @returns {Function}
  */
 module.exports = function (onoff) {
-    logger.info(">>>>>>>>>>schedulerCaller is " + onoff + "<<<<<<<<<<<<");
+    // logger.info(">>>>>>>>>>schedulerCaller is " + onoff + "<<<<<<<<<<<<");
     return function (req, res, next) {
         if (onoff !== 'on') {
             return next();

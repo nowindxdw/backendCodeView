@@ -13,7 +13,6 @@ var logger = new Logger(__logConfig);
  * @returns {Function}
  */
 module.exports = function(isOn) {
-    console.log(">>>>>>>>>>authorization is "+isOn+"<<<<<<<<<<<<");
     return function (req, res, next) {
         if(!isOn){
             return next();

@@ -32,6 +32,39 @@ const header = {
     }
 
 };
+const menubar = {
+    "cn":{
+        "welcome":"欢迎来到大维小窝",
+        "Home":"主页",
+        "Work":"工作",
+        "Life":"生活",
+        "Contact":"联系方式"
+    },
+    "en":{
+        "welcome":"Welcome To dawei Home",
+        "Home":"Home",
+        "Work":"Work",
+        "Life":"Life",
+        "Contact":"Contact Me"
+    }
+
+};
+const footer = {
+    "cn":{
+        "back":"返回主页",
+        "Related":"友情链接",
+        "Dashboard":"控制台",
+        "designer":"本网站由大维设计"
+    },
+    "en":{
+        "back":"back Home",
+        "Related":"Related Web",
+        "Dashboard":"Dashboard",
+        "designer":"Designed by dawei"
+    }
+};
 module.exports.cn = cn;
 module.exports.en = en;
 module.exports.header = header;
+module.exports.menubar = menubar;
+module.exports.footer = footer;

@@ -1,14 +1,44 @@
 	<div id="menubar">
 	  <div id="welcome">
-	    <h1><a href="#">Welcome To dawei Home</a></h1>
+	    <h1><a href="#"><%= menubar.welcome%></a></h1>
 	  </div><!--close welcome-->
       <div id="menu_items">
 	    <ul id="menu">
-          <li class="current"><a href="../index.html">Home</a></li>
-          <li><a href="../ourwork.html">Our Work</a></li>
-          <li><a href="../testimonials.html">Testimonials</a></li>
-          <li><a href="../projects.html">Projects</a></li>
-          <li><a href="../contact.html">Contact Us</a></li>
+          <li class="current"><a href="index.html"><%= menubar.Home%></a></li>
+          <li><a href="ourwork.html"><%= menubar.Work%></a></li>
+          <li><a href="testimonials.html"><%= menubar.Life%></a></li>
+          <li><a href="projects.html"><%= menubar.Contact%></a></li>
+          <li><select id="pageLang" onchange="langChange()">
+                  <option value="en">English
+                  <option value="cn">中文
+              </select></li>
+          <li><select id="pageStyle" onchange="styleChange()">
+                  <option value="bigg">bigg
+                  <option value="skynight">skynight
+              </select></li>
         </ul>
       </div><!--close menu-->
     </div><!--close menubar-->
+
+    <script type="text/JavaScript">
+        var langObj = document.getElementById("pageLang");
+        var styleObj = document.getElementById("pageStyle");
+        function langChange(){
+            var lang = langObj.options[langObj.selectedIndex].value;
+            localStorage.langSelectedIndex = langObj.selectedIndex;
+            localStorage.langSelectedValue = lang;
+            var style = localStorage.styleSelectedValue||"";
+            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+        }
+        function styleChange(){
+            var style = styleObj.options[styleObj.selectedIndex].value;
+            localStorage.styleSelectedIndex = styleObj.selectedIndex;
+            localStorage.styleSelectedValue = style;
+            var lang = localStorage.langSelectedValue||"";
+            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+        }
+        window.onload = function(){
+            styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
+            langObj.options[ localStorage.langSelectedIndex ].selected = true;
+        }
+    </script>
