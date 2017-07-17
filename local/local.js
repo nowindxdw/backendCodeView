@@ -132,9 +132,26 @@ const maincontent = {
         }
     }
 };
+
+const todayNews = {
+    "cn":{
+        "limitCarNo":"今日限行",
+        "weather":"今日气象",
+        "hotWeibo":"今日热点",
+        "news":"今日要闻"
+    },
+    "en":{
+        "limitCarNo":"LIMIT TAILNUM",
+        "weather":"Today Weather",
+        "hotWeibo":"Hot Weibo",
+        "news":"News"
+    }
+};
+
 module.exports.cn = cn;
 module.exports.en = en;
 module.exports.header = header;
 module.exports.menubar = menubar;
 module.exports.footer = footer;
 module.exports.maincontent = maincontent;
+module.exports.todayNews = todayNews;

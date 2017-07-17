@@ -38,9 +38,15 @@
 				<a href="#"><%= content.bodycontent.btnTxt%></a>
 			</div><!--close button_small-->
 		</div><!--close content_item-->
-      </div><!--close content-->   
-	
-	  <div id="content_blue">
+		  <div class="content_container">
+			  <p><%= todays.limitCarNo%></p>
+			  <div class="button_small">
+				  <a href="#"><%= todays.limitTailNum%></a>
+			  </div><!--close button_small-->
+		  </div><!--close content_container-->
+      </div><!--close content-->
+
+		<div id="content_blue">
 	    <div class="content_blue_container_box">
 		  <h4><%= content.contentbule.blogUpdate.title%></h4>
 	      <p> <%= content.contentbule.blogUpdate.desc%></p>
