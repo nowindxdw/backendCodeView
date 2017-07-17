@@ -38,6 +38,12 @@
             window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
         }
         window.onload = function(){
+            if( !localStorage.styleSelectedIndex){
+                localStorage.styleSelectedIndex = 0;
+            }
+            if( !localStorage.langSelectedIndex){
+                localStorage.langSelectedIndex = 0;
+            }
             styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
             langObj.options[ localStorage.langSelectedIndex ].selected = true;
         }
