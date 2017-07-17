@@ -22,11 +22,13 @@ exports.getIndex = function(args, res, next) {
    logger.trace(lang);
    const Header = require("../../../local/local").header;
    const Menubar = require("../../../local/local").menubar;
+   const Content = require("../../../local/local").maincontent;
    const Footer = require("../../../local/local").footer;
    let header = Header[lang];
    let menubar = Menubar[lang];
+   let content = Content[lang];
    let footer = Footer[lang];
-   res.render(style+'/'+'index.ejs',{header:header,menubar:menubar,footer:footer})
+   res.render(style+'/'+'index.ejs',{header:header,menubar:menubar,content:content,footer:footer})
 }
 
 exports.getLogin = function(args, res, next) {

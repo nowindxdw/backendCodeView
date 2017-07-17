@@ -36,14 +36,14 @@ const menubar = {
     "cn":{
         "welcome":"欢迎来到大维小窝",
         "Home":"主页",
-        "Work":"工作",
+        "Skill":"技艺",
         "Life":"生活",
         "Contact":"联系方式"
     },
     "en":{
         "welcome":"Welcome To dawei Home",
         "Home":"Home",
-        "Work":"Work",
+        "Skill":"Skill",
         "Life":"Life",
         "Contact":"Contact Me"
     }
@@ -63,8 +63,78 @@ const footer = {
         "designer":"Designed by dawei"
     }
 };
+
+const maincontent = {
+    "cn":{
+        "welcome":{
+            "title":"欢迎到来",
+            "content":"欢迎来到我的主页，请随意转转，有任何的建议或意见，请不吝赐教。",
+        },
+        "latestUpdate":{
+            "title":"最近更新",
+            "title1":"2017年7月16日",
+            "content1":"站点样式更新改版",
+            "title2":"2017年7月6日",
+            "content2":"站点上线",
+
+        },
+        "bodycontent":{
+            "title":"既来之，不醉不归",
+            "content":"浮生长恨欢娱少,肯爱千金轻一笑。为君持酒劝斜阳，且向花间留晚照。",
+            "btnTxt":"更多内容"
+        },
+        "contentbule":{
+             "blogUpdate":{
+                 "title":"近期博客更新",
+                 "desc":"博客建设中......"
+             },
+            "wxUpdate":{
+                "title":"近期微信订阅号更新",
+                "desc":"订阅号建设中......"
+            },
+            "projectUpdate":{
+                "title":"近期项目更新",
+                "desc":"项目建设中......"
+            }
+        }
+    },
+    "en":{
+        "welcome":{
+            "title":"Welcome",
+            "content":"Welcome to my website. Please have a look around, any feedback is much appreciated.",
+        },
+        "latestUpdate":{
+            "title":"latest Update",
+            "title1":"July 16",
+            "content1":"Website refresh style",
+            "title2":"July 6",
+            "content2":"Website start up online",
+
+        },
+        "bodycontent":{
+            "title":"Welcome to my Eden",
+            "content":"You smiled and talked to me of nothing and I felt that for this I had been waiting long.",
+            "btnTxt":"Read more"
+        },
+        "contentbule":{
+            "blogUpdate":{
+                "title":"Latest Blog Post",
+                "desc":"Blog is building..."
+            },
+            "wxUpdate":{
+                "title":"Latest WxNews",
+                "desc":"WxNews is building..."
+            },
+            "projectUpdate":{
+                "title":"Latest Projects",
+                "desc":"Projects is building..."
+            }
+        }
+    }
+};
 module.exports.cn = cn;
 module.exports.en = en;
 module.exports.header = header;
 module.exports.menubar = menubar;
 module.exports.footer = footer;
+module.exports.maincontent = maincontent;
