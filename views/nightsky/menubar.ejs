@@ -1,0 +1,44 @@
+	<div id="menubar">
+	  <div id="welcome">
+	    <h1><a href="#"><%= menubar.welcome%></a></h1>
+	  </div><!--close welcome-->
+      <div id="menu_items">
+	    <ul id="menu">
+          <li class="current"><a href="../../public/nightsky/index.html"><%= menubar.Home%></a></li>
+          <li><a href="Skill.html"><%= menubar.Skill%></a></li>
+          <li><a href="../../public/nightsky/testimonials.html"><%= menubar.Life%></a></li>
+          <li><a href="../../public/nightsky/projects.html"><%= menubar.Contact%></a></li>
+          <li><select id="pageLang" onchange="langChange()">
+                  <option value="cn">中文
+                  <option value="en">English
+              </select></li>
+          <li><select id="pageStyle" onchange="styleChange()">
+                  <option value="skynight">skynight
+                  <option value="bigg">bigg
+              </select></li>
+        </ul>
+      </div><!--close menu-->
+    </div><!--close menubar-->
+
+    <script type="text/JavaScript">
+        var langObj = document.getElementById("pageLang");
+        var styleObj = document.getElementById("pageStyle");
+        function langChange(){
+            var lang = langObj.options[langObj.selectedIndex].value;
+            localStorage.langSelectedIndex = langObj.selectedIndex;
+            localStorage.langSelectedValue = lang;
+            var style = localStorage.styleSelectedValue||"";
+            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+        }
+        function styleChange(){
+            var style = styleObj.options[styleObj.selectedIndex].value;
+            localStorage.styleSelectedIndex = styleObj.selectedIndex;
+            localStorage.styleSelectedValue = style;
+            var lang = localStorage.langSelectedValue||"";
+            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+        }
+        window.onload = function(){
+            styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
+            langObj.options[ localStorage.langSelectedIndex ].selected = true;
+        }
+    </script>

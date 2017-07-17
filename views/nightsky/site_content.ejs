@@ -1,0 +1,68 @@
+	<div id="site_content">
+	  <div id="banner_image">
+	    <div id="slider-wrapper">        
+          <div id="slider" class="nivoSlider">
+            <img src="/nightsky/images/home_1.jpg" alt="" />
+            <img src="/nightsky/images/home_2.jpg" alt="" />
+		  </div><!--close slider-->
+		</div><!--close slider_wrapper-->
+	  </div><!--close banner_image-->	
+
+	  <div class="sidebar_container">       
+		<div class="sidebar">
+          <div class="sidebar_item">
+            <h2><%= content.welcome.title%></h2>
+            <p><%= content.welcome.content%></p>
+          </div><!--close sidebar_item--> 
+        </div><!--close sidebar-->     		
+		<div class="sidebar">
+          <div class="sidebar_item">
+            <h2><%= content.latestUpdate.title%></h2>
+            <h3><%= content.latestUpdate.title1%></h3>
+            <p><%= content.latestUpdate.content1%></p>
+		  </div><!--close sidebar_item--> 
+        </div><!--close sidebar-->
+		<div class="sidebar">
+          <div class="sidebar_item">
+            <h3><%= content.latestUpdate.title2%></h3>
+            <p><%= content.latestUpdate.content2%></p>
+		  </div><!--close sidebar_item--> 
+        </div><!--close sidebar-->  		
+      </div><!--close sidebar_container-->		  
+	 
+	  <div id="content">
+        <div class="content_item">
+		  <h1><%= content.bodycontent.title%></h1>
+	      <p><%= content.bodycontent.content%></p>
+			<div class="button_small">
+				<a href="#"><%= content.bodycontent.btnTxt%></a>
+			</div><!--close button_small-->
+		</div><!--close content_item-->
+      </div><!--close content-->   
+	
+	  <div id="content_blue">
+	    <div class="content_blue_container_box">
+		  <h4><%= content.contentbule.blogUpdate.title%></h4>
+	      <p> <%= content.contentbule.blogUpdate.desc%></p>
+		  <div class="readmore">
+		    <a href="#"><%= content.bodycontent.btnTxt%></a>
+		  </div><!--close readmore-->
+	    </div><!--close content_blue_container_box-->
+        <div class="content_blue_container_box">
+         <h4><%= content.contentbule.wxUpdate.title%></h4>
+	      <p><%= content.contentbule.wxUpdate.desc%></p>
+	      <div class="readmore">
+		    <a href="#"><%= content.bodycontent.btnTxt%></a>
+		  </div><!--close readmore-->
+	    </div><!--close content_blue_container_box-->
+        <div class="content_blue_container_boxl">
+		  <h4><%= content.contentbule.projectUpdate.title%></h4>
+	      <p><%= content.contentbule.projectUpdate.desc%></p>
+	      <div class="readmore">
+		    <a href="#"><%= content.bodycontent.btnTxt%></a>
+		  </div><!--close readmore-->	  
+	    </div><!--close content_blue_container_box1-->      
+	    <br style="clear:both"/>
+      </div><!--close content_blue--> 	
+	</div><!--close site_content--> 
+
