@@ -1,5 +1,6 @@
 'use strict';
 const regTest = require('../../../models/regTest')();
+const Utils = require('../../../models/Utils');
 const Logger = require('logger-romens');
 let   logger = new Logger(__logConfig);
 exports.getIndex = function(args, res, next) {
@@ -24,11 +25,22 @@ exports.getIndex = function(args, res, next) {
    const Menubar = require("../../../local/local").menubar;
    const Content = require("../../../local/local").maincontent;
    const Footer = require("../../../local/local").footer;
+   const TodayNews = require("../../../local/local").todayNews;
    let header = Header[lang];
    let menubar = Menubar[lang];
    let content = Content[lang];
    let footer = Footer[lang];
-   res.render(style+'/'+'index.ejs',{header:header,menubar:menubar,content:content,footer:footer})
+   let todays = TodayNews[lang];
+   let limitTailNum = Utils.getLimitTailNum();
+   todays.limitTailNum = limitTailNum
+   res.render(style+'/'+'index.ejs',
+       {
+           header:header,
+           menubar:menubar,
+           content:content,
+           footer:footer,
+           todays:todays,
+       })
 }
 
 exports.getLogin = function(args, res, next) {
