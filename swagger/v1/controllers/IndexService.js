@@ -2,14 +2,17 @@
 const regTest = require('../../../models/regTest')();
 const Utils = require('../../../models/Utils');
 const Logger = require('logger-romens');
+const moment = require('moment');
 let   logger = new Logger(__logConfig);
-exports.getIndex = function(args, res, next) {
+exports.getIndex = function(args, req, res, next) {
   /**
    * 主页接口
    * 展示默认主页接口
    *
    * no response value expected for this operation
    **/
+   let ip = Utils.getReqInfo(req).ip;
+   logger.debug("ip",ip);
    let lang = args.pageLang.value;
    let style = args.pageStyle.value;
    logger.debug("enter info getIndex lang="+lang+",style="+style);
@@ -33,9 +36,9 @@ exports.getIndex = function(args, res, next) {
    let todays = TodayNews[lang];
    let limitTailNum = Utils.getLimitTailNum();
    todays.limitTailNum = limitTailNum;
-   Utils.getTodayWeather(function(err,weatherData){
+   Utils.getTodayWeather(ip,function(err,weatherData){
        if(err){
-           todays.weatherData = "NO DATA(暂无数据)";
+           todays.weatherData = moment().format('YYYY-MM-DD')+":NO DATA(暂无数据)";
        }else{
            todays.weatherData = weatherData;
        }
