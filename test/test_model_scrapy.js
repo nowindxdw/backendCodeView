@@ -21,9 +21,10 @@ describe(" unit tests for scrapy", function(){
             this.timeout(10000);
             logger.trace('start test scrapy.start');
             var trackList = [
-                'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
+                // 'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
                 //bosszhipin
                 //neitui
+                "https://tianqi.2345.com/today-56294.htm"//weather
             ];
             scrapyModel.start(trackList,function(err,result){
                 if(err){
@@ -39,7 +40,7 @@ describe(" unit tests for scrapy", function(){
         /**
          * @static 测试translateRecruit()方法
          */
-        it(".translateRecruit()", sinon.test(function(done){
+        xit(".translateRecruit()", sinon.test(function(done){
             this.timeout(10000);
             scrapyModel.translateRecruitLagou(testData[0],'nodejs',function(err,result){
                     done();
