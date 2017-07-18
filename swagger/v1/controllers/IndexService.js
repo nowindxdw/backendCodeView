@@ -32,15 +32,22 @@ exports.getIndex = function(args, res, next) {
    let footer = Footer[lang];
    let todays = TodayNews[lang];
    let limitTailNum = Utils.getLimitTailNum();
-   todays.limitTailNum = limitTailNum
-   res.render(style+'/'+'index.ejs',
-       {
-           header:header,
-           menubar:menubar,
-           content:content,
-           footer:footer,
-           todays:todays,
-       })
+   todays.limitTailNum = limitTailNum;
+   Utils.getTodayWeather(function(err,weatherData){
+       if(err){
+           todays.weatherData = "NO DATA(暂无数据)";
+       }else{
+           todays.weatherData = weatherData;
+       }
+       res.render(style+'/'+'index.ejs',
+           {
+               header:header,
+               menubar:menubar,
+               content:content,
+               footer:footer,
+               todays:todays,
+           })
+   })
 }
 
 exports.getLogin = function(args, res, next) {

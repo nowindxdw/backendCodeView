@@ -26,6 +26,7 @@ module.exports = {
     },
 
     getTodayWeather: function(callback){
+        logger.trace('Enter into getTodayWeather');
         var api = require('../interfaces/baiduApi/api.js');
         var config = require("config");
         var ak = config.get("baiduAK");
@@ -56,7 +57,7 @@ module.exports = {
                 }catch(err){
                     return callback(err)
                 }
-                // logger.debug(weatherObj);
+                logger.debug(weatherObj);
                 callback(null,weatherObj);
             })
         })
