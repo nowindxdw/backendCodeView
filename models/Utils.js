@@ -8,6 +8,15 @@ const moment = require('moment');
 
 module.exports = {
 
+    getReqInfo:function(req){
+      var ip = req.ip && req.ip.split(':').pop();
+      if(ip=="127.0.0.1"||"0.0.0.0"){
+          ip = "125.71.135.3"//四川 成都 电信
+      }
+      return {
+          ip:ip
+      }
+    },
     //任意sql语句
     getLimitTailNum: function () {
         logger.trace('Enter into getLimitTailNum');
@@ -25,12 +34,12 @@ module.exports = {
         return limitNumMap[weekdayNo];
     },
 
-    getTodayWeather: function(callback){
+    getTodayWeather: function(ip,callback){
         logger.trace('Enter into getTodayWeather');
         var api = require('../interfaces/baiduApi/api.js');
         var config = require("config");
         var ak = config.get("baiduAK");
-        api.getIP("",ak,"",function(err,result){
+        api.getIP(ip,ak,"",function(err,result){
             if(err){
                 return callback(err);
             }

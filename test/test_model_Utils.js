@@ -28,7 +28,8 @@ describe(" unit tests for Utils", function(){
         it(".getTodayWeather()", function(done) {
             this.timeout(10000);
             logger.trace('start test Utils.getTodayWeather');
-            Utils.getTodayWeather(function(err,result){
+            var ip = "";
+            Utils.getTodayWeather(ip,function(err,result){
                 if(err){
                     logger.error(err.stack);
                 }else{

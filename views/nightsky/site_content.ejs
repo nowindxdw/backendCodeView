@@ -41,11 +41,16 @@
 		  <div class="content_container">
 			  <p><%= todays.weather%></p>
 			  <div class="button">
+				  <%if (typeof(todays.weatherData)=='string'){%>
+				  <a href="#"><%= todays.weatherData%>
+				  </a>
+				  <%}else{%>>
 				  <a href="#"><%= todays.weatherData.results[0].currentCity%>:
 					  <%= todays.weatherData.results[0].weather_data[0].date%><br>
                       <%= todays.weatherData.results[0].weather_data[0].weather%>
                       (<%= todays.weatherData.results[0].weather_data[0].temperature%>)
 				  </a>
+				  <%}%>>
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
 		  <div class="content_container">
