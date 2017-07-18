@@ -25,5 +25,18 @@ describe(" unit tests for Utils", function(){
                 logger.debug(limitTailNum);
         })
 
+        it(".getTodayWeather()", function(done) {
+            this.timeout(10000);
+            logger.trace('start test Utils.getTodayWeather');
+            Utils.getTodayWeather(function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                }else{
+                    logger.debug(result);
+                }
+                done();
+            });
+        })
+
     });
 });

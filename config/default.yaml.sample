@@ -25,7 +25,8 @@ logger:
 
 # 本地化设置
 local: cn              # cn中文，en英文
-
+# baidu ak
+baiduAK: 299c2196c6beebca94cc5fde79fe94ce     # baidu api ak
 # redis设置
 redis:
     host: 127.0.0.1
