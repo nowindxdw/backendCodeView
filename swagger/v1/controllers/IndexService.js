@@ -42,14 +42,22 @@ exports.getIndex = function(args, req, res, next) {
        }else{
            todays.weatherData = weatherData;
        }
-       res.render(style+'/'+'index.ejs',
-           {
-               header:header,
-               menubar:menubar,
-               content:content,
-               footer:footer,
-               todays:todays,
-           })
+       Utils.getTodayCDNews(function(err,newsData){
+           if(err){
+               todays.newsData = "NO DATA（暂无数据）";
+           }else{
+               todays.newsData = newsData;
+           }
+           res.render(style+'/'+'index.ejs',
+               {
+                   header:header,
+                   menubar:menubar,
+                   content:content,
+                   footer:footer,
+                   todays:todays,
+               })
+       })
+
    })
 }
 

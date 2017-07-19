@@ -7,7 +7,11 @@ const logger = new Logger(__logConfig);
 const moment = require('moment');
 
 module.exports = {
-
+    /**
+     * 获取请求者的ip，测试环境下默认请求四川成都电信ip
+     * @param req
+     * @returns {{ip: (string|T|*)}}
+     */
     getReqInfo:function(req){
       var ip = req.ip && req.ip.split(':').pop();
       if(ip=="127.0.0.1"||"0.0.0.0"){
@@ -17,7 +21,10 @@ module.exports = {
           ip:ip
       }
     },
-    //任意sql语句
+    /**
+     * 获取今日限行数据
+     * @returns {*}
+     */
     getLimitTailNum: function () {
         logger.trace('Enter into getLimitTailNum');
         var today = moment().format("YYYY-MM-DD");
@@ -33,7 +40,11 @@ module.exports = {
         }
         return limitNumMap[weekdayNo];
     },
-
+    /**
+     * 获取今日气象数据
+     * @param ip
+     * @param callback
+     */
     getTodayWeather: function(ip,callback){
         logger.trace('Enter into getTodayWeather');
         var api = require('../interfaces/baiduApi/api.js');
@@ -70,6 +81,28 @@ module.exports = {
                 callback(null,weatherObj);
             })
         })
+    },
+    /**
+     * 获取今日新闻数据（大成网）
+     * @param callback
+     */
+    getTodayCDNews :function(callback){
+        var scrapyModel = require('../models/scrapy')();
+        var trackList = [
+            "http://cd.qq.com/"//cd news
+        ];
+        scrapyModel.startGBKUrl(trackList,function(err,result){
+            if(err){
+                logger.error(err.stack);
+                return callback(err);
+            }
+            scrapyModel.translateCDNews(result[0],function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                    return callback(err);
+                }
+                callback(null,result);
+            })
+        })
     }
-
 };

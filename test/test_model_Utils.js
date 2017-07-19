@@ -38,6 +38,17 @@ describe(" unit tests for Utils", function(){
                 done();
             });
         })
-
+        it(".getTodayCDNews()", function(done) {
+            this.timeout(10000);
+            logger.trace('start test Utils.getTodayCDNews');
+            Utils.getTodayCDNews(function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                }else{
+                    logger.debug(result);
+                }
+                done();
+            });
+        })
     });
 });

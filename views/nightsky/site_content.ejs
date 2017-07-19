@@ -44,13 +44,29 @@
 				  <%if (typeof(todays.weatherData)=='string'){%>
 				  <a href="#"><%= todays.weatherData%>
 				  </a>
-				  <%}else{%>>
+				  <%}else{%>
 				  <a href="#"><%= todays.weatherData.results[0].currentCity%>:
 					  <%= todays.weatherData.results[0].weather_data[0].date%><br>
                       <%= todays.weatherData.results[0].weather_data[0].weather%>
                       (<%= todays.weatherData.results[0].weather_data[0].temperature%>)
 				  </a>
-				  <%}%>>
+				  <%}%>
+			  </div><!--close button_small-->
+		  </div><!--close content_container-->
+		  <div class="content_container">
+			  <p><%= todays.news%></p>
+			  <div class="button">
+                  <%if (typeof(todays.newsData)=='string'){%>
+				  <a href="#"><%= todays.newsData%>
+				  </a>
+                  <%}else{%>
+					  <% for(var i=0;i<todays.newsData.length;i++){%>
+					  <% var item = todays.newsData[i]%>
+					  <a href="<%=item.href%>">
+						  <%= item.title%>
+					  </a></br>
+					  <%}%>
+                  <%}%>
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
 		  <div class="content_container">
