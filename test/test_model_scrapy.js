@@ -17,7 +17,7 @@ describe(" unit tests for scrapy", function(){
         /**
          * @static 测试scrapy.start()方法
          */
-        it(".start()", sinon.test(function(done) {
+        xit(".start()", sinon.test(function(done) {
             this.timeout(10000);
             logger.trace('start test scrapy.start');
             var trackList = [
@@ -26,16 +26,36 @@ describe(" unit tests for scrapy", function(){
                 //neitui
                 "https://tianqi.2345.com/today-56294.htm"//weather
             ];
-            scrapyModel.start(trackList,function(err,result){
-                if(err){
-                    logger.error(err.stack);
-                }else{
-                    logger.debug(result);
-                    testData = result;
-                }
-                done();
+                scrapyModel.start(trackList,function(err,result){
+                    if(err){
+                        logger.error(err.stack);
+                    }else{
+                        // logger.debug(result);
+                        testData = result;
+                    }
+                    done();
+                })
             })
-        })
+        );
+        it(".start()", sinon.test(function(done) {
+                this.timeout(10000);
+                logger.trace('start test scrapy.start');
+                var trackList = [
+                    // 'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
+                    //bosszhipin
+                    //neitui
+                    "http://cd.qq.com/"//weather
+                ];
+                scrapyModel.startGBKUrl(trackList,function(err,result){
+                    if(err){
+                        logger.error(err.stack);
+                    }else{
+                        // logger.debug(result);
+                        testData = result;
+                    }
+                    done();
+                })
+            })
         );
         /**
          * @static 测试translateRecruit()方法
@@ -43,6 +63,16 @@ describe(" unit tests for scrapy", function(){
         xit(".translateRecruit()", sinon.test(function(done){
             this.timeout(10000);
             scrapyModel.translateRecruitLagou(testData[0],'nodejs',function(err,result){
+                    done();
+                })
+            })
+        )
+        /**
+         * @static 测试translateRecruit()方法
+         */
+        it(".translateRecruit()", sinon.test(function(done){
+                this.timeout(10000);
+                scrapyModel.translateCDNews(testData[0],function(err,result){
                     done();
                 })
             })
