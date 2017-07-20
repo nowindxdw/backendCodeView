@@ -34,12 +34,9 @@
         <div class="content_item">
 		  <h1><%= content.bodycontent.title%></h1>
 	      <p><%= content.bodycontent.content%></p>
-			<div class="button_small">
-				<a href="#"><%= content.bodycontent.btnTxt%></a>
-			</div><!--close button_small-->
 		</div><!--close content_item-->
 		  <div class="content_container">
-			  <p><%= todays.weather%></p>
+			  <p class="button_small"><%= todays.weather%></p>
 			  <div class="button">
 				  <%if (typeof(todays.weatherData)=='string'){%>
 				  <a href="#"><%= todays.weatherData%>
@@ -54,7 +51,7 @@
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
 		  <div class="content_container">
-			  <p><%= todays.news%></p>
+			  <p class="button_small"><%= todays.news%></p>
 			  <div class="button">
                   <%if (typeof(todays.newsData)=='string'){%>
 				  <a href="#"><%= todays.newsData%>
@@ -70,9 +67,25 @@
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
 		  <div class="content_container">
-			  <p><%= todays.limitCarNo%></p>
-			  <div class="button_small">
+			  <p class="button_small"><%= todays.limitCarNo%></p>
+			  <div >
 				  <a href="#"><%= todays.limitTailNum%></a>
+			  </div><!--close button_small-->
+		  </div><!--close content_container-->
+		  <div class="content_container">
+			  <p class="button_small"><%= todays.baiduHot%></p>
+			  <div class="button">
+                  <%if (typeof(todays.baiduHots)=='string'){%>
+				  <a href="#"><%= todays.baiduHots%>
+				  </a>
+                  <%}else{%>
+					  <% for(var i=0;i<todays.baiduHots.length;i++){%>
+					  <% var item = todays.baiduHots[i]%>
+					  <a href="<%=item.href%>" target="view_window">
+						  <%= item.text%>
+					  </a></br>
+					  <%}%>
+                  <%}%>
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
       </div><!--close content-->

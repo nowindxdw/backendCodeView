@@ -24,13 +24,13 @@ describe(" unit tests for scrapy", function(){
                 // 'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
                 //bosszhipin
                 //neitui
-                "https://tianqi.2345.com/today-56294.htm"//weather
+                "https://www.bilibili.com/ranking#!/all/0/0/3/"//bilibili
             ];
                 scrapyModel.start(trackList,function(err,result){
                     if(err){
                         logger.error(err.stack);
                     }else{
-                        // logger.debug(result);
+                        logger.debug(result);
                         testData = result;
                     }
                     done();
@@ -44,13 +44,13 @@ describe(" unit tests for scrapy", function(){
                     // 'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
                     //bosszhipin
                     //neitui
-                    "http://cd.qq.com/"//weather
+                    "http://top.baidu.com/buzz?b=1&c=513&fr=topcategory_c513"//baidu hot
                 ];
                 scrapyModel.startGBKUrl(trackList,function(err,result){
                     if(err){
                         logger.error(err.stack);
                     }else{
-                        // logger.debug(result);
+                        logger.debug(result);
                         testData = result;
                     }
                     done();
@@ -70,9 +70,19 @@ describe(" unit tests for scrapy", function(){
         /**
          * @static 测试translateRecruit()方法
          */
-        it(".translateRecruit()", sinon.test(function(done){
+        xit(".translateRecruit()", sinon.test(function(done){
                 this.timeout(10000);
                 scrapyModel.translateCDNews(testData[0],function(err,result){
+                    done();
+                })
+            })
+        )
+        /**
+         * @static translateBaiduTops()方法
+         */
+        it(".translateBaiduTops()", sinon.test(function(done){
+                this.timeout(10000);
+                scrapyModel.translateBaiduTops(testData[0],function(err,result){
                     done();
                 })
             })

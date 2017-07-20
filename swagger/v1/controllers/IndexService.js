@@ -48,14 +48,21 @@ exports.getIndex = function(args, req, res, next) {
            }else{
                todays.newsData = newsData;
            }
-           res.render(style+'/'+'index.ejs',
-               {
-                   header:header,
-                   menubar:menubar,
-                   content:content,
-                   footer:footer,
-                   todays:todays,
-               })
+           Utils.getTodayHotBaidu(function(err,baiduHots){
+               if(err){
+                   todays.baiduHots = "NO DATA（暂无数据）";
+               }else{
+                   todays.baiduHots = baiduHots;
+               }
+               res.render(style+'/'+'index.ejs',
+                   {
+                       header:header,
+                       menubar:menubar,
+                       content:content,
+                       footer:footer,
+                       todays:todays,
+                   })
+           })
        })
 
    })

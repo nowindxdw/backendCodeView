@@ -115,6 +115,25 @@ module.exports = function () {
             }
             callback(null,{recruitObj:recruitObj})
         },
+
+        translateBaiduTops: function (data, callback) {
+            logger.trace('enter into translateWeiboTops');
+            var url = data[0];
+            logger.trace(url);
+            var $ = cheerio.load(data[1]);
+            var baiduTops = [];
+            var hotTops = $('#main > div.mainBody > div > table > tbody').find('.num-top');
+            hotTops.each(function(idx,element){
+                var $element = $(element);
+                var topItem = {
+                    text:$element.closest('tr').find('a').first().text(),
+                    href:$element.closest('tr').find('a').first().attr('href')
+                };
+                baiduTops.push(topItem);
+            });
+            // logger.trace(baiduTops);
+            callback(null, baiduTops);
+        },
     };
     return model;
 }
