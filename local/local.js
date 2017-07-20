@@ -137,13 +137,13 @@ const todayNews = {
     "cn":{
         "limitCarNo":"今日限行",
         "weather":"今日气象",
-        "hotWeibo":"今日热点",
+        "baiduHot":"今日热搜",
         "news":"今日要闻"
     },
     "en":{
-        "limitCarNo":"LIMIT TAILNUM",
-        "weather":"Today Weather",
-        "hotWeibo":"Hot Weibo",
+        "limitCarNo":"Limit_Tail",
+        "weather":"Weather",
+        "baiduHot":"baidu Hot!",
         "news":"News"
     }
 };

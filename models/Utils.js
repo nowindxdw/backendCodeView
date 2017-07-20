@@ -77,7 +77,7 @@ module.exports = {
                 }catch(err){
                     return callback(err)
                 }
-                logger.debug(weatherObj);
+                // logger.debug(weatherObj);
                 callback(null,weatherObj);
             })
         })
@@ -97,6 +97,26 @@ module.exports = {
                 return callback(err);
             }
             scrapyModel.translateCDNews(result[0],function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                    return callback(err);
+                }
+                callback(null,result);
+            })
+        })
+    },
+
+    getTodayHotBaidu: function(callback){
+        var scrapyModel = require('../models/scrapy')();
+        var trackList = [
+            "http://top.baidu.com/buzz?b=1&c=513&fr=topcategory_c513/"//cd news
+        ];
+        scrapyModel.startGBKUrl(trackList,function(err,result){
+            if(err){
+                logger.error(err.stack);
+                return callback(err);
+            }
+            scrapyModel.translateBaiduTops(result[0],function(err,result){
                 if(err){
                     logger.error(err.stack);
                     return callback(err);

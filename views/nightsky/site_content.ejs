@@ -72,6 +72,22 @@
 				  <a href="#"><%= todays.limitTailNum%></a>
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
+		  <div class="content_container">
+			  <p class="button_small"><%= todays.baiduHot%></p>
+			  <div class="button">
+                  <%if (typeof(todays.baiduHots)=='string'){%>
+				  <a href="#"><%= todays.baiduHots%>
+				  </a>
+                  <%}else{%>
+					  <% for(var i=0;i<todays.baiduHots.length;i++){%>
+					  <% var item = todays.baiduHots[i]%>
+					  <a href="<%=item.href%>" target="view_window">
+						  <%= item.text%>
+					  </a></br>
+					  <%}%>
+                  <%}%>
+			  </div><!--close button_small-->
+		  </div><!--close content_container-->
       </div><!--close content-->
 
 		<div id="content_blue">
