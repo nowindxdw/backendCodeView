@@ -53,11 +53,13 @@ const footer = {
     "cn":{
         "back":"返回主页",
         "Related":"友情链接",
+        "copyright":"Copyright©2017",
         "Dashboard":"控制台",
         "designer":"本网站由大维设计"
     },
     "en":{
         "back":"back Home",
+        "copyright":"Copyright©2017",
         "Related":"Related Web",
         "Dashboard":"Dashboard",
         "designer":"Designed by dawei"

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+
+<html xml:lang="<%= header.lang%>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title data-style="Bigg"><%= header.title%></title>
+<meta name="description" content="<%= header.description%>" />
+<meta name="robots" content="<%= header.keywords%>" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" id="child-theme-css" href="/bigg/css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" id="responsive-main-css-css" href="/bigg/css/responsive-main.min.css" type="text/css" media="all" />
+<link rel="stylesheet" id="responsive-css-css" href="/bigg/css/responsive.css" type="text/css" media="all" />
+<link rel="stylesheet" id="tb_styles-css" href="/bigg/css/tb-styles.min.css" type="text/css" media="all" />
+
+<script type="text/javascript" src="/bigg/js/jquery.js"></script>
+
+<script type="text/javascript">
+  jQuery(window).scroll(function (event) {
+	  	
+		var top = jQuery('#popular-upcoming').offset().top - jQuery(document).scrollTop();;
+		// what the y position of the scroll is
+		var y = jQuery(this).scrollTop();
+		// whether that's below the form
+		if (y >= top)  {
+		// if so, add the active class to popular-upcoming and remove from content
+		jQuery('.page-nav-popular-posts').addClass('active');
+		jQuery('.page-nav-top-posts').removeClass('active');
+		} else {
+		// otherwise remove it
+		jQuery('.page-nav-popular-posts').removeClass('active');
+		jQuery('.page-nav-top-posts').addClass('active');
+	   }
+  });
+  
+  jQuery(document).ready(function (){
+  jQuery('#popular-scroll').click(function (){
+            //jQuery(this).animate(function(){
+                jQuery('html, body').animate({
+                    scrollTop: jQuery('#popular-upcoming').offset().top
+                     }, 2000);
+            //});
+        });
+		
+		jQuery('#feature-scroll').click(function (){
+            //jQuery(this).animate(function(){
+                jQuery('html, body').animate({
+                    scrollTop: jQuery('#inner').offset().top
+                     }, 2000);
+            //});
+        });
+		  });
+	  </script>
+</head>
