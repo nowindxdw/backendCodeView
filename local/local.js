@@ -55,7 +55,7 @@ const footer = {
         "Related":"友情链接",
         "copyright":"Copyright©2017",
         "Dashboard":"控制台",
-        "designer":"本网站由大维设计"
+        "designer":"本网站由dawei设计"
     },
     "en":{
         "back":"back Home",
