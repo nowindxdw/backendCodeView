@@ -68,13 +68,51 @@ exports.getIndex = function(args, req, res, next) {
    })
 }
 
+exports.getContact = function(args, res, next) {
+    /**
+     * 主页联系方式接口
+     * 展示主页联系方式页面
+     *
+     * pageLang String 页面语言 (optional)
+     * pageStyle String 页面风格 (optional)
+     * no response value expected for this operation
+     **/
+    res.end();
+}
+
+exports.getLife = function(args, res, next) {
+    /**
+     * 主页生活接口
+     * 展示主页生活页面
+     *
+     * pageLang String 页面语言 (optional)
+     * pageStyle String 页面风格 (optional)
+     * no response value expected for this operation
+     **/
+    res.end();
+}
+
 exports.getLogin = function(args, res, next) {
-  /**
-   * 主页登录接口
-   * 根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息
-   *
-   * no response value expected for this operation
-   **/
-  res.end();
+    /**
+     * 主页登录接口
+     * 根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息
+     *
+     * pageLang String 页面语言 (optional)
+     * pageStyle String 页面风格 (optional)
+     * no response value expected for this operation
+     **/
+    res.end();
+}
+
+exports.getSkill = function(args, res, next) {
+    /**
+     * 主页技艺接口
+     * 展示主页技艺页面
+     *
+     * pageLang String 页面语言 (optional)
+     * pageStyle String 页面风格 (optional)
+     * no response value expected for this operation
+     **/
+    res.end();
 }
 

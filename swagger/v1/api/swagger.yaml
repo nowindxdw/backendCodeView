@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.12"
+  version: "0.0.13"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -24,6 +24,105 @@ paths:
       summary: "主页接口"
       description: "展示默认主页接口"
       operationId: "getIndex"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Index"
+  /index/skills:
+    get:
+      tags:
+      - "index"
+      summary: "主页技艺接口"
+      description: "展示主页技艺页面"
+      operationId: "getSkill"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Index"
+  /index/life:
+    get:
+      tags:
+      - "index"
+      summary: "主页生活接口"
+      description: "展示主页生活页面"
+      operationId: "getLife"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pageLang"
+        in: "query"
+        description: "页面语言"
+        required: false
+        type: "string"
+      - name: "pageStyle"
+        in: "query"
+        description: "页面风格"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Index"
+  /index/contact:
+    get:
+      tags:
+      - "index"
+      summary: "主页联系方式接口"
+      description: "展示主页联系方式页面"
+      operationId: "getContact"
       consumes:
       - "application/json"
       - "multipart/form-data"

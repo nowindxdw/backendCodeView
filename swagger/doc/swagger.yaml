@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.12"
+  version: "0.0.13"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -25,6 +25,57 @@ paths:
       summary: "主页接口"
       description: "展示默认主页接口"
       operationId: "getIndex"
+      parameters:
+        - $ref: "#/parameters/pageLang"
+        - $ref: "#/parameters/pageStyle"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /index/skills:
+    get:
+      tags:
+      - "index"
+      summary: "主页技艺接口"
+      description: "展示主页技艺页面"
+      operationId: "getSkill"
+      parameters:
+        - $ref: "#/parameters/pageLang"
+        - $ref: "#/parameters/pageStyle"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /index/life:
+    get:
+      tags:
+      - "index"
+      summary: "主页生活接口"
+      description: "展示主页生活页面"
+      operationId: "getLife"
+      parameters:
+        - $ref: "#/parameters/pageLang"
+        - $ref: "#/parameters/pageStyle"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /index/contact:
+    get:
+      tags:
+      - "index"
+      summary: "主页联系方式接口"
+      description: "展示主页联系方式页面"
+      operationId: "getContact"
       parameters:
         - $ref: "#/parameters/pageLang"
         - $ref: "#/parameters/pageStyle"
