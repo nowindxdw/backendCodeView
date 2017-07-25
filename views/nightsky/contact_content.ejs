@@ -1,0 +1,48 @@
+<div id="site_content">
+    <div id="banner_image">
+        <div id="slider-wrapper">
+            <div id="slider" class="nivoSlider">
+                <img src="/nightsky/images/home_1.jpg" alt="" />
+                <img src="/nightsky/images/home_2.jpg" alt="" />
+            </div><!--close slider-->
+        </div><!--close slider_wrapper-->
+    </div><!--close banner_image-->
+
+    <div class="sidebar_container">
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h2><%= content.welcome.title%></h2>
+                <p><%= content.welcome.content%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h2><%= content.latestUpdate.title%></h2>
+                <h3><%= content.latestUpdate.title1%></h3>
+                <p><%= content.latestUpdate.content1%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h3><%= content.latestUpdate.title2%></h3>
+                <p><%= content.latestUpdate.content2%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+    </div><!--close sidebar_container-->
+    <div id="content">
+        <div class="content_item">
+		  <div class="form_settings">
+            <h2>Contact Us</h2>
+            <p>A contact form requires some method of emailing the contents of the form to an email address. The most common way to do this is to use some kind of server script (PHP for example). I would be happy to send you the PHP code for the contact form for your chosen template, I charge £20.00GBP for this. Simply <a href="http://www.araynordesign.co.uk/contact.php">contact me</a> for more details.</p>
+			<p>&nbsp;</p>
+			<p><span>Name</span><input class="contact" type="text" name="your_name" value="" /></p>
+			<p><span>Email Address</span><input class="contact" type="text" name="your_email" value="" /></p>
+			<p><span>Message</span><textarea class="contact textarea" rows="8" cols="50" name="your_message"></textarea></p>
+            <p style="padding: 10px 0 10px 0;">Please enter the answer to this simple maths question (to prevent spam)</p>
+			<p><span>Maths Question: 9 + 3 = ?</span><input type="text" name="user_answer" class="contact" /><input type="hidden" name="answer" value="4d76fe9775" /></p>
+            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="Send" /></p>
+          </div><!--close form_settings-->
+		</div><!--close content_item-->
+      </div><!--close content-->   
+
+</div>

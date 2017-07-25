@@ -134,7 +134,10 @@ const maincontent = {
         }
     }
 };
-
+const contactcontent ={
+    "cn":{},
+    "en":{}
+};
 const todayNews = {
     "cn":{
         "limitCarNo":"今日限行",
@@ -157,3 +160,4 @@ module.exports.menubar = menubar;
 module.exports.footer = footer;
 module.exports.maincontent = maincontent;
 module.exports.todayNews = todayNews;
+module.exports.contactcontent = contactcontent;

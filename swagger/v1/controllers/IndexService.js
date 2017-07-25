@@ -68,7 +68,7 @@ exports.getIndex = function(args, req, res, next) {
    })
 }
 
-exports.getContact = function(args, res, next) {
+exports.getContact = function(args, req, res, next) {
     /**
      * 主页联系方式接口
      * 展示主页联系方式页面
@@ -77,7 +77,38 @@ exports.getContact = function(args, res, next) {
      * pageStyle String 页面风格 (optional)
      * no response value expected for this operation
      **/
-    res.end();
+    let ip = Utils.getReqInfo(req).ip;
+    logger.debug("ip",ip);
+    let lang = args.pageLang.value;
+    let style = args.pageStyle.value;
+    logger.debug("enter info getIndex lang="+lang+",style="+style);
+    //数据校验
+    if (!regTest.testLang(lang)) {
+        lang = __localConfig;
+    }
+    if (!regTest.testStyle(style)) {
+        style = "nightsky";
+    }
+    logger.trace(lang);
+    const Header = require("../../../local/local").header;
+    const Menubar = require("../../../local/local").menubar;
+    const Content = require("../../../local/local").maincontent;
+    const Footer = require("../../../local/local").footer;
+    const Contact = require("../../../local/local").contactcontent;
+    let header = Header[lang];
+    let menubar = Menubar[lang];
+    let content = Content[lang];
+    let footer = Footer[lang];
+    let contact = Contact[lang];
+    res.render(style+'/'+'contact.ejs',
+        {
+            header:header,
+            menubar:menubar,
+            content:content,
+            footer:footer,
+            contact:contact
+        })
+
 }
 
 exports.getLife = function(args, res, next) {
