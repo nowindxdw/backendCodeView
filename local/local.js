@@ -135,8 +135,22 @@ const maincontent = {
     }
 };
 const contactcontent ={
-    "cn":{},
-    "en":{}
+    "cn":{
+        "title":"联系我",
+        "desc":"青山不改，绿水长流。寄语片言，心念长存。",
+        "name":"姓名",
+        "email":"邮箱",
+        "message":"留言",
+        "send":"发送"
+    },
+    "en":{
+        "title":"Contact Me",
+        "desc":"Leave your suggestions here , best wishes for you",
+        "name":"name",
+        "email":"email",
+        "message":"message",
+        "send":"send"
+    }
 };
 const todayNews = {
     "cn":{

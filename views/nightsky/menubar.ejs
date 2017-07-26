@@ -28,14 +28,16 @@
             localStorage.langSelectedIndex = langObj.selectedIndex;
             localStorage.langSelectedValue = lang;
             var style = localStorage.styleSelectedValue||"";
-            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+            var urlpre = window.location.href.split('?')[0];
+            window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
         }
         function styleChange(){
             var style = styleObj.options[styleObj.selectedIndex].value;
             localStorage.styleSelectedIndex = styleObj.selectedIndex;
             localStorage.styleSelectedValue = style;
             var lang = localStorage.langSelectedValue||"";
-            window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
+            var urlpre = window.location.href.split('?')[0];
+            window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
         }
         window.onload = function(){
             if( !localStorage.styleSelectedIndex){
