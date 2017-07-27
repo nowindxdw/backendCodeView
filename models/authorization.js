@@ -21,7 +21,7 @@ module.exports = function(isOn) {
         var indexPath = /^\/v1\/api\/index/;
         var loginPagePath = /^\/v1\/api\/login/;
         var loginPath = /^\/v1\/api\/auth/;
-        var mailPath = /^\/v1\/api\/sendMail/;
+        var mailPath = /^\/v1\/api\/sendmail/;
         if (!apiPath.test(req.path)) {
             return next();
         }

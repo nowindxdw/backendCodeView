@@ -73,13 +73,20 @@
         }
         $(".submit").val("正在发送，请稍等！/message is sending,please wait");
 
-        var postData = "name=" + name + "&email=" + email + "&message=" + message;
+        var postData = JSON.stringify(
+            {
+                name:name,
+                email:email,
+                message:message
+            }
+        );
 
         //向后台发送处理数据
         $.ajax({
             type: "POST", //用POST方式传输
-            dataType: "text", //数据格式:JSON
-            url: '/v1/api/sendEmail', //目标地址
+            dataType: "json", //数据格式:JSON
+            contentType: "application/json",
+            url: '/v1/api/sendmail', //目标地址
             data: postData,
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("发送失败，请联系在线客服！/send fail");

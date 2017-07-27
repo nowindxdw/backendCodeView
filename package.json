@@ -47,6 +47,7 @@
     "moment": "~2.15.2",
     "msexcel-builder": "=0.0.2",
     "mysql": "^2.11.1",
+    "nodemailer": "^4.0.1",
     "path": "^0.12.7",
     "redis-connection-factory-romens": "^1.0.0",
     "reverse-mustache": "^1.8.0",

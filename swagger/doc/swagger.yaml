@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.13"
+  version: "0.0.14"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -170,7 +170,27 @@ paths:
          $ref: "#/responses/Standard400ErrorResponse"
         500:
          $ref: "#/responses/Standard500ErrorResponse"
-
+  /sendmail:
+    post:
+      tags:
+      - "contact"
+      summary: "发送邮件"
+      description: "发送邮件信息"
+      operationId: "sendContactMail"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "发送信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Mailbody"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
   /fileExport:
     post:
       tags:
@@ -339,8 +359,22 @@ definitions:
   search:
     type: "string"
     description: "搜索模糊匹配关键字"
-
-
+  Mailbody:
+    type: "object"
+    required:
+    - "name"
+    - "message"
+    properties:
+      name:
+        type: "string"
+        description: "名字"
+      email:
+        type: "string"
+        description: "邮箱地址"
+      message:
+        type: "string"
+        description: "信息"
+    description: "邮件内容"
   AuthInfo:
     type: "object"
     required:

@@ -44,7 +44,12 @@ auth:
     issuer: backend.dawei     # 签发者
     expire: 7200              # 失效时间，单位：秒
     secret: romens            # 校验码
-
+# email配置
+email:
+    fromUser : "robot@daweixiao.top"
+    passWord : "Admin321"
+    host :     "smtp.mxhichina.com"
+    port :     465
 ##############################################
 # 以下为高级配置，生产环境中严禁修改
 ##############################################
