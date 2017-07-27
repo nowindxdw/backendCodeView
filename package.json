@@ -1,7 +1,7 @@
 {
   "name": "Recruitments",
-  "version": "0.0.2",
-  "description": "后端演示",
+  "version": "0.0.3",
+  "description": "daweiHome",
   "main": "app.js",
   "scripts": {
     "prestart": "npm install",
