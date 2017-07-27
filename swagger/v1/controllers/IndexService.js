@@ -61,6 +61,7 @@ exports.getIndex = function(args, req, res, next) {
                        content:content,
                        footer:footer,
                        todays:todays,
+                       current:'index'
                    })
            })
        })
@@ -106,7 +107,8 @@ exports.getContact = function(args, req, res, next) {
             menubar:menubar,
             content:content,
             footer:footer,
-            contact:contact
+            contact:contact,
+            current:'contact'
         })
 
 }
