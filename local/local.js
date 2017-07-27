@@ -4,6 +4,7 @@ const cn = {
     "SUCCESS":"操作成功！",
     "LOGIN_FAILED":"用户名或密码错误，登录失败",
     "UNAUTHORIZED":"未被授权的操作",
+    "BAD_REQUEST":"请求参数错误",
     "NOT_FOUND":"没有找到对应的资源",
     "INTER_ERR":"服务端错误，登出操作失败"
 };
@@ -11,6 +12,7 @@ const en = {
     "SUCCESS":"success!!",
     "LOGIN_FAILED":"username or password is wrong,login failed",
     "UNAUTHORIZED":"Not permitted operation ",
+    "BAD_REQUEST":"bad request",
     "NOT_FOUND":"Require not exist resources",
     "INTER_ERR":"Unexpected error in server "
 };
@@ -134,7 +136,24 @@ const maincontent = {
         }
     }
 };
-
+const contactcontent ={
+    "cn":{
+        "title":"联系我",
+        "desc":"青山不改，绿水长流。寄语片言，心念长存。",
+        "name":"姓名",
+        "email":"邮箱",
+        "message":"留言",
+        "send":"发送"
+    },
+    "en":{
+        "title":"Contact Me",
+        "desc":"Leave your suggestions here , best wishes for you",
+        "name":"name",
+        "email":"email",
+        "message":"message",
+        "send":"send"
+    }
+};
 const todayNews = {
     "cn":{
         "limitCarNo":"今日限行",
@@ -157,3 +176,4 @@ module.exports.menubar = menubar;
 module.exports.footer = footer;
 module.exports.maincontent = maincontent;
 module.exports.todayNews = todayNews;
+module.exports.contactcontent = contactcontent;

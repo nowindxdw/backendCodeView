@@ -45,6 +45,9 @@ module.exports = function(){
         testStyle:function(style){
             return STYLE_REG.test(style);
         },
+        testEmail:function(email){
+            return EMAIL_REG.test(email);
+        },
     };
 
     return regTest;

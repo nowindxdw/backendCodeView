@@ -1,0 +1,102 @@
+<div id="site_content">
+    <div id="banner_image">
+        <div id="slider-wrapper">
+            <div id="slider" class="nivoSlider">
+                <img src="/nightsky/images/home_1.jpg" alt="" />
+                <img src="/nightsky/images/home_2.jpg" alt="" />
+            </div><!--close slider-->
+        </div><!--close slider_wrapper-->
+    </div><!--close banner_image-->
+
+    <div class="sidebar_container">
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h2><%= content.welcome.title%></h2>
+                <p><%= content.welcome.content%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h2><%= content.latestUpdate.title%></h2>
+                <h3><%= content.latestUpdate.title1%></h3>
+                <p><%= content.latestUpdate.content1%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+        <div class="sidebar">
+            <div class="sidebar_item">
+                <h3><%= content.latestUpdate.title2%></h3>
+                <p><%= content.latestUpdate.content2%></p>
+            </div><!--close sidebar_item-->
+        </div><!--close sidebar-->
+    </div><!--close sidebar_container-->
+    <div id="content">
+        <div class="content_item">
+		  <div class="form_settings">
+            <h2><%= contact.title%></h2>
+            <p><%= contact.desc%></p>
+			<p>&nbsp;</p>
+			<p><span><%= contact.name%></span><input class="contact" id='concact_name' type="text" name="your_name" value="" /></p>
+			<p><span><%= contact.email%></span><input class="contact"  id='concact_email' type="text" name="your_email" value="" /></p>
+			<p><span><%= contact.message%></span><textarea class="contact textarea" id='concact_msg' rows="8" cols="50" name="your_message"></textarea></p>
+            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" onclick="btnSend()" name="contact_submitted" value="<%= contact.send%>" /></p>
+          </div><!--close form_settings-->
+		</div><!--close content_item-->
+      </div><!--close content-->   
+
+</div>
+
+<script>
+    //提交数据
+    function btnSend() {
+        var name = $("#concact_name").val();//您的称呼
+        var email = $("#concact_email").val();//您的邮箱
+        var message = $("#concact_msg").val();//您的想法
+        var btnTxt =  $(".submit").val();
+        if (name.length == 0) {
+            alert("称呼不能为空!/name can't be empty");
+            return;
+        }
+        if (email.length == 0) {
+            alert("邮箱不能为空!/email can't be empty");
+            return;
+        }
+
+        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (!myreg.test(email)) {
+            alert('请输入有效的E_mail!/email is not valid');
+            return;
+        }
+
+        if (message.length < 10) {
+            alert("意见不能不能少于20个字符!/message can't be less 10 characters");
+            return;
+        }
+        $(".submit").val("正在发送，请稍等！/message is sending,please wait");
+
+        var postData = JSON.stringify(
+            {
+                name:name,
+                email:email,
+                message:message
+            }
+        );
+
+        //向后台发送处理数据
+        $.ajax({
+            type: "POST", //用POST方式传输
+            dataType: "json", //数据格式:JSON
+            contentType: "application/json",
+            url: '/v1/api/sendmail', //目标地址
+            data: postData,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("发送失败，请联系在线客服！/send fail");
+                $(".submit").val(btnTxt);
+            },
+            success: function (msg) {
+                $(".submit").val(btnTxt);
+                alert(msg);
+            }
+        });
+    }
+
+</script>

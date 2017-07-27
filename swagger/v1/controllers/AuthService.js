@@ -16,20 +16,20 @@ exports.deleteAuth = function(req,args, res, next) {
 
   logger.debug('req.user: ' + JSON.stringify(req.user));
     if(_.isUndefined(req.user) || _.isEmpty(req.user)) {
-        res.statusCode = 400;
+        res.statusCode = RETCODE.UNAUTHORIZED;
         return res.end(JSON.stringify({error: MSG.UNAUTHORIZED}|| {}, null, 2));
   }
   let userId = req.user.userId;
   return authModel.deleteAuth(userId)
     .then(result=>{
         logger.info("登出成功");
-        res.statusCode = 200;
+        res.statusCode = RETCODE.SUCCESS;
         res.setHeader('Content-Type', 'application/json');
         return res.end(JSON.stringify({msg: MSG.SUCCESS}|| {}, null, 2));
     })
     .catch(err=>{
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 500;
+        res.statusCode = RETCODE.INTER_ERR;
         return res.end(JSON.stringify({error: MSG.INTER_ERR}|| {}, null, 2));
     })
 };
@@ -51,7 +51,7 @@ exports.postAuth = function(args, res, next) {
     if (regTest.testOperatorUsername(username)) {
         logger.error('登录用户名格式有误, 请重新输入, username: ', username);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 403;
+        res.statusCode = RETCODE.UNAUTHORIZED;
         res.end(JSON.stringify({error: MSG.UNAUTHORIZED} || {}, null, 2));
         return;
     }

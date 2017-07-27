@@ -9,7 +9,7 @@ module.exports.getIndex = function getIndex (req, res, next) {
 };
 
 module.exports.getContact = function getContact (req, res, next) {
-    Index.getContact(req.swagger.params, res, next);
+    Index.getContact(req.swagger.params, req, res, next);
 };
 
 module.exports.getLife = function getLife (req, res, next) {
