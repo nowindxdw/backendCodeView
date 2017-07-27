@@ -76,14 +76,14 @@ const maincontent = {
         },
         "latestUpdate":{
             "title":"最近更新",
-            "title1":"2017年7月16日",
-            "content1":"站点样式更新改版",
-            "title2":"2017年7月6日",
-            "content2":"站点上线",
+            "title1":"2017年7月26日",
+            "content1":"新增联系我邮件功能",
+            "title2":"2017年7月16日",
+            "content2":"站点改样式",
 
         },
         "bodycontent":{
-            "title":"既来之，不醉不归",
+            "title":"有朋自远方来，不醉不归",
             "content":"浮生长恨欢娱少,肯爱千金轻一笑。为君持酒劝斜阳，且向花间留晚照。",
             "btnTxt":"更多内容"
         },
@@ -109,10 +109,10 @@ const maincontent = {
         },
         "latestUpdate":{
             "title":"latest Update",
-            "title1":"July 16",
-            "content1":"Website refresh style",
-            "title2":"July 6",
-            "content2":"Website start up online",
+            "title1":"July 26",
+            "content1":"Add page Contact Me ",
+            "title2":"July 16",
+            "content2":"Website refresh style",
 
         },
         "bodycontent":{
@@ -154,6 +154,14 @@ const contactcontent ={
         "send":"send"
     }
 };
+const skillcontent = {
+    "cn":{
+        "title":"技能"
+    },
+    "en":{
+        "title":"Skill"
+    }
+};
 const todayNews = {
     "cn":{
         "limitCarNo":"今日限行",
@@ -177,3 +185,4 @@ module.exports.footer = footer;
 module.exports.maincontent = maincontent;
 module.exports.todayNews = todayNews;
 module.exports.contactcontent = contactcontent;
+module.exports.skillcontent = skillcontent;

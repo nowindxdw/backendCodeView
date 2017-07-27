@@ -21,5 +21,5 @@ module.exports.getLogin = function getLogin (req, res, next) {
 };
 
 module.exports.getSkill = function getSkill (req, res, next) {
-    Index.getSkill(req.swagger.params, res, next);
+    Index.getSkill(req.swagger.params, req, res, next);
 };
