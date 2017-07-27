@@ -156,10 +156,30 @@ const contactcontent ={
 };
 const skillcontent = {
     "cn":{
-        "title":"技能"
+        "title":"技能",
+        "data":[
+            {"key":"Tensorflow","score":10},
+            {"key":"Android","score":30},
+            {"key":"jQuery","score":30},
+            {"key":"Java","score":50},
+            {"key":"python","score":60},
+            {"key":"mysql","score":80},
+            {"key":"nodejs","score":80},
+        ]
+
+
     },
     "en":{
-        "title":"Skill"
+        "title":"Skill",
+        "data":[
+            {"key":"Tensorflow","score":10},
+            {"key":"Android","score":30},
+            {"key":"jQuery","score":30},
+            {"key":"Java","score":50},
+            {"key":"python","score":60},
+            {"key":"mysql","score":80},
+            {"key":"nodejs","score":80},
+        ]
     }
 };
 const todayNews = {
