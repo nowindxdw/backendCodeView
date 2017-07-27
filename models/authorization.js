@@ -21,6 +21,7 @@ module.exports = function(isOn) {
         var indexPath = /^\/v1\/api\/index/;
         var loginPagePath = /^\/v1\/api\/login/;
         var loginPath = /^\/v1\/api\/auth/;
+        var mailPath = /^\/v1\/api\/sendMail/;
         if (!apiPath.test(req.path)) {
             return next();
         }
@@ -31,6 +32,9 @@ module.exports = function(isOn) {
             return next();
         }
         if (loginPagePath.test(req.path) && (req.method === 'GET')) {
+            return next();
+        }
+        if (mailPath.test(req.path) && (req.method === 'POST')) {
             return next();
         }
         var token = req.header('authorization');
