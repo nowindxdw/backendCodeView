@@ -4,10 +4,22 @@
 	  </div><!--close welcome-->
       <div id="menu_items">
 	    <ul id="menu">
-          <li class="current"><a href="/v1/api/index"><%= menubar.Home%></a></li>
-          <li><a href="Skill.html"><%= menubar.Skill%></a></li>
-          <li><a href="../../public/nightsky/testimonials.html"><%= menubar.Life%></a></li>
-          <li><a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+            <%if(current==='index'){%>
+            <li class='current' ><a href="/v1/api/index"><%= menubar.Home%></a></li>
+            <%}else{%>
+            <li ><a href="/v1/api/index"><%= menubar.Home%></a></li>
+            <%}%>
+            <%if(current==='skill'){%>
+            <li class ='current'> ><a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+            <%}else{%>
+            <li> ><a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+            <%}%>
+            <%if(current==='contact'){%>
+            <li class="current"><a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+            <%}else{%>
+            <li><a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+            <%}%>
+
           <li><select id="pageLang" onchange="langChange()">
                   <option value="cn">中文
                   <option value="en">English

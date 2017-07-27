@@ -61,6 +61,7 @@ exports.getIndex = function(args, req, res, next) {
                        content:content,
                        footer:footer,
                        todays:todays,
+                       current:'index'
                    })
            })
        })
@@ -106,7 +107,8 @@ exports.getContact = function(args, req, res, next) {
             menubar:menubar,
             content:content,
             footer:footer,
-            contact:contact
+            contact:contact,
+            current:'contact'
         })
 
 }
@@ -135,7 +137,7 @@ exports.getLogin = function(args, res, next) {
     res.end();
 }
 
-exports.getSkill = function(args, res, next) {
+exports.getSkill = function(args, req, res, next) {
     /**
      * 主页技艺接口
      * 展示主页技艺页面
@@ -144,6 +146,37 @@ exports.getSkill = function(args, res, next) {
      * pageStyle String 页面风格 (optional)
      * no response value expected for this operation
      **/
-    res.end();
+    let ip = Utils.getReqInfo(req).ip;
+    logger.debug("ip",ip);
+    let lang = args.pageLang.value;
+    let style = args.pageStyle.value;
+    logger.debug("enter info getIndex lang="+lang+",style="+style);
+    //数据校验
+    if (!regTest.testLang(lang)) {
+        lang = __localConfig;
+    }
+    if (!regTest.testStyle(style)) {
+        style = "nightsky";
+    }
+    logger.trace(lang);
+    const Header = require("../../../local/local").header;
+    const Menubar = require("../../../local/local").menubar;
+    const Content = require("../../../local/local").maincontent;
+    const Footer = require("../../../local/local").footer;
+    const Skill = require("../../../local/local").skillcontent;
+    let header = Header[lang];
+    let menubar = Menubar[lang];
+    let content = Content[lang];
+    let footer = Footer[lang];
+    let skill = Skill[lang];
+    res.render(style+'/'+'skill.ejs',
+        {
+            header:header,
+            menubar:menubar,
+            content:content,
+            footer:footer,
+            skill:skill,
+            current:'skill'
+        })
 }
 
