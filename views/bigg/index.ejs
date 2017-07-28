@@ -27,28 +27,37 @@
 	</select></li>
 
 </ul></div></div><!-- #site-nav -->
-<script type="text/JavaScript">
-  var langObj = document.getElementById("pageLang");
-  var styleObj = document.getElementById("pageStyle");
-  function langChange(){
-	  var lang = langObj.options[langObj.selectedIndex].value;
-	  localStorage.langSelectedIndex = langObj.selectedIndex;
-	  localStorage.langSelectedValue = lang;
-	  var style = localStorage.styleSelectedValue||"";
-	  window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
-  }
-  function styleChange(){
-	  var style = styleObj.options[styleObj.selectedIndex].value;
-	  localStorage.styleSelectedIndex = styleObj.selectedIndex;
-	  localStorage.styleSelectedValue = style;
-	  var lang = localStorage.langSelectedValue||"";
-	  window.location = "http://"+window.location.host+"/v1/api/index?pageLang="+lang+"&pageStyle="+style
-  }
-  window.onload = function(){
-	  styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
-	  langObj.options[ localStorage.langSelectedIndex ].selected = true;
-  }
-</script>
+	  <script type="text/JavaScript">
+          var langObj = document.getElementById("pageLang");
+          var styleObj = document.getElementById("pageStyle");
+          function langChange(){
+              var lang = langObj.options[langObj.selectedIndex].value;
+              localStorage.langSelectedIndex = langObj.selectedIndex;
+              localStorage.langSelectedValue = lang;
+              var style = localStorage.styleSelectedValue||"";
+              var urlpre = window.location.href.split('?')[0];
+              window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
+          }
+          function styleChange(){
+              var style = styleObj.options[styleObj.selectedIndex].value;
+              localStorage.styleSelectedIndex = styleObj.selectedIndex;
+              localStorage.styleSelectedValue = style;
+              var lang = localStorage.langSelectedValue||"";
+              var urlpre = window.location.href.split('?')[0];
+              window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
+          }
+          window.onload = function(){
+              if( !localStorage.styleSelectedIndex){
+                  localStorage.styleSelectedIndex = 0;
+              }
+              if( !localStorage.langSelectedIndex){
+                  localStorage.langSelectedIndex = 0;
+              }
+              styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
+              langObj.options[ localStorage.langSelectedIndex ].selected = true;
+          }
+	  </script>
+
 
 
 

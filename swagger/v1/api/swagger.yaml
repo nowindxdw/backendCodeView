@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.14"
+  version: "0.1.0"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -152,7 +152,7 @@ paths:
   /login:
     get:
       tags:
-      - "index"
+      - "auth"
       summary: "主页登录接口"
       description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
       operationId: "getLogin"
@@ -181,7 +181,7 @@ paths:
           description: "An unexpected error occured."
           schema:
             $ref: "#/definitions/inline_response_500"
-      x-swagger-router-controller: "Index"
+      x-swagger-router-controller: "Auth"
   /auth:
     post:
       tags:
@@ -334,6 +334,461 @@ paths:
           schema:
             $ref: "#/definitions/inline_response_500"
       x-swagger-router-controller: "Contact"
+  /dashboard:
+    get:
+      tags:
+      - "dash"
+      summary: "后台默认页面渲染"
+      description: "获取后台首页"
+      operationId: "getDashboard"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Dash"
+  /menu/list:
+    get:
+      tags:
+      - "menu"
+      summary: "后台菜单列表"
+      description: "获取菜单配置"
+      operationId: "getMenuList"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Menu"
+  /menu/detail:
+    get:
+      tags:
+      - "menu"
+      summary: "获取后台菜单详情"
+      description: "获取菜单详情"
+      operationId: "getMenudetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "menuId"
+        in: "query"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Menu"
+    post:
+      tags:
+      - "menu"
+      summary: "新增后台菜单"
+      description: "新建菜单详情"
+      operationId: "postMenudetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Menu"
+    delete:
+      tags:
+      - "menu"
+      summary: "删除后台菜单"
+      description: "删除菜单详情"
+      operationId: "delMenudetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "menuId"
+        in: "query"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Menu"
+    patch:
+      tags:
+      - "menu"
+      summary: "修改后台菜单详情"
+      description: "修改菜单详情"
+      operationId: "editMenudetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "menuId"
+        in: "query"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Menu"
+  /todo/list:
+    get:
+      tags:
+      - "todo"
+      summary: "待办列表"
+      description: "获取待办列置"
+      operationId: "getTodoList"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Todo"
+  /todo/detail:
+    get:
+      tags:
+      - "todo"
+      summary: "获取待办事项"
+      description: "获取待办事项"
+      operationId: "getTododetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "todoId"
+        in: "query"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Todo"
+    post:
+      tags:
+      - "todo"
+      summary: "新增待办事项"
+      description: "新建待办事项"
+      operationId: "postTododetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Todo"
+    delete:
+      tags:
+      - "todo"
+      summary: "删除待办事项"
+      description: "删除待办事项"
+      operationId: "delTododetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "menuId"
+        in: "query"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Todo"
+    patch:
+      tags:
+      - "todo"
+      summary: "修改待办事项"
+      description: "修改待办事项"
+      operationId: "editTododetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "todoId"
+        in: "query"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Todo"
+  /msg/list:
+    get:
+      tags:
+      - "msg"
+      summary: "后台消息列表"
+      description: "获取消息列表"
+      operationId: "getMsgList"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Msg"
+  /msg/detail:
+    get:
+      tags:
+      - "msg"
+      summary: "获取后台消息详情"
+      description: "获取消息详情"
+      operationId: "getMsgdetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "msgId"
+        in: "query"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Msg"
+    post:
+      tags:
+      - "msg"
+      summary: "新增后台消息详情"
+      description: "新建消息详情"
+      operationId: "postMsgdetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Msg"
+    delete:
+      tags:
+      - "msg"
+      summary: "删除后台消息详情"
+      description: "删除消息详情"
+      operationId: "delMsgdetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "msgId"
+        in: "query"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Msg"
+    patch:
+      tags:
+      - "msg"
+      summary: "修改后台消息详情"
+      description: "修改消息详情"
+      operationId: "editMsgdetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "msgId"
+        in: "query"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Msg"
+  /log/list:
+    get:
+      tags:
+      - "log"
+      summary: "后台日志列表"
+      description: "获取日志列表"
+      operationId: "getLogList"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Log"
+  /log/detail:
+    get:
+      tags:
+      - "log"
+      summary: "获取后台日志详情"
+      description: "获取日志详情"
+      operationId: "getLogdetail"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "logId"
+        in: "query"
+        description: "日志id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Log"
   /fileExport:
     post:
       tags:
