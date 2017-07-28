@@ -166,34 +166,6 @@ module.exports = {
         allowNull: false,
         field: 'email'
     },
-
-    /*  暂时先屏蔽，待需要时添加
-    lastSuccessIPAddr: {
-        comment: "上次成功登录IP地址",
-        type: Sequelize.STRING(128),
-        defaultValue: "",
-        allowNull: false,
-        field: 'lastSuccessIPAddr'
-    },
-    lastSuccessAt: {
-        comment: "上次成功登录时间",
-        type: Sequelize.DATE,
-        allowNull: true,
-        field: 'lastSuccessAt'
-    },
-    lastFailureIPAddr: {
-        comment: "上次失败登录IP地址",
-        type: Sequelize.STRING(128),
-        defaultValue: "",
-        allowNull: false,
-        field: 'lastFailureIPAddr'
-    },
-    lastFailureAt: {
-        comment: "上次失败登录时间",
-        type: Sequelize.DATE,
-        allowNull: true,
-        field: 'lastFailureAt'
-    },
     failCount: {
         comment: "登录失败计数器",
         type: Sequelize.INTEGER,
@@ -201,7 +173,6 @@ module.exports = {
         allowNull: false,
         field: 'failCount'
     },
-    //Customer.UserLog  登陆使用日志表
     ipAddr: {
         comment: "本次日志IP地址",
         type: Sequelize.STRING(128),
@@ -216,7 +187,21 @@ module.exports = {
         allowNull: false,
         field: 'logText'
     },
-    */
+    action: {
+        comment: "日志记录的动作",
+        type: Sequelize.STRING(128),
+        defaultValue: "",
+        allowNull: false,
+        field: 'action'
+    },
+    logResult: {
+        comment: "日志记录的结果",
+        type: Sequelize.STRING(128),
+        defaultValue: "",
+        allowNull: false,
+        field: 'logResult'
+    },
+
     /*************************************************************
      * 数据主表相关字段
      ********************************************************************/
