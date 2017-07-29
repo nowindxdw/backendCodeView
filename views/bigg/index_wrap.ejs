@@ -1,0 +1,198 @@
+<div id="wrap">
+	<div id="inner">
+		<div class="wrap">
+			<div id="content-sidebar-wrap">
+
+				<div id="content" class="hfeed">
+					<div class="post-5 post type-post status-publish format-standard hentry category-featured category-parent-category-i entry feature feature">
+
+						<a href="#" title="<%= content.bodycontent.title%>">
+							<img width="660" height="370" src="/bigg/images/1.jpg" class="alignleft post-image" alt="1" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= content.bodycontent.title%>" rel="bookmark"><%= content.bodycontent.title%></a></h2>
+
+						<div class="entry-content">
+                            <%var contentTxt = content.bodycontent.content.split('|')%>
+                            <% for (var n=0;n<contentTxt.length;n++){%>
+							<p><%= contentTxt[n]%></p>
+                            <%}%>
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+
+					<div class="post-1 post type-post status-publish format-standard hentry category-featured category-uncategorized entry fourcol first one-third teaser first">
+
+						<a href="#" title="<%= content.welcome.title%>">
+							<img width="300" height="168" src="/bigg/images/2-300x168.jpg" class="alignleft post-image" alt="2" /></a>
+						<h2 class="entry-title">
+							<a href="#" title="<%= content.welcome.title%>" rel="bookmark"><%= content.welcome.title%></a></h2>
+
+						<div class="entry-content">
+							<p><%= content.welcome.content%></p>
+
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-63 post type-post status-publish format-standard hentry category-child-category-i category-featured category-parent-category-i category-parent-category-ii tag-tag2 tag-tag5 tag-tag6 entry fourcol one-third teaser">
+
+						<a href="#" title="<%= todays.weather%>">
+							<img width="300" height="168" src="/bigg/images/3-300x168.jpg" class="alignleft post-image" alt="3" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= todays.weather%>" rel="bookmark"><%= todays.weather%></a></h2>
+
+						<div class="entry-content">
+							<div>
+                                <%if (typeof(todays.weatherData)=='string'){%>
+								<p href="#"><%= todays.weatherData%>
+								</p>
+                                <%}else{%>
+								<p href="#"><%= todays.weatherData.results[0].currentCity%>:
+                                    <%= todays.weatherData.results[0].weather_data[0].date%><br>
+                                    <%= todays.weatherData.results[0].weather_data[0].weather%>
+									(<%= todays.weatherData.results[0].weather_data[0].temperature%>)
+								</p>
+                                <%}%>
+							</div>
+
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-61 post type-post status-publish format-standard hentry category-featured category-uncategorized entry fourcol one-third teaser">
+
+						<a href="#" title="<%= todays.news%>">
+							<img width="300" height="168" src="/bigg/images/4-300x168.jpg" class="alignleft post-image" alt="4" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= todays.news%>" rel="bookmark"><%= todays.news%></a></h2>
+
+						<div class="entry-content">
+							<div>
+                                <%if (typeof(todays.newsData)=='string'){%>
+								<p href="#"><%= todays.newsData%>
+								</p>
+                                <%}else{%>
+                                <% for(var i=0;i<todays.newsData.length;i++){%>
+                                <% var item = todays.newsData[i]%>
+								<p href="<%=item.href%>" target="view_window">
+                                    <%= item.title%>
+								</p></br>
+                                <%}%>
+                                <%}%>
+							</div><!--close button_small-->
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-56 post type-post status-publish format-standard hentry category-child-category-iii category-featured category-parent-category-iii tag-tag1 tag-tag3 tag-tag6 entry fourcol first last one-third teaser first">
+
+						<a href="#" title="<%= todays.limitCarNo%>">
+							<img width="300" height="168" src="/bigg/images/7-300x168.jpg" class="alignleft post-image" alt="5" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= todays.limitCarNo%>" rel="bookmark"><%= todays.limitCarNo%></a></h2>
+
+						<div class="entry-content">
+							<p><%= todays.limitTailNum%></p>
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-53 post type-post status-publish format-standard hentry category-featured category-uncategorized entry fourcol one-third teaser">
+
+						<a href="#" title="<%= todays.baiduHot%>">
+							<img width="300" height="168" src="/bigg/images/6-300x168.jpg" class="alignleft post-image" alt="6" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= todays.baiduHot%>" rel="bookmark"><%= todays.baiduHot%></a></h2>
+						<div class="entry-content">
+							<div>
+                                <%if (typeof(todays.baiduHots)=='string'){%>
+								<p href="#"><%= todays.baiduHots%>
+								</p>
+                                <%}else{%>
+                                <% for(var i=0;i<todays.baiduHots.length;i++){%>
+                                <% var item = todays.baiduHots[i]%>
+								<p href="<%=item.href%>" target="view_window">
+                                    <%= item.text%>
+								</p></br>
+                                <%}%>
+                                <%}%>
+							</div><!--close button_small-->
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-51 post type-post status-publish format-standard hentry category-child-category-ii category-featured category-grandchild-category-i category-parent-category-i category-parent-category-ii tag-tag1 tag-tag2 tag-tag5 tag-tag7 entry fourcol one-third teaser">
+
+						<a href="#" title="building">
+							<img width="300" height="168" src="/bigg/images/5-300x168.jpg" class="alignleft post-image" alt="7" /></a>
+						<h2 class="entry-title"><a href="#" title="building" rel="bookmark"></a></h2>
+
+						<div class="entry-content">
+							<p></p>
+
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-49 post type-post status-publish format-standard hentry category-featured category-uncategorized tag-tag2 tag-tag5 tag-tag7 entry fourcol first one-third teaser first">
+
+						<a href="#" title="<%= content.contentbule.blogUpdate.title%>">
+							<img width="300" height="168" src="/bigg/images/8-300x168.jpg" class="alignleft post-image" alt="8" /></a>
+						<h2 class="entry-title">
+							<a href="#" title="<%= content.contentbule.blogUpdate.title%>" rel="bookmark">
+								<%= content.contentbule.blogUpdate.title%>
+							</a></h2>
+
+						<div class="entry-content">
+							<p><%= content.contentbule.blogUpdate.desc%></p>
+
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-47 post type-post status-publish format-standard hentry category-featured category-parent-category-ii category-parent-category-iii tag-tag2 tag-tag4 tag-tag7 entry fourcol one-third teaser">
+
+						<a href="#" title="<%= content.contentbule.wxUpdate.title%>">
+							<img width="300" height="168" src="/bigg/images/9-300x168.jpg" class="alignleft post-image" alt="9" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= content.contentbule.wxUpdate.title%>" rel="bookmark"><%= content.contentbule.wxUpdate.title%></a></h2>
+
+						<div class="entry-content">
+							<p><%= content.contentbule.wxUpdate.desc%></p>
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+					<div class="post-45 post type-post status-publish format-standard hentry category-child-category-ii category-featured category-grandchild-category-i category-parent-category-i entry fourcol one-third teaser">
+
+						<a href="#" title="<%= content.contentbule.projectUpdate.title%>">
+							<img width="300" height="168" src="/bigg/images/10-300x168.jpg" class="alignleft post-image" alt="10" /></a>
+						<h2 class="entry-title"><a href="#" title="<%= content.contentbule.projectUpdate.title%>" rel="bookmark">
+								<%= content.contentbule.projectUpdate.title%></a></h2>
+						<div class="entry-content">
+							<p><%= content.contentbule.projectUpdate.desc%></p>
+
+							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
+
+					</div><!-- end .postclass -->
+				</div><!-- end #content -->
+
+				<div id="popular-upcoming" class="stories-container sixcol">
+
+					<div class="stories-section-header">
+						<h2 class="stories-section-header-hed">Popular</h2>
+						<!--<h3 class="stories-section-header-subhed">The most popular content on Bigg in the last 24 hours.</h3>-->
+					</div>
+
+					<ul class="plain-list stories-table">
+
+						<li><a href="#">Welcome</a></li>
+						<li>Another Post with Everything In It</li>
+						<li><a href="#">Wait Building...</a></li>
+						<li>A Building list</li>
+					</ul>
+
+				</div>
+
+				<div id="recent-stories" class="stories-container sixcol last">
+					<div class="stories-section-header">
+						<h2 class="stories-section-header-hed"><%= content.latestUpdate.title%></h2>
+						<!--<h3 class="stories-section-header-subhed">A selection of the most recently posted content on Bigg.</h3>-->
+					</div>
+
+					<ul class="plain-list stories-table">
+						<li><a href="#"><%= content.latestUpdate.title1%></a></li>
+						<li><%= content.latestUpdate.content1%></li>
+						<li><a href="#"><%= content.latestUpdate.title2%></a></li>
+						<li><%= content.latestUpdate.content2%></li>
+					</ul>
+				</div>
+		</div><!-- end #content-sidebar-wrap -->
+	</div><!-- end #inner -->
+</div><!-- end .wrap -->

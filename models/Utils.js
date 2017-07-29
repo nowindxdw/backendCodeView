@@ -37,7 +37,7 @@ module.exports = {
             "5":"5,0",
             "6":"-",
             "7":"-",
-        }
+        };
         return limitNumMap[weekdayNo];
     },
     /**

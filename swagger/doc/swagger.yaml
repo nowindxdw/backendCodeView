@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.0.14"
+  version: "0.1.0"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -89,7 +89,7 @@ paths:
   /login:
     get:
       tags:
-      - "index"
+      - "auth"
       summary: "主页登录接口"
       description: "根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息"
       operationId: "getLogin"
@@ -191,6 +191,310 @@ paths:
          $ref: "#/responses/Standard400ErrorResponse"
         500:
          $ref: "#/responses/Standard500ErrorResponse"
+  /dashboard:
+    get:
+      tags:
+      - "dash"
+      summary: "后台默认页面渲染"
+      description: "获取后台首页"
+      operationId: "getDashboard"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /menu/list:
+    get:
+      tags:
+      - "menu"
+      summary: "后台菜单列表"
+      description: "获取菜单配置"
+      operationId: "getMenuList"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /menu/detail:
+    get:
+      tags:
+      - "menu"
+      summary: "获取后台菜单详情"
+      description: "获取菜单详情"
+      operationId: "getMenudetail"
+      parameters:
+      - in: "query"
+        name: "menuId"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    patch:
+      tags:
+      - "menu"
+      summary: "修改后台菜单详情"
+      description: "修改菜单详情"
+      operationId: "editMenudetail"
+      parameters:
+      - in: "query"
+        name: "menuId"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    delete:
+      tags:
+      - "menu"
+      summary: "删除后台菜单"
+      description: "删除菜单详情"
+      operationId: "delMenudetail"
+      parameters:
+      - in: "query"
+        name: "menuId"
+        description: "菜单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    post:
+      tags:
+      - "menu"
+      summary: "新增后台菜单"
+      description: "新建菜单详情"
+      operationId: "postMenudetail"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /todo/list:
+    get:
+      tags:
+      - "todo"
+      summary: "待办列表"
+      description: "获取待办列置"
+      operationId: "getTodoList"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /todo/detail:
+    get:
+      tags:
+      - "todo"
+      summary: "获取待办事项"
+      description: "获取待办事项"
+      operationId: "getTododetail"
+      parameters:
+      - in: "query"
+        name: "todoId"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    patch:
+      tags:
+      - "todo"
+      summary: "修改待办事项"
+      description: "修改待办事项"
+      operationId: "editTododetail"
+      parameters:
+      - in: "query"
+        name: "todoId"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    delete:
+      tags:
+      - "todo"
+      summary: "删除待办事项"
+      description: "删除待办事项"
+      operationId: "delTododetail"
+      parameters:
+      - in: "query"
+        name: "menuId"
+        description: "待办事项id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    post:
+      tags:
+      - "todo"
+      summary: "新增待办事项"
+      description: "新建待办事项"
+      operationId: "postTododetail"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /msg/list:
+    get:
+      tags:
+      - "msg"
+      summary: "后台消息列表"
+      description: "获取消息列表"
+      operationId: "getMsgList"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /msg/detail:
+    get:
+      tags:
+      - "msg"
+      summary: "获取后台消息详情"
+      description: "获取消息详情"
+      operationId: "getMsgdetail"
+      parameters:
+      - in: "query"
+        name: "msgId"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    patch:
+      tags:
+      - "msg"
+      summary: "修改后台消息详情"
+      description: "修改消息详情"
+      operationId: "editMsgdetail"
+      parameters:
+      - in: "query"
+        name: "msgId"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    delete:
+      tags:
+      - "msg"
+      summary: "删除后台消息详情"
+      description: "删除消息详情"
+      operationId: "delMsgdetail"
+      parameters:
+      - in: "query"
+        name: "msgId"
+        description: "消息id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    post:
+      tags:
+      - "msg"
+      summary: "新增后台消息详情"
+      description: "新建消息详情"
+      operationId: "postMsgdetail"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /log/list:
+    get:
+      tags:
+      - "log"
+      summary: "后台日志列表"
+      description: "获取日志列表"
+      operationId: "getLogList"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+  /log/detail:
+    get:
+      tags:
+      - "log"
+      summary: "获取后台日志详情"
+      description: "获取日志详情"
+      operationId: "getLogdetail"
+      parameters:
+      - in: "query"
+        name: "logId"
+        description: "日志id"
+        required: true
+        type: "string"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+
   /fileExport:
     post:
       tags:

@@ -125,18 +125,6 @@ exports.getLife = function(args, res, next) {
     res.end();
 }
 
-exports.getLogin = function(args, res, next) {
-    /**
-     * 主页登录接口
-     * 根据用户名&密码去验证用户,确认密码与用户名无误后,将会返回用户的jwt信息
-     *
-     * pageLang String 页面语言 (optional)
-     * pageStyle String 页面风格 (optional)
-     * no response value expected for this operation
-     **/
-    res.end();
-}
-
 exports.getSkill = function(args, req, res, next) {
     /**
      * 主页技艺接口

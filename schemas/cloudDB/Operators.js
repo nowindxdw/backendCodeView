@@ -44,6 +44,10 @@ module.exports = function(sequelize) {
          */
         email: FIELDS.email,
         /**
+         *@see [failCount](module-dictionary.html#.failCount__anchor)
+         */
+        failCount: FIELDS.failCount,
+        /**
          *@see [operatorRoles](module-dictionary.html#.operatorRoles__anchor)
          */
         operatorRoles:FIELDS.operatorRoles
