@@ -1,0 +1,92 @@
+
+<body class="home blog header-full-width full-width-content">
+<div id="header">
+	<div class="site-header">
+		<h1 class="site-header-logo-container">
+		<a href="/"><span class="image-replace">Bigg</span>
+		<img src="/bigg/images/bigg-logo.png" width="65" height="35" id="bigg-logo" alt="Bigg" /></a>
+		</h1>
+
+		<ul id="page-nav" class="horizontal-list">
+		<li class="page-nav-top-posts active"><a href="javascript:void(0)" id="feature-scroll" class="page-anchor-link"><%= content.welcome.title%></a></li>
+
+		<li class="page-nav-popular-posts"><a href="javascript:void(0)" id="popular-scroll" class="page-anchor-link"><%= content.latestUpdate.title%></a></li>
+
+		</ul>
+
+	<div id="site-nav" class="horizontal-list">
+	<div class="menu-main-menu-container">
+		<ul id="menu-main-menu" class="menu">
+            <%if(current==='index'){%>
+			<li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-144">
+				<a href="/v1/api/index"><%= menubar.Home%></a></li>
+            <%}else{%>
+			<li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-home menu-item-144">
+				<a href="/v1/api/index"><%= menubar.Home%></a></li>
+            <%}%>
+            <%if(current==='skill'){%>
+			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-142">
+				<a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+            <%}else{%>
+			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142">
+				<a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+            <%}%>
+            <%if(current==='contact'){%>
+			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-142">
+				<a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+            <%}else{%>
+			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142">
+				<a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+            <%}%>
+			<li><select id="pageLang" onchange="langChange()">
+					<option value="cn">中文
+					<option value="en">English
+				</select></li>
+			<li><select id="pageStyle" onchange="styleChange()">
+					<option value="skynight">skynight
+					<option value="bigg">bigg
+				</select></li>
+
+		</ul></div></div><!-- #site-nav -->
+
+
+	<script type="text/JavaScript">
+	var langObj = document.getElementById("pageLang");
+	var styleObj = document.getElementById("pageStyle");
+	function langChange(){
+	  var lang = langObj.options[langObj.selectedIndex].value;
+	  localStorage.langSelectedIndex = langObj.selectedIndex;
+	  localStorage.langSelectedValue = lang;
+	  var style = localStorage.styleSelectedValue||"";
+	  var urlpre = window.location.href.split('?')[0];
+	  window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
+	}
+	function styleChange(){
+	  var style = styleObj.options[styleObj.selectedIndex].value;
+	  localStorage.styleSelectedIndex = styleObj.selectedIndex;
+	  localStorage.styleSelectedValue = style;
+	  var lang = localStorage.langSelectedValue||"";
+	  var urlpre = window.location.href.split('?')[0];
+	  window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
+	}
+	window.onload = function(){
+	  if( !localStorage.styleSelectedIndex){
+		  localStorage.styleSelectedIndex = 0;
+	  }
+	  if( !localStorage.langSelectedIndex){
+		  localStorage.langSelectedIndex = 0;
+	  }
+	  styleObj.options[ localStorage.styleSelectedIndex ].selected = true;
+	  langObj.options[ localStorage.langSelectedIndex ].selected = true;
+	}
+	</script>
+
+		<div id="site-header-bigg-social">
+			<ul class="horizontal-list">
+			<li><a href="https://twitter.com/opendesigns" target="_blank" class="bigg-social-twitter bigg-social-icon image-replace">Twitter</a></li>
+			<li><a href="http://www.facebook.com/opendesigns/" target="_blank" class="bigg-social-fb bigg-social-icon image-replace">Facebook</a></li>
+			<li><a href="https://plus.google.com/105448459653363509502/posts" target="_blank" class="bigg-social-gplus bigg-social-icon image-replace">Google+</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

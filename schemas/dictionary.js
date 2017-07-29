@@ -183,8 +183,7 @@ module.exports = {
     logText: {
         comment: "JSON格式的日志",
         type: Sequelize.TEXT,
-        defaultValue: "",
-        allowNull: false,
+        allowNull: true,
         field: 'logText'
     },
     action: {
