@@ -11,8 +11,10 @@
 						<h2 class="entry-title"><a href="#" title="<%= content.bodycontent.title%>" rel="bookmark"><%= content.bodycontent.title%></a></h2>
 
 						<div class="entry-content">
-							<p><%= content.bodycontent.content%></p>
-
+                            <%var contentTxt = content.bodycontent.content.split('|')%>
+                            <% for (var n=0;n<contentTxt.length;n++){%>
+							<p><%= contentTxt[n]%></p>
+                            <%}%>
 							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
 
 					</div><!-- end .postclass -->

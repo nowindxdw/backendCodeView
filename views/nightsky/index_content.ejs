@@ -33,7 +33,10 @@
 	  <div id="content">
         <div class="content_item">
 		  <h1><%= content.bodycontent.title%></h1>
-	      <p><%= content.bodycontent.content%></p>
+		  <%var contentTxt = content.bodycontent.content.split('|')%>
+		  <% for (var n=0;n<contentTxt.length;n++){%>
+	      <p><%= contentTxt[n]%></p>
+		  <%}%>
 		</div><!--close content_item-->
 		  <div class="content_container">
 			  <p class="button_small"><%= todays.weather%></p>
