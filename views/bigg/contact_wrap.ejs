@@ -1,0 +1,20 @@
+<div id="wrap">
+	<div id="inner">
+		<div class="wrap">
+			<div id="content">
+				<div class="content_item">
+					<div class="form_settings">
+						<h2><%= contact.title%></h2>
+						<p><%= contact.desc%></p>
+						<p>&nbsp;</p>
+						<p><span><%= contact.name%></span><input class="contact" id='concact_name' type="text" name="your_name" value="" /></p>
+						<p><span><%= contact.email%></span><input class="contact"  id='concact_email' type="text" name="your_email" value="" /></p>
+						<p><span><%= contact.message%></span><textarea class="contact textarea" id='concact_msg' rows="8" cols="50" name="your_message"></textarea></p>
+						<p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" onclick="btnSend()" name="contact_submitted" value="<%= contact.send%>" /></p>
+					</div><!--close form_settings-->
+				</div><!--close content_item-->
+			</div><!--close content-->
+
+		</div><!-- end #content-sidebar-wrap -->
+	</div><!-- end #inner -->
+</div><!-- end .wrap -->
