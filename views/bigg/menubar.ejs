@@ -19,24 +19,24 @@
 		<ul id="menu-main-menu" class="menu">
             <%if(current==='index'){%>
 			<li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-144">
-				<a href="/v1/api/index"><%= menubar.Home%></a></li>
+				<a href="/v1/api/index?pageStyle=bigg"><%= menubar.Home%></a></li>
             <%}else{%>
 			<li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom  menu-item-home menu-item-144">
-				<a href="/v1/api/index"><%= menubar.Home%></a></li>
+				<a href="/v1/api/index?pageStyle=bigg"><%= menubar.Home%></a></li>
             <%}%>
             <%if(current==='skill'){%>
 			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-142">
-				<a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+				<a href="/v1/api/index/skills?pageStyle=bigg"><%= menubar.Skill%></a></li>
             <%}else{%>
 			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142">
-				<a href="/v1/api/index/skills"><%= menubar.Skill%></a></li>
+				<a href="/v1/api/index/skills?pageStyle=bigg"><%= menubar.Skill%></a></li>
             <%}%>
             <%if(current==='contact'){%>
 			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-142">
-				<a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+				<a href="/v1/api/index/contact?pageStyle=bigg"><%= menubar.Contact%></a></li>
             <%}else{%>
 			<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142">
-				<a href="/v1/api/index/contact"><%= menubar.Contact%></a></li>
+				<a href="/v1/api/index/contact?pageStyle=bigg"><%= menubar.Contact%></a></li>
             <%}%>
 			<li><select id="pageLang" onchange="langChange()">
 					<option value="cn">中文
@@ -83,7 +83,7 @@
                 var style = localStorage.styleSelectedValue||"";
                 var lang = localStorage.langSelectedValue||"";
                 var urlpre = window.location.href.split('?')[0];
-                if(window.location.href.indexOf("pageStyle")==-1){
+                if(window.location.href.indexOf("pageLang")==-1){
                     window.location = urlpre+"?pageLang="+lang+"&pageStyle="+style
                 }
             }
