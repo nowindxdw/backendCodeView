@@ -23,7 +23,7 @@ body:
 git push https://nowindxdw@github.com/nowindxdw/Recruitments.git
 ```
 
-####initDB sql
+####initDB sql  PWD=100821
 ```
 insert Operators
 (operatorSfId,operatorUsername,operatorPassword,

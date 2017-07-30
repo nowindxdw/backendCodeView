@@ -15,10 +15,12 @@ function btnLogin() {
         alert('username is not valid,it must be a phone num');
         return;
     }
+    var encryptedStr = CryptoJS.enc.Utf8.parse(password);
+    var pwd = CryptoJS.enc.Base64.stringify(encryptedStr);
     var postData = JSON.stringify(
         {
             operatorUsername:username,
-            operatorPassword:password
+            operatorPassword:pwd
         }
     );
 
