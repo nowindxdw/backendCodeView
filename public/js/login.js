@@ -29,13 +29,20 @@ function btnLogin() {
         type: "POST", //用POST方式传输
         dataType: "json", //数据格式:JSON
         contentType: "application/json",
+        async:false,
         url: '/v1/api/auth', //目标地址
         data: postData,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("login fail!");
         },
         success: function (msg) {
-            alert("login success!");
+            console.log(msg);
+            var token = msg.token;
+            localStorage.operatorName = msg.operatorUsername;
+            localStorage.token = token;
+            var urlpre = window.location.href.split('/v1/')[0];
+            top.window.location = urlpre + "/v1/api/dashboard";
+            return false;
         }
     });
 }
