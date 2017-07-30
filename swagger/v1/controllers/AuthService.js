@@ -8,7 +8,7 @@ const regTest = require('../../../models/regTest')();
 const RETCODE = require("../../../models/retcode").RETCODE;
 const MSG = require("../../../local/local")[__localConfig];
 const crypto = require("../../../models/crypto")();
-exports.deleteAuth = function(req,args, res, next) {
+exports.deleteAuth = function(args, req, res, next) {
   /**
    * parameters expected in the args:
   * operatorUsername (String)
@@ -34,7 +34,7 @@ exports.deleteAuth = function(req,args, res, next) {
     })
 };
 
-exports.postAuth = function(args, res, next) {
+exports.postAuth = function(args, req, res, next) {
     /**
      * parameters expected in the args:
      * body (AuthInfo)
@@ -82,3 +82,7 @@ exports.postAuth = function(args, res, next) {
         })
 }
 
+exports.getLogin = function(args, req, res, next) {
+    logger.trace('get Login page');
+    res.render('dashboard/'+'login.ejs');
+}
