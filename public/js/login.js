@@ -40,9 +40,19 @@ function btnLogin() {
             var token = msg.token;
             localStorage.operatorName = msg.operatorUsername;
             localStorage.token = token;
-            var urlpre = window.location.href.split('/v1/')[0];
-            top.window.location = urlpre + "/v1/api/dashboard";
-            return false;
+            $.ajax({
+                type: "GET", //用POST方式传输
+                url:"/v1/api/dashboard",
+                headers:{
+                    "Authorization":token
+                },
+                success:function(html){
+                  $("html").html(html);
+                },
+                error:function(){
+                    alert("Server Err");
+                }
+            })
         }
     });
 }
