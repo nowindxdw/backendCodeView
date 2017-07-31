@@ -7,6 +7,7 @@
     "prestart": "npm install",
     "docs": "node_modules/jsdoc/jsdoc.js -c config/jsdoc.json -t ./node_modules/ink-docstrap/template",
     "start": "node app.js",
+    "dropdb": "mocha test/test_sh_cleardb.js",
     "test": "mocha --timeout 20000 test/",
     "clean": "rm -rf node_modules"
   },
