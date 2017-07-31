@@ -8,9 +8,13 @@
 module.exports = function(sequelize) {
     return sequelize.define('OperatorLogs', {
         /**
-         *@see [operatorSfId](module-dictionary.html#.operatorSfId__anchor)
+         *@see [logSfId](module-dictionary.html#.logSfId__anchor)
          */
-        operatorSfId: FIELDS.operatorSfId,
+        logSfId: FIELDS.logSfId,
+        /**
+         *@see [operatorId](module-dictionary.html#.operatorId__anchor)
+         */
+        operatorId: FIELDS.operatorId,
         /**
          *@see [ipAddr](module-dictionary.html#.ipAddr__anchor)
          */

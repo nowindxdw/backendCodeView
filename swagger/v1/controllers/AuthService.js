@@ -5,6 +5,7 @@ const _ = require("lodash");
 const async = require('async');
 const authModel = require('./model/AuthModel')();
 const regTest = require('../../../models/regTest')();
+const Utils = require('../../../models/Utils');
 const RETCODE = require("../../../models/retcode").RETCODE;
 const MSG = require("../../../local/local")[__localConfig];
 const crypto = require("../../../models/crypto")();
@@ -80,9 +81,9 @@ exports.postAuth = function(args, req, res, next) {
             return res.end(JSON.stringify({error: MSG.INTER_ERR} || {}, null, 2));
 
         })
-}
+};
 
 exports.getLogin = function(args, req, res, next) {
     logger.trace('get Login page');
     res.render('dashboard/'+'login.ejs');
-}
+};

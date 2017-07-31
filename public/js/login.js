@@ -41,7 +41,7 @@ function btnLogin() {
             localStorage.operatorName = msg.operatorUsername;
             localStorage.token = token;
             $.ajax({
-                type: "GET", //用POST方式传输
+                type: "GET",
                 url:"/v1/api/dashboard",
                 headers:{
                     "Authorization":token

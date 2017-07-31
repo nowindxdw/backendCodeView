@@ -12,10 +12,11 @@ exports.getIndex = function(args, req, res, next) {
    * no response value expected for this operation
    **/
    let ip = Utils.getReqInfo(req).ip;
-   logger.debug("ip",ip);
+   // logger.debug("ip",ip);
    let lang = args.pageLang.value;
    let style = args.pageStyle.value;
-   logger.debug("enter info getIndex lang="+lang+",style="+style);
+   // logger.debug("enter info getIndex lang="+lang+",style="+style);
+   logger.info("ip="+ip+"enter info getIndex lang="+lang+",style="+style);
    //数据校验
    if (!regTest.testLang(lang)) {
       lang = __localConfig;
@@ -79,10 +80,11 @@ exports.getContact = function(args, req, res, next) {
      * no response value expected for this operation
      **/
     let ip = Utils.getReqInfo(req).ip;
-    logger.debug("ip",ip);
+    // logger.debug("ip",ip);
     let lang = args.pageLang.value;
     let style = args.pageStyle.value;
-    logger.debug("enter info getIndex lang="+lang+",style="+style);
+    // logger.debug("enter info getContact lang="+lang+",style="+style);
+    logger.info("ip="+ip+"enter info getContact lang="+lang+",style="+style);
     //数据校验
     if (!regTest.testLang(lang)) {
         lang = __localConfig;
@@ -135,10 +137,11 @@ exports.getSkill = function(args, req, res, next) {
      * no response value expected for this operation
      **/
     let ip = Utils.getReqInfo(req).ip;
-    logger.debug("ip",ip);
+    // logger.debug("ip",ip);
     let lang = args.pageLang.value;
     let style = args.pageStyle.value;
-    logger.debug("enter info getIndex lang="+lang+",style="+style);
+    // logger.debug("enter info getSkill lang="+lang+",style="+style);
+    logger.info("ip="+ip+"enter info getSkill lang="+lang+",style="+style);
     //数据校验
     if (!regTest.testLang(lang)) {
         lang = __localConfig;
