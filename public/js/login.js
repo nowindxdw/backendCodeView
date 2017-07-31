@@ -33,10 +33,9 @@ function btnLogin() {
         url: '/v1/api/auth', //目标地址
         data: postData,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("login fail!");
+            alert(XMLHttpRequest.responseText);
         },
         success: function (msg) {
-            console.log(msg);
             var token = msg.token;
             localStorage.operatorName = msg.operatorUsername;
             localStorage.token = token;
@@ -47,10 +46,10 @@ function btnLogin() {
                     "Authorization":token
                 },
                 success:function(html){
-                  $("html").html(html);
+                  $("body").html(html);
                 },
-                error:function(){
-                    alert("Server Err");
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("Server Err"+XMLHttpRequest.responseText);
                 }
             })
         }

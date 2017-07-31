@@ -4,6 +4,7 @@ let   logger = new Logger(__logConfig);
 const _ = require("lodash");
 const async = require('async');
 const authModel = require('./model/AuthModel')();
+const logModel = require('./model/LogModel')();
 const regTest = require('../../../models/regTest')();
 const Utils = require('../../../models/Utils');
 const RETCODE = require("../../../models/retcode").RETCODE;
@@ -18,20 +19,27 @@ exports.deleteAuth = function(args, req, res, next) {
   logger.debug('req.user: ' + JSON.stringify(req.user));
     if(_.isUndefined(req.user) || _.isEmpty(req.user)) {
         res.statusCode = RETCODE.UNAUTHORIZED;
-        return res.end(JSON.stringify({error: MSG.UNAUTHORIZED}|| {}, null, 2));
+        return res.end(MSG.UNAUTHORIZED);
   }
   let userId = req.user.userId;
+
+  let operatorId = userId;
+  let ip = Utils.getReqInfo(req).ip;
+  let action = "LOGOUT";
+  let remark = "";
   return authModel.deleteAuth(userId)
     .then(result=>{
         logger.info("登出成功");
         res.statusCode = RETCODE.SUCCESS;
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({msg: MSG.SUCCESS}|| {}, null, 2));
+        res.end(MSG.SUCCESS);
+        return logModel.saveOperatorLog(operatorId,ip,action,"SUCCESS",remark);
     })
     .catch(err=>{
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = RETCODE.INTER_ERR;
-        return res.end(JSON.stringify({error: MSG.INTER_ERR}|| {}, null, 2));
+        res.end(MSG.INTER_ERR);
+        return logModel.saveOperatorLog(operatorId,ip,action,"FAIL",remark);
     })
 };
 
@@ -53,7 +61,7 @@ exports.postAuth = function(args, req, res, next) {
         logger.error('登录用户名格式有误, 请重新输入, username: ', username);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = RETCODE.UNAUTHORIZED;
-        res.end(JSON.stringify({error: MSG.UNAUTHORIZED} || {}, null, 2));
+        res.end(MSG.UNAUTHORIZED);
         return;
     }
     // step2. 登录密码前端回传解密，前端用base64加密
@@ -62,24 +70,50 @@ exports.postAuth = function(args, req, res, next) {
         username: username,
         password: decodedPassword
     };
+    // operatorlog data
+    let operatorId = username;
+    let ip = Utils.getReqInfo(req).ip;
+    let action = "LOGIN";
+    let remark = "";
     // step3. 登录认证
-    return authModel.adminLoginAuth(loginData)
+    return authModel.checkFailcount(operatorId)
+        .then(function(retCode){
+            if(retCode==RETCODE.SUCCESS){
+                return authModel.adminLoginAuth(loginData);
+            }else{
+                return retCode;
+            }
+        })
         .then(data=>{
             if(data==RETCODE.UNAUTHORIZED){
-                return res.end(JSON.stringify({error: MSG.LOGIN_FAILED} || {}, null, 2));
+                res.statusCode = RETCODE.UNAUTHORIZED;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(MSG.LOGIN_FAILED);
+            }else if(data==RETCODE.NOT_FOUND){
+                res.statusCode = RETCODE.NOT_FOUND;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(MSG.NOT_FOUND);
+            }else if(data==RETCODE.BAD_REQUEST){
+                res.statusCode = RETCODE.BAD_REQUEST;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(MSG.TRY_OVER_LIMIT);
             }else{
                 logger.info("登录成功，返回token数据" + JSON.stringify(data));
                 res.statusCode = RETCODE.SUCCESS;
                 res.setHeader('Content-Type', 'application/json');
-                return res.end(JSON.stringify(data || {}, null, 2));
+                res.end(JSON.stringify(data || {}, null, 2));
+                return logModel.saveOperatorLog(operatorId,ip,action,"SUCCESS",remark);
             }
         })
         .catch(err=>{
             logger.warn("登录异常"+err);
+            res.statusCode = RETCODE.INTER_ERR;
             res.setHeader('Content-Type', 'application/json');
-            res.statusCode = err;
-            return res.end(JSON.stringify({error: MSG.INTER_ERR} || {}, null, 2));
-
+            res.end(MSG.INTER_ERR);
+            return logModel.saveOperatorLog(operatorId,ip,action,"FAIL",remark)
+                .then(res=>{
+                    return authModel.addFailcount(operatorId);
+                });
         })
 };
 

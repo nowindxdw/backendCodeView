@@ -21,7 +21,6 @@ module.exports = function(isOn) {
         var indexPath = /^\/v1\/api\/index/;
         var loginPagePath = /^\/v1\/api\/login/;
         var loginPath = /^\/v1\/api\/auth/;
-        var dashPath = /^\/v1\/api\/dashboard/;
         var mailPath = /^\/v1\/api\/sendmail/;
         if (!apiPath.test(req.path)) {
             return next();
@@ -36,9 +35,6 @@ module.exports = function(isOn) {
             return next();
         }
         if (mailPath.test(req.path) && (req.method === 'POST')) {
-            return next();
-        }
-        if (dashPath.test(req.path) && (req.method === 'GET')) {
             return next();
         }
         var token = req.header('authorization');
@@ -198,37 +194,11 @@ function getBasicInfo(db, role, userId, cb) {
                         }
                     })
             });
-        }else if(role === "customer"){
+        }else {
             //todo add customerDB下客户新开通信息维护
             user.role = role;
             cacheServer.save(userId.toString(),user,__authConfig.expire);
             cb(null,user)
-        }else if(role === "yy365"){
-            return dbSingleton.sequelize(__dbConfig.cloudDB).then(function (sequelize) {
-                return sequelize.models.Customers.findOne({
-                        where: {
-                            customerSfId: userId
-                        }
-                    })
-                    .then(function (result) {
-                        if (result) {
-                            logger.trace(result);
-
-                            user.role = role;
-                            user.businessLicense = result.businessLicense;
-                            user.customerOrgNo = result.customerOrgNo;
-                            user.customerName = result.customerName;
-                            user.customerAbbrName = result.customerAbbrName;
-                            user.customerSubDomain = result.customerSubDomain;
-
-                            cacheServer.save(userId.toString(),user,__authConfig.expire);
-                            cb(null,user)
-                        }
-                        else {
-                            cb("DB_ERR")
-                        }
-                    })
-            });
         }
 
     });

@@ -8,7 +8,7 @@ exports.getDashboard = function(args, req, res, next) {
    *
    * no response value expected for this operation
    **/
-  logger.trace('get Dashboard page');
+  logger.info("user ="+JSON.stringify(req.user)+"enter into Dashboard page");
   res.render('dashboard/'+'index.ejs');
 }
 
