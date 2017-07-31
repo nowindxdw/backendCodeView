@@ -194,37 +194,11 @@ function getBasicInfo(db, role, userId, cb) {
                         }
                     })
             });
-        }else if(role === "customer"){
+        }else {
             //todo add customerDB下客户新开通信息维护
             user.role = role;
             cacheServer.save(userId.toString(),user,__authConfig.expire);
             cb(null,user)
-        }else if(role === "yy365"){
-            return dbSingleton.sequelize(__dbConfig.cloudDB).then(function (sequelize) {
-                return sequelize.models.Customers.findOne({
-                        where: {
-                            customerSfId: userId
-                        }
-                    })
-                    .then(function (result) {
-                        if (result) {
-                            logger.trace(result);
-
-                            user.role = role;
-                            user.businessLicense = result.businessLicense;
-                            user.customerOrgNo = result.customerOrgNo;
-                            user.customerName = result.customerName;
-                            user.customerAbbrName = result.customerAbbrName;
-                            user.customerSubDomain = result.customerSubDomain;
-
-                            cacheServer.save(userId.toString(),user,__authConfig.expire);
-                            cb(null,user)
-                        }
-                        else {
-                            cb("DB_ERR")
-                        }
-                    })
-            });
         }
 
     });

@@ -10,18 +10,57 @@ let logger = new Logger(__logConfig);
 const sqlModel = require("../../../../models/SqlCRUDModel");
 const RETCODE = require("../../../../models/retcode").RETCODE;
 const crypto = require("../../../../models/crypto")();
+const dbName = __dbConfig.cloudDB;
 module.exports = function () {
 
     var authModel = {
+        //operator failCount 相关操作
+        checkFailcount:(username)=>{
+            logger.trace("enter checkFailcount username",username);
+            let tableName = "Operators";
+            let columns =  ['failCount'];
+            let whereStr = "`operatorUsername`='"+username+"'";
+            return sqlModel.select(dbName,tableName,columns,whereStr)
+                .then(result=>{
+                    if(result.length==0){
+                        return RETCODE.NOT_FOUND;
+                    }else{
+                        return (result[0].failCount>5)?RETCODE.BAD_REQUEST:RETCODE.SUCCESS;
+                    }
+                })
+        },
+        addFailcount:(username)=>{
+            logger.trace("enter addFailcount username",username);
+            let sql = "UPDATE `"+dbName+"`.`Operators` " +
+                "set `failCount` = `failCount`+1 " +
+                "where `operatorUsername` ='" +username +"';";
+            return sqlModel.raw(sql)
+        },
+
+        clearFailcount:(username)=>{
+            logger.trace("enter clearFailcount username",username);
+            let tableName = "Operators";
+            let updateData ={
+                "failCount":0
+            };
+            let whereStr = "`operatorUsername`='"+username+"'";
+            return sqlModel.update(dbName,tableName,updateData,whereStr)
+        },
+
+
+        /**
+         * 管理员登录
+         * @param loginData
+         * @returns {Promise.<T>}
+         */
         adminLoginAuth: (loginData)=>{
             logger.trace("enter adminLoginAuth loginData",loginData);
             let username = loginData.username;
             let password = loginData.password;
             let operatorPassword = crypto.encodeLoginPwd(password);
-            let dbName = __dbConfig.cloudDB;
-            var tableName = "Operators";
-            var columns =  ['operatorSfId'];
-            var whereStr = "`operatorUsername`='"+username
+            let tableName = "Operators";
+            let columns =  ['operatorSfId'];
+            let whereStr = "`operatorUsername`='"+username
                 +"' and `operatorPassword`='"+ operatorPassword+"'";
             return sqlModel.select(dbName,tableName,columns,whereStr)
                 .then(results=>{
@@ -32,7 +71,7 @@ module.exports = function () {
                         var data = jwtProducer(username, "cloud", __dbConfig.cloudDB, result.operatorSfId);
                         return data;
                     }else{
-                        logger.info("没有查询到对应用户名和密码");
+                        logger.info("验证用户名和密码错误");
                         return Promise.resolve(RETCODE.UNAUTHORIZED);
                     }
                 })

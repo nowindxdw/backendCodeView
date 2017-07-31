@@ -22,6 +22,7 @@ function btnSend() {
         alert("意见不能不能少于20个字符!/message can't be less 10 characters");
         return;
     }
+    $(".submit").attr("disabled",true);
     $(".submit").val("正在发送，请稍等！/message is sending,please wait");
 
     var postData = JSON.stringify(
@@ -42,10 +43,13 @@ function btnSend() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("发送失败，请联系在线客服！/send fail");
             $(".submit").val(btnTxt);
+            $(".submit").attr("disabled",false);
         },
         success: function (msg) {
             $(".submit").val(btnTxt);
             alert("发送成功!／success!");
+            $("#concact_msg").val("");
+            $(".submit").attr("disabled",false);
         }
     });
 }

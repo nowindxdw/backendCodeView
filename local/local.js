@@ -6,7 +6,8 @@ const cn = {
     "UNAUTHORIZED":"未被授权的操作",
     "BAD_REQUEST":"请求参数错误",
     "NOT_FOUND":"没有找到对应的资源",
-    "INTER_ERR":"服务端错误，登出操作失败"
+    "INTER_ERR":"服务端错误，操作失败",
+    "TRY_OVER_LIMIT":"尝试次数超过限制"
 };
 const en = {
     "SUCCESS":"success!!",
@@ -14,7 +15,8 @@ const en = {
     "UNAUTHORIZED":"Not permitted operation ",
     "BAD_REQUEST":"bad request",
     "NOT_FOUND":"Require not exist resources",
-    "INTER_ERR":"Unexpected error in server "
+    "INTER_ERR":"Unexpected error in server ",
+    "TRY_OVER_LIMIT":" try over limit"
 };
 
 const header = {

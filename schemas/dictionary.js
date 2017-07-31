@@ -90,6 +90,23 @@ module.exports = {
         allowNull: false,
         field: 'operatorSfId'
     },
+    logSfId: {
+        comment: "平台日志snowflake id",
+        type: Sequelize.BIGINT.UNSIGNED,
+        primaryKey: true,
+        allowNull: false,
+        field: 'logSfId'
+    },
+    /**
+     *
+     * @description 日志中标识平台操作员的id
+     */
+    operatorId:{
+        comment: "平台操作员id",
+        type: Sequelize.STRING(128),
+        allowNull: false,
+        field: 'operatorId'
+    },
     /**
      * @description 平台操作员登录名，最少4个字符长度，不超过32个字符长度
      */

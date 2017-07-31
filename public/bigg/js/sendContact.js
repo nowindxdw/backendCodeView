@@ -22,6 +22,7 @@ function btnSend() {
         alert("意见不能不能少于20个字符!/message can't be less 10 characters");
         return;
     }
+    jQuery(".submit").attr("disabled",true);
     jQuery(".submit").val("正在发送，请稍等！/message is sending,please wait");
 
     var postData = JSON.stringify(
@@ -32,7 +33,7 @@ function btnSend() {
         }
     );
 
-    //向后台发送处理数据
+    // 向后台发送处理数据
     jQuery.ajax({
         type: "POST", //用POST方式传输
         dataType: "json", //数据格式:JSON
@@ -42,10 +43,13 @@ function btnSend() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("发送失败，请联系在线客服！/send fail");
             jQuery(".submit").val(btnTxt);
+            jQuery(".submit").attr("disabled",false);
         },
         success: function (msg) {
             jQuery(".submit").val(btnTxt);
             alert("发送成功!／success!");
+            jQuery("#concact_msg").val("");
+            jQuery(".submit").attr("disabled",false);
         }
     });
 }

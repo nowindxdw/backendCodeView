@@ -196,3 +196,39 @@
 		</div><!-- end #content-sidebar-wrap -->
 	</div><!-- end #inner -->
 </div><!-- end .wrap -->
+<script type="text/javascript">
+	jQuery(window).scroll(function (event) {
+
+		var top = jQuery('#popular-upcoming').offset().top - jQuery(document).scrollTop();
+		// what the y position of the scroll is
+		var y = jQuery(this).scrollTop();
+		// whether that's below the form
+		if (y >= top)  {
+			// if so, add the active class to popular-upcoming and remove from content
+			jQuery('.page-nav-popular-posts').addClass('active');
+			jQuery('.page-nav-top-posts').removeClass('active');
+		} else {
+			// otherwise remove it
+			jQuery('.page-nav-popular-posts').removeClass('active');
+			jQuery('.page-nav-top-posts').addClass('active');
+		}
+	});
+
+	jQuery(document).ready(function (){
+		jQuery('#popular-scroll').click(function (){
+			//jQuery(this).animate(function(){
+			jQuery('html, body').animate({
+				scrollTop: jQuery('#popular-upcoming').offset().top
+			}, 2000);
+			//});
+		});
+
+		jQuery('#feature-scroll').click(function (){
+			//jQuery(this).animate(function(){
+			jQuery('html, body').animate({
+				scrollTop: jQuery('#inner').offset().top
+			}, 2000);
+			//});
+		});
+	});
+</script>
