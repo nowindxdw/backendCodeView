@@ -8,40 +8,51 @@
 1重命名config目录下default.yaml.sample为default.yaml同时更改其中配置参数
 
 2将lib下zip解压到根路径node_modules文件夹下(没有私有源无法NPM-INSTALL这几个包)
+```
 $ npm set registry http://npm.romenscd.cn   # 仅在系统中设置一次即可
 $ . ./bin/setenv.sh                         # 有两个点，不要省略第一个点
 $ npm install
 $ npm start
+```
 
+清空数据库
+```
+npm run cleardb
+```
+
+重建测试数据
+```
+npm run initdb
+```
 
 再次新开Terminal启动时复制
-
+```
 $ . ./bin/setenv.sh       # 仅在新开Terminal时设置一次即可
 $ npm start
-
+```
 环境配置检查
-
+```
 $ node bin/envcheck.js
-
+```
 再次在已经启动过的Terminal中启动时复制
-
+```
 $ npm start 
-
+```
 
 重建并查看API文档复制
-
+```
 $ mkdocs.sh
-
+```
 
 查看API文档复制
-
+```
 $ viewdocs.sh
-
+```
 
 执行单元测试复制
-
+```
 $ npm test
-
+```
 
 
 
