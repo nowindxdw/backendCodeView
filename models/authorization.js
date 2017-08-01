@@ -37,7 +37,8 @@ module.exports = function(isOn) {
         if (mailPath.test(req.path) && (req.method === 'POST')) {
             return next();
         }
-        var token = req.header('authorization');
+        var token = req.param('token');
+        logger.debug("token",token);
         if (token === undefined || !token) {
             return res.status(401).end('invalid token');
         }

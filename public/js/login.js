@@ -23,7 +23,7 @@ function btnLogin() {
             operatorPassword:pwd
         }
     );
-
+    var href = window.location.href.split("/v1/")[0];
     //向后台发送处理数据
     $.ajax({
         type: "POST", //用POST方式传输
@@ -39,19 +39,7 @@ function btnLogin() {
             var token = msg.token;
             localStorage.operatorName = msg.operatorUsername;
             localStorage.token = token;
-            $.ajax({
-                type: "GET",
-                url:"/v1/api/dashboard",
-                headers:{
-                    "Authorization":token
-                },
-                success:function(html){
-                  $("body").html(html);
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert("Server Err"+XMLHttpRequest.responseText);
-                }
-            })
+            window.location.href = href+"/v1/api/dashboard?token="+token
         }
     });
 }

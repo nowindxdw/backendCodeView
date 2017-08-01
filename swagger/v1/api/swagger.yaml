@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Interface of Recruit system"
-  version: "0.1.0"
+  version: "0.1.1"
   title: "Recruit system"
   contact:
     name: "dawei"
@@ -245,8 +245,6 @@ paths:
           description: "An unexpected error occured."
           schema:
             $ref: "#/definitions/inline_response_500"
-      security:
-      - token: []
       x-swagger-router-controller: "Auth"
   /recruitlist:
     post:
@@ -823,8 +821,8 @@ paths:
 securityDefinitions:
   token:
     type: "apiKey"
-    name: "authorization"
-    in: "header"
+    name: "token"
+    in: "query"
 definitions:
   lang:
     type: "string"
