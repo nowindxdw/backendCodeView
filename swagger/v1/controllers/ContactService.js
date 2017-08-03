@@ -5,7 +5,7 @@ const regTest = require('../../../models/regTest')();
 const RETCODE = require("../../../models/retcode").RETCODE;
 const MSG = require("../../../local/local")[__localConfig];
 const contactModel = require('./model/ContactModel')();
-const logModel = require('./model/LogModel')();
+const msgModel = require('./model/MsgModel')();
 const _ = require('lodash');
 const Utils = require('../../../models/Utils');
 exports.sendContactMail = function(args, req, res, next) {
@@ -31,24 +31,25 @@ exports.sendContactMail = function(args, req, res, next) {
       return res.end(JSON.stringify({error: MSG.BAD_REQUEST}|| {}, null, 2));
   }
   //build operator log
-  let operatorId = name;
+
   let ip = Utils.getReqInfo(req).ip;
-  let action = "SEND_CONCACT_MSG";
-  let remark = message+" FROM :"+email;
+  let msgFrom = "From IP:"+ip+" name:"+name ;
+  let msgType = "SEND_CONCACT_MSG";
+  let msgContent =  " FROM " +email+ ":"+ message;
   return contactModel.sendEmail(name,email,message)
       .then(result=>{
           logger.info("发送email"+email+" from name="+name+" 成功");
           res.statusCode = RETCODE.SUCCESS;
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({msg: MSG.SUCCESS}|| {}, null, 2));
-          return logModel.saveOperatorLog(operatorId,ip,action,"SUCCESS",remark)
+          return msgModel.saveMessage(msgFrom,msgType,msgContent+"SUCCESS")
       })
       .catch(err=>{
           logger.info("发送email"+email+" from name="+name+" 失败");
           res.statusCode = RETCODE.INTER_ERR;
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({msg: MSG.INTER_ERR}|| {}, null, 2));
-          return logModel.saveOperatorLog(operatorId,ip,action,"FAIL",remark);
+          return msgModel.saveMessage(msgFrom,msgType,msgContent+"FAIL");
       });
 }
 
