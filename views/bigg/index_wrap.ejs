@@ -71,7 +71,7 @@
                                 <% var item = todays.newsData[i]%>
 								<p href="<%=item.href%>" target="view_window">
                                     <%= item.title%>
-								</p></br>
+								</p>
                                 <%}%>
                                 <%}%>
 							</div><!--close button_small-->
@@ -104,7 +104,7 @@
                                 <% var item = todays.baiduHots[i]%>
 								<p href="<%=item.href%>" target="view_window">
                                     <%= item.text%>
-								</p></br>
+								</p>
                                 <%}%>
                                 <%}%>
 							</div><!--close button_small-->
@@ -113,12 +113,25 @@
 					</div><!-- end .postclass -->
 					<div class="post-51 post type-post status-publish format-standard hentry category-child-category-ii category-featured category-grandchild-category-i category-parent-category-i category-parent-category-ii tag-tag1 tag-tag2 tag-tag5 tag-tag7 entry fourcol one-third teaser">
 
-						<a href="#" title="building">
+						<a href="#" title="<%= todays.movie%>">
 							<img width="300" height="168" src="/bigg/images/5-300x168.jpg" class="alignleft post-image" alt="7" /></a>
-						<h2 class="entry-title"><a href="#" title="building" rel="bookmark"></a></h2>
+						<h2 class="entry-title"><a href="#" title="<%= todays.movie%>" rel="bookmark"></a><%= todays.movie%></h2>
 
 						<div class="entry-content">
-							<p></p>
+							<div>
+								【名字】排片场次/占比（总票房）</br>
+                                <%if (typeof(todays.movies)=='string'){%>
+								<p href="#"><%= todays.movies%>
+								</p>
+                                <%}else{%>
+                                <% for(var i=0;i<4;i++){%>
+                                <% var item = todays.movies[i]%>
+								<p>
+									【<%= item.name%>】<%=item.totalPercent%>（<%=item.total%>）
+								</p>
+                                <%}%>
+                                <%}%>
+							</div><!--close button_small-->
 
 							<a class="bigg-read-more" href="#"><%= content.bodycontent.btnTxt%></a>		</div><!-- end .entry-content -->
 

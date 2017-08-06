@@ -91,6 +91,23 @@
                   <%}%>
 			  </div><!--close button_small-->
 		  </div><!--close content_container-->
+		  <div class="content_container">
+			  <p class="button_small"><%= todays.movie%></p>
+			  <div class="button">
+				  【名字】排片场次/占比（总票房）</br>
+                  <%if (typeof(todays.movies)=='string'){%>
+				  <a href="#"><%= todays.movies%>
+				  </a>
+                  <%}else{%>
+                  <% for(var i=0;i<5;i++){%>
+                  <% var item = todays.movies[i]%>
+				  <a>
+                      【<%= item.name%>】<%=item.totalPercent%>（<%=item.total%>）
+				  </a></br>
+                  <%}%>
+                  <%}%>
+			  </div><!--close button_small-->
+		  </div><!--close content_container-->
       </div><!--close content-->
 
 		<div id="content_blue">

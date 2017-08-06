@@ -37,7 +37,7 @@ describe(" unit tests for scrapy", function(){
                 })
             })
         );
-        it(".start()", sinon.test(function(done) {
+        xit(".start()", sinon.test(function(done) {
                 this.timeout(10000);
                 logger.trace('start test scrapy.start');
                 var trackList = [
@@ -47,6 +47,27 @@ describe(" unit tests for scrapy", function(){
                     "http://top.baidu.com/buzz?b=1&c=513&fr=topcategory_c513"//baidu hot
                 ];
                 scrapyModel.startGBKUrl(trackList,function(err,result){
+                    if(err){
+                        logger.error(err.stack);
+                    }else{
+                        logger.debug(result);
+                        testData = result;
+                    }
+                    done();
+                })
+            })
+        );
+
+        it(".start()", sinon.test(function(done) {
+                this.timeout(10000);
+                logger.trace('start test scrapy.start get maoyan piaofan');
+                var trackList = [
+                    // 'https://www.lagou.com/jobs/2678740.html',//lagou nodejs
+                    //bosszhipin
+                    //neitui
+                    "http://58921.com"//baidu hot
+                ];
+                scrapyModel.start(trackList,function(err,result){
                     if(err){
                         logger.error(err.stack);
                     }else{
@@ -80,9 +101,21 @@ describe(" unit tests for scrapy", function(){
         /**
          * @static translateBaiduTops()方法
          */
-        it(".translateBaiduTops()", sinon.test(function(done){
+        xit(".translateBaiduTops()", sinon.test(function(done){
                 this.timeout(10000);
                 scrapyModel.translateBaiduTops(testData[0],function(err,result){
+                    done();
+                })
+            })
+        )
+
+        /**
+         * @static translateBaiduTops()方法
+         */
+        it(".translateMoviePiaoFang()", sinon.test(function(done){
+                this.timeout(10000);
+                scrapyModel.translateMoviePiaofang(testData[0],function(err,result){
+                    logger.debug(result);
                     done();
                 })
             })

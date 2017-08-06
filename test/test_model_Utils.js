@@ -62,5 +62,17 @@ describe(" unit tests for Utils", function(){
                 done();
             });
         })
+        it(".getTodayMovie()", function(done) {
+            this.timeout(10000);
+            logger.trace('start test Utils.getTodayMovie');
+            Utils.getTodayMovie(function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                }else{
+                    logger.debug(result);
+                }
+                done();
+            });
+        })
     });
 });

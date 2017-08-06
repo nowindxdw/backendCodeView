@@ -342,7 +342,32 @@ module.exports = {
         field: 'languageType'
     },
 
+    msgSfId:{
+        comment: "唯一Snowflake ID",
+        type: Sequelize.BIGINT.UNSIGNED,
+        allowNull: false,
+        field: 'msgSfId'
+    },
 
+    msgType: {
+        comment: "消息类型",
+        type: Sequelize.STRING(50),
+        allowNull: true,
+        field: 'msgType'
+    },
+
+    msgContent: {
+        comment: "消息内容",
+        type: Sequelize.TEXT,
+        allowNull: true,
+        field: 'msgContent'
+    },
+    msgFrom: {
+        comment: "消息来源",
+        type: Sequelize.STRING(50),
+        allowNull: true,
+        field: 'msgFrom'
+    },
     /**
      * 修改object的key对应的值
      * @func modifyKey

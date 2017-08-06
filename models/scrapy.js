@@ -134,6 +134,34 @@ module.exports = function () {
             // logger.trace(baiduTops);
             callback(null, baiduTops);
         },
+
+        translateMoviePiaofang:function(data,callback){
+            logger.trace('enter into translateMoviePiaofang');
+            var url = data[0];
+            logger.trace(url);
+            var $ = cheerio.load(data[1]);
+            var moveList = [];
+            var list = $('#box_office_live_summary > div > table > tbody > tr');
+            list.each(function(idx,element){
+                var $element = $(element);
+                var data = $element.find('td');
+                var dataList=[];
+                data.each(function(idx,dataItem){
+                    var $dataItem = $(dataItem);
+                    dataList.push($dataItem.text());
+                })
+                moveList.push({
+                    name:dataList[0],
+                    totalPercent:dataList[1],
+                    online:dataList[2],
+                    realtime:dataList[7],
+                    total:dataList[9]
+                });
+            });
+            // logger.trace(moveList);
+            moveList=moveList.slice(0,-1);
+            callback(null, moveList);
+        },
     };
     return model;
 }
