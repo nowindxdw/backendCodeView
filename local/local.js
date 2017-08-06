@@ -189,13 +189,14 @@ const todayNews = {
         "limitCarNo":"今日限行",
         "weather":"今日气象",
         "baiduHot":"今日热搜",
-        "news":"今日要闻"
+        "news":"今日要闻",
+        "movie":"今日电影"
     },
     "en":{
         "limitCarNo":"Limit_Tail",
         "weather":"Weather",
         "baiduHot":"baidu Hot!",
-        "news":"News"
+        "movie":"Movies"
     }
 };
 

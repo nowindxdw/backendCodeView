@@ -124,5 +124,24 @@ module.exports = {
                 callback(null,result);
             })
         })
+    },
+    getTodayMovie: function(callback){
+        var scrapyModel = require('../models/scrapy')();
+        var trackList = [
+            "http://58921.com"//cd news
+        ];
+        scrapyModel.start(trackList,function(err,result){
+            if(err){
+                logger.error(err.stack);
+                return callback(err);
+            }
+            scrapyModel.translateMoviePiaofang(result[0],function(err,result){
+                if(err){
+                    logger.error(err.stack);
+                    return callback(err);
+                }
+                callback(null,result);
+            })
+        })
     }
 };

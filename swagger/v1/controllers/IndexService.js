@@ -3,6 +3,7 @@ const regTest = require('../../../models/regTest')();
 const Utils = require('../../../models/Utils');
 const Logger = require('logger-romens');
 const moment = require('moment');
+const async = require('async');
 let   logger = new Logger(__logConfig);
 exports.getIndex = function(args, req, res, next) {
   /**
@@ -37,36 +38,57 @@ exports.getIndex = function(args, req, res, next) {
    let todays = TodayNews[lang];
    let limitTailNum = Utils.getLimitTailNum();
    todays.limitTailNum = limitTailNum;
-   Utils.getTodayWeather(ip,function(err,weatherData){
-       if(err){
-           todays.weatherData = moment().format('YYYY-MM-DD')+":NO DATA(暂无数据)";
-       }else{
-           todays.weatherData = weatherData;
-       }
-       Utils.getTodayCDNews(function(err,newsData){
-           if(err){
-               todays.newsData = "NO DATA（暂无数据）";
-           }else{
-               todays.newsData = newsData;
-           }
-           Utils.getTodayHotBaidu(function(err,baiduHots){
-               if(err){
+   async.parallel({
+       getTodayWeather: function (done) {
+           Utils.getTodayWeather(ip, function (err, weatherData) {
+               if (err) {
+                   todays.weatherData = moment().format('YYYY-MM-DD') + ":NO DATA(暂无数据)";
+               } else {
+                   todays.weatherData = weatherData;
+               }
+               done();
+           })
+       },
+       getTodayCDNews: function (done) {
+           Utils.getTodayCDNews(function (err, newsData) {
+               if (err) {
+                   todays.newsData = "NO DATA（暂无数据）";
+               } else {
+                   todays.newsData = newsData;
+               }
+               done();
+           })
+       },
+       getTodayHotBaidu: function (done) {
+           Utils.getTodayHotBaidu(function (err, baiduHots) {
+               if (err) {
                    todays.baiduHots = "NO DATA（暂无数据）";
-               }else{
+               } else {
                    todays.baiduHots = baiduHots;
                }
-               res.render(style+'/'+'index.ejs',
-                   {
-                       header:header,
-                       menubar:menubar,
-                       content:content,
-                       footer:footer,
-                       todays:todays,
-                       current:'index'
-                   })
+               done();
            })
-       })
-
+       },
+       getTodayMovie: function (done) {
+           Utils.getTodayMovie(function (err, movies) {
+               if (err) {
+                   todays.movies = "NO DATA（暂无数据）";
+               } else {
+                   todays.movies = movies;
+               }
+               done();
+           })
+       },
+   }, function(error,result) {
+           res.render(style + '/' + 'index.ejs',
+               {
+                   header: header,
+                   menubar: menubar,
+                   content: content,
+                   footer: footer,
+                   todays: todays,
+                   current: 'index'
+               })
    })
 }
 
