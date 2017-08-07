@@ -35,8 +35,8 @@ module.exports = {
             "3":"3,8",
             "4":"4,9",
             "5":"5,0",
-            "6":"-",
-            "7":"-",
+            "6":"无／None",
+            "7":"无／None",
         };
         return limitNumMap[weekdayNo];
     },
