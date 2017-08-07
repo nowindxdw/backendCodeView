@@ -150,12 +150,13 @@ module.exports = function () {
                     var $dataItem = $(dataItem);
                     dataList.push($dataItem.text());
                 })
+
                 moveList.push({
                     name:dataList[0],
                     totalPercent:dataList[1],
                     online:dataList[2],
-                    realtime:dataList[7],
-                    total:dataList[9]
+                    realtime:dataList[4],
+                    total:dataList[5]
                 });
             });
             // logger.trace(moveList);
