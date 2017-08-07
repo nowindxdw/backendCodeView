@@ -85,7 +85,7 @@ const maincontent = {
 
         },
         "bodycontent":{
-            "title":"有朋自远方来，不醉不归",
+            "title":"有朋自远方来，不亦乐乎",
             "content":"浮生长恨欢娱少,|肯爱千金轻一笑。|为君持酒劝斜阳,|且向花间留晚照。",
             "btnTxt":"更多内容"
         },
