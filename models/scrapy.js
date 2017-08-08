@@ -148,15 +148,15 @@ module.exports = function () {
                 var dataList=[];
                 data.each(function(idx,dataItem){
                     var $dataItem = $(dataItem);
+                    console.log($dataItem.text());
                     dataList.push($dataItem.text());
                 })
 
                 moveList.push({
                     name:dataList[0],
                     totalPercent:dataList[1],
-                    online:dataList[2],
-                    realtime:dataList[4],
-                    total:dataList[5]
+                    realtime:_.slice(dataList,-2,-1)[0],
+                    total:_.last(dataList)
                 });
             });
             // logger.trace(moveList);
