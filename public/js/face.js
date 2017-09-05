@@ -40,7 +40,7 @@ function btnPostFaceData() {
             alert(XMLHttpRequest.responseText);
         },
         success: function (msg) {
-            result.text(msg);
+            result.val(msg);
         }
     });
 }
