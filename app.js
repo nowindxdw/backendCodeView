@@ -52,8 +52,8 @@ app.set('view engine', 'ejs');
 // https://www.npmjs.com/package/cors 设置跨域
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__base, 'public')));
 app.use(compression());
