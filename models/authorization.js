@@ -22,7 +22,11 @@ module.exports = function(isOn) {
         var loginPagePath = /^\/v1\/api\/login/;
         var loginPath = /^\/v1\/api\/auth/;
         var mailPath = /^\/v1\/api\/sendmail/;
+        var facePath = /^\/v1\/api\/facePlusPlus/;
         if (!apiPath.test(req.path)) {
+            return next();
+        }
+        if (facePath.test(req.path)) {
             return next();
         }
         if (loginPath.test(req.path) && (req.method === 'POST')) {

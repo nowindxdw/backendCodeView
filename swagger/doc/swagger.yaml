@@ -144,6 +144,36 @@ paths:
          $ref: "#/responses/Standard400ErrorResponse"
         500:
          $ref: "#/responses/Standard500ErrorResponse"
+#人脸识别应用
+  /facePlusPlus:
+    get:
+      tags:
+      - "face"
+      summary: "获取人脸识别页面"
+      description: "展示人脸识别页面"
+      operationId: "getFacePlusPlus"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
+    post:
+      tags:
+      - "face"
+      summary: "人脸识别数据提交"
+      description: "提交人脸识别数据"
+      operationId: "postFacePlusPlus"
+      parameters:
+        - $ref: "#/parameters/faceinfo"
+      responses:
+        200:
+         $ref: "#/responses/Standard200Response"
+        400:
+         $ref: "#/responses/Standard400ErrorResponse"
+        500:
+         $ref: "#/responses/Standard500ErrorResponse"
 #业务接口
   /recruitlist:
     post:
@@ -526,6 +556,15 @@ securityDefinitions:
     in: "query"
 
 definitions:
+  FaceInfo:
+    type: "object"
+    properties:
+      image_base64:
+        type: "string"
+        description: "图片base64编码"
+      return_attributes:
+        type: "string"
+        description: "返回参数"
   lang:
     type: "string"
     description: "语言"
@@ -808,7 +847,13 @@ parameters:
     required: true
     schema:
       $ref: "#/definitions/AuthInfo"
-
+  faceinfo:
+    in: "body"
+    name: "body"
+    description: "登录验证信息"
+    required: true
+    schema:
+      $ref: "#/definitions/FaceInfo"
 
 #返回信息定义
 responses:
