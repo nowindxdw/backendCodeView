@@ -27,7 +27,9 @@ logger:
 local: cn              # cn中文，en英文
 # baidu ak
 baiduAK: 299c2196c6beebca94cc5fde79fe94ce     # baidu api ak
-
+baiduAIappId: 10097928
+baiduAIapiKey: RbaW7kwL33faGKV9T2yoxIZk
+baiduAIsecretKey: cSLte0nzBCn8eTjUOzUs6RhSXMX9PMRY
 # face++ ak
 faceApiKey: NF3aaauNhqsW4r3UHX0kPsHj2cesYpmm     # face++ api key
 faceApiSecret: SiYk_gJuaBdql8WLah3hSoZCS_UuTZ4i     # face++ api secret

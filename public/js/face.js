@@ -44,7 +44,58 @@ function btnPostFaceData() {
         }
     });
 }
+function btnPostBaiduFaceData() {
+  var b64 = $("#b64");
+  var result = $("#result");
+  var gender = $("#gender");
+  var age = $("#age");
+  var beauty = $("#beauty");
+  var ethnicity = $("#ethnicity");
+  var return_attributes = "";
+  if(gender[0].checked){
+    return_attributes+="gender,"
+  }
+  if(age[0].checked){
+    return_attributes+="age,"
+  }
+  if(beauty[0].checked){
+    return_attributes+="beauty,"
+  }
+  if(ethnicity[0].checked){
+    return_attributes+="race,"
+  }
 
+  var imgB64 = b64[0].innerHTML.split("base64,")[1];
+  console.log(imgB64);
+  return_attributes = return_attributes.slice(0,-1);
+  var postData = JSON.stringify(
+    {
+      image_base64:imgB64,
+      return_attributes:return_attributes
+    }
+  );
+  // //向后台发送处理数据
+  $.ajax({
+    type: "POST", //用POST方式传输
+    dataType: "json", //数据格式:JSON
+    contentType: "application/json",
+    async:false,
+    url: '/v1/api/faceBaidu', //目标地址
+    data: postData,
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      alert(XMLHttpRequest.responseText);
+    },
+    success: function (msg) {
+      var text = {
+        age: msg.result[0]&&msg.result[0].age?msg.result[0].age:"",
+        gender:msg.result[0]&&msg.result[0].gender?msg.result[0].gender:"",
+        beauty:msg.result[0]&&msg.result[0].beauty?msg.result[0].beauty:"",
+        race:msg.result[0]&&msg.result[0].race?msg.result[0].race:"",
+      };
+      result.val(JSON.stringify(text));
+    }
+  });
+}
 function readFile() {
 
   if (this.files && this.files[0]) {
