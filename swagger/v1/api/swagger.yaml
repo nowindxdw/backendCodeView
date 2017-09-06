@@ -297,6 +297,57 @@ paths:
           schema:
             $ref: "#/definitions/inline_response_500"
       x-swagger-router-controller: "Face"
+  /faceBaidu:
+    get:
+      tags:
+      - "face"
+      summary: "获取baidu人脸识别页面"
+      description: "展示baidu人脸识别页面"
+      operationId: "getFaceBaidu"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Face"
+    post:
+      tags:
+      - "face"
+      summary: "baidu人脸识别数据提交"
+      description: "提交baidu人脸识别数据"
+      operationId: "postFaceBaidu"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "登录验证信息"
+        required: true
+        schema:
+          $ref: "#/definitions/body_2"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "An unexpected client error occured."
+        500:
+          description: "An unexpected error occured."
+          schema:
+            $ref: "#/definitions/inline_response_500"
+      x-swagger-router-controller: "Face"
   /recruitlist:
     post:
       tags:
@@ -315,7 +366,7 @@ paths:
         description: "查询条件"
         required: true
         schema:
-          $ref: "#/definitions/body_2"
+          $ref: "#/definitions/body_3"
       - name: "pageLang"
         in: "query"
         description: "页面语言"
@@ -372,7 +423,7 @@ paths:
         description: "发送信息"
         required: true
         schema:
-          $ref: "#/definitions/body_3"
+          $ref: "#/definitions/body_4"
       responses:
         200:
           description: "Success"
@@ -856,7 +907,7 @@ paths:
         description: "出库单的id列表"
         required: true
         schema:
-          $ref: "#/definitions/body_4"
+          $ref: "#/definitions/body_5"
       responses:
         200:
           description: "Success"
@@ -1159,6 +1210,15 @@ definitions:
         type: "string"
         description: "返回参数"
   body_2:
+    type: "object"
+    properties:
+      image_base64:
+        type: "string"
+        description: "图片base64编码"
+      return_attributes:
+        type: "string"
+        description: "返回参数"
+  body_3:
     required:
     - "page"
     - "pageSize"
@@ -1215,7 +1275,7 @@ definitions:
         - "JAVA"
         - "PYTHON"
         - "OTHER"
-  body_3:
+  body_4:
     type: "object"
     required:
     - "message"
@@ -1231,7 +1291,7 @@ definitions:
         type: "string"
         description: "信息"
     description: "邮件内容"
-  body_4:
+  body_5:
     type: "object"
     properties:
       exportIds:
