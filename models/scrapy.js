@@ -55,10 +55,10 @@ module.exports = function () {
             var url = data[0];
             logger.trace(url);
             var $ = cheerio.load(data[1]);
+            // console.log($)
             //通过jquery方式获取内容链接
-            var topnewsEle =$('body > div:nth-child(34) > div.w380.l > div.top-news');
+            var topnewsEle =$('.top-news');
             var topNews=[];
-            // console.log(topnewsEle);
             topnewsEle.each(function(idx,element){
                 var $element = $(element).children('h1').first();
                 var title = $element.text();  //标题
@@ -68,7 +68,7 @@ module.exports = function () {
                     href:href
                 })
             });
-            // logger.debug(topNews);
+            logger.debug(topNews);
             callback(null,topNews)
         },
 

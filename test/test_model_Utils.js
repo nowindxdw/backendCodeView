@@ -18,14 +18,14 @@ describe(" unit tests for Utils", function(){
         /**
          * @static Utils.getLimitTailNum()方法
          */
-        it(".md5Simple()", function() {
+        xit(".md5Simple()", function() {
                 this.timeout(10000);
                 logger.trace('start test Utils.getLimitTailNum');
                 var limitTailNum = Utils.getLimitTailNum();
                 logger.debug(limitTailNum);
         })
 
-        it(".getTodayWeather()", function(done) {
+        xit(".getTodayWeather()", function(done) {
             this.timeout(10000);
             logger.trace('start test Utils.getTodayWeather');
             var ip = "";
@@ -50,7 +50,7 @@ describe(" unit tests for Utils", function(){
                 done();
             });
         })
-        it(".getTodayHotBaidu()", function(done) {
+        xit(".getTodayHotBaidu()", function(done) {
             this.timeout(10000);
             logger.trace('start test Utils.getTodayHotBaidu');
             Utils.getTodayHotBaidu(function(err,result){
@@ -62,7 +62,7 @@ describe(" unit tests for Utils", function(){
                 done();
             });
         })
-        it(".getTodayMovie()", function(done) {
+        xit(".getTodayMovie()", function(done) {
             this.timeout(10000);
             logger.trace('start test Utils.getTodayMovie');
             Utils.getTodayMovie(function(err,result){
