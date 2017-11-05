@@ -112,7 +112,7 @@ describe(" unit tests for scrapy", function(){
         /**
          * @static translateBaiduTops()方法
          */
-        it(".translateMoviePiaoFang()", sinon.test(function(done){
+        xit(".translateMoviePiaoFang()", sinon.test(function(done){
                 this.timeout(10000);
                 scrapyModel.translateMoviePiaofang(testData[0],function(err,result){
                     logger.debug(result);

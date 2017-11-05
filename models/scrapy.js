@@ -55,9 +55,9 @@ module.exports = function () {
             var url = data[0];
             logger.trace(url);
             var $ = cheerio.load(data[1]);
-            // console.log($)
+            console.log(data[1])
             //通过jquery方式获取内容链接
-            var topnewsEle =$('.top-news');
+            var topnewsEle =$('.news_top');
             var topNews=[];
             topnewsEle.each(function(idx,element){
                 var $element = $(element).children('h1').first();
