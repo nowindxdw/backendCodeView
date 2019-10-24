@@ -47,7 +47,7 @@
     "kue-romens": "0.0.2",
     "lodash": "^4.6.16",
     "logger-romens": "^1.0.0",
-    "moment": "~2.15.2",
+    "moment": "~2.24.0",
     "msexcel-builder": "=0.0.2",
     "mysql": "^2.11.1",
     "nodemailer": "^4.0.1",
