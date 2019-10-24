@@ -23,14 +23,14 @@ const header = {
     "cn":{
         "lang":"cn",
         "name":"大维",
-        "title":" 大维小窝",
-        "description":"大维家的主页",
+        "title":"灵动笙歌",
+        "description":"灵动笙歌的主页",
         "keywords":" dawei home lingsheng 大维"
     },
     "en":{
         "lang":"en",
-        "name":"dawei",
-        "title":" dawei home",
+        "name":"lingsheng",
+        "title":" lingsheng home",
         "description":"personal page for dawei's home",
         "keywords":" dawei home lingsheng"
     }
@@ -38,14 +38,14 @@ const header = {
 };
 const menubar = {
     "cn":{
-        "welcome":"欢迎来到大维小窝",
+        "welcome":"灵动笙歌",
         "Home":"主页",
         "Skill":"技艺",
         "Life":"生活",
         "Contact":"联系方式"
     },
     "en":{
-        "welcome":"Welcome To dawei Home",
+        "welcome":"Welcome To Lingsheng Home",
         "Home":"Home",
         "Skill":"Skill",
         "Life":"Life",
