@@ -43,7 +43,7 @@
     "http": "0.0.0",
     "js-yaml": "^3.3.0",
     "jsonwebtoken": "^7.1.9",
-    "knex": "^0.13.0",
+    "knex": "^0.19.5",
     "kue-romens": "0.0.2",
     "lodash": "^4.6.16",
     "logger-romens": "^1.0.0",
